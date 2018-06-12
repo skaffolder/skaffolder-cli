@@ -12,7 +12,7 @@ exports.login = function (mail, password, cb) {
             'pass': md5(password),
         }
     }, function (error, response, body) {
-        cb(error, body.token);
+        cb(error, JSON.parse(body));
     });
 
 }
