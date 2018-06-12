@@ -1,0 +1,21 @@
+{
+  "name": "skaffolder-cli",
+  "version": "1.0.2",
+  "description": "CLI to interact with Skaffolder",
+  "main": "index.js",
+  "bin": {
+    "sk": "index.js"
+  },
+  "dependencies": {
+    "caporal": "^0.10.0",
+    "colors": "^1.3.0",
+    "md5": "^2.2.1",
+    "persistent-cache": "^1.1.1",
+    "prompt": "^1.0.0",
+    "request": "^2.87.0",
+    "shelljs": "^0.8.2",
+    "winston-color": "^1.0.0"
+  },
+  "author": "Skaffolder",
+  "license": "ISC"
+}
