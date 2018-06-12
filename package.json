@@ -13,6 +13,7 @@
     "persistent-cache": "^1.1.1",
     "prompt": "^1.0.0",
     "request": "^2.87.0",
+    "select-shell": "^1.0.0",
     "shelljs": "^0.8.2",
     "winston-color": "^1.0.0"
   },

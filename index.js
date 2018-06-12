@@ -6,7 +6,7 @@ const loginCmd = require('./lib/login');
 
 prog
     .version('1.0.0')
-    .command('create', 'Create a new application')
+    .command('new project', 'Create a new Skaffolder project')
     .action(createCmd)
     .command('login', 'Log in into Skaffolder')
     .action(loginCmd);
