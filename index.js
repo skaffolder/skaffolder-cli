@@ -4,6 +4,7 @@ const prog = require('caporal');
 const createCmd = require('./lib/create');
 const loginCmd = require('./lib/login');
 const logoutCmd = require('./lib/logout');
+const reloadGeneratorCmd = require('./lib/reloadGenerator');
 
 prog
     .version('1.0.0')
@@ -12,7 +13,9 @@ prog
     .command('login', 'Log in into Skaffolder')
     .action(loginCmd)
     .command('logout', 'Log out from Skaffolder')
-    .action(logoutCmd);
+    .action(logoutCmd)
+    .command('reload generator', 'Log out from Skaffolder')
+    .action(reloadGeneratorCmd);
 //.argument('<template>', 'Template to use')
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
