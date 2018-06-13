@@ -5,6 +5,7 @@ const createCmd = require('./lib/create');
 const loginCmd = require('./lib/login');
 const logoutCmd = require('./lib/logout');
 const reloadGeneratorCmd = require('./lib/reloadGenerator');
+const generateCmd = require('./lib/generate');
 
 prog
     .version('1.0.0')
@@ -13,7 +14,7 @@ prog
     .command('new project', 'Create a new Skaffolder project')
     .action(createCmd)
     .command('generate', 'Generate Skaffolder Template')
-    .action(logoutCmd)
+    .action(generateCmd)
     .command('reload generator', 'Log out from Skaffolder')
     .action(reloadGeneratorCmd)
     .command('logout', 'Log out from Skaffolder')

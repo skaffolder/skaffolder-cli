@@ -37,3 +37,11 @@ exports.getGeneratorFile = function (idGen, cb) {
         method: "GET",
     }, cb);
 }
+
+exports.getProject = function (idProject, cb) {
+    return {};
+    request({
+        url: properties.endpoint + "/generatorFile/findBy_generator/" + idGen,
+        method: "GET",
+    }, cb);
+}
