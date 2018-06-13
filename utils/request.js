@@ -9,29 +9,37 @@ module.exports = function (options, cb) {
 
     if (!options.headers)
         options.headers = {}
-    if (token)
+    if (token && !options.public)
         options.headers.Token = token;
 
     request(options, function (error, response, body) {
         //logger.debug(error, body);
 
-        if (body && body.message == "Not Authoized") {
+        if (error) {
+            error = {
+                message: error.code
+            };
+            logger.error(chalk.red(error.message));
+        } else if (body && body.message == "Not Authoized") {
             error = {
                 message: "Not Authoized"
             };
             logger.error(chalk.red(error.message));
-        }
-        if (response.statusCode == 401) {
+        } else if (response.statusCode == 401) {
             error = {
                 message: "You should loging with command: 'sk login'"
             };
             logger.error(chalk.red(error.message));
-        }
-        if (response.statusCode == 404) {
+        } else if (response.statusCode == 404) {
             error = {
                 message: "URL not found"
             };
             logger.error(chalk.red(body));
+        } else if (response.statusCode != 200) {
+            error = {
+                message: "ERROR " + response.statusCode
+            };
+            logger.error(chalk.red(error.message));
         }
 
         try {

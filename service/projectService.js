@@ -3,6 +3,7 @@ var request = require('../utils/request');
 
 exports.create = function (name, cb) {
 
+    console.log(name);
     request({
         url: properties.endpoint + "/Project",
         method: "POST",

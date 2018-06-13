@@ -7,6 +7,7 @@ exports.login = function (mail, password, cb) {
     request({
         url: properties.endpoint + "/cli/login",
         method: "GET",
+        public: true,
         headers: {
             'user': mail,
             'pass': md5(password),
