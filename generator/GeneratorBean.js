@@ -1,5 +1,6 @@
 //var pathWorkspace = "./";
 var pathWorkspace = "./build/";
+var pathTemplate = ".skaffolder/template"
 
 exports.generate = function (files, cb) {
 
@@ -7,8 +8,9 @@ exports.generate = function (files, cb) {
     var modules = files.modules;
     var resources = files.resources;
     var dbs = files.dbs;
+    var genFiles = getGenFiles();
+    var log = [];
 
-    var log = []
     try {
         logger.info("START GENERATE ");
         log.push("START GENERATE ");
@@ -159,4 +161,16 @@ var generateFile = function (file, log, utils, project, modules, resources, dbs,
             }
         }
     }
+}
+
+var getGenFiles = function () {
+    var files = fs.readdirSync(pathTemplate).filter(function (file) {
+        var isFile = fs.statSync(path.join(pathTemplate, file)).isFile();
+        if (!isFile) return false;
+
+        console.log(file);
+        return true;
+
+    });
+
 }
