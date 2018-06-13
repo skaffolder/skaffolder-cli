@@ -1,8 +1,12 @@
 //var pathWorkspace = "./";
 var pathWorkspace = "./build/";
 var pathTemplate = ".skaffolder/template"
+var fs = require('fs');
+var path = require('path');
+const klawSync = require('klaw-sync')
+let async = require("async");
 
-exports.generate = function (files, cb) {
+exports.generate = function (files, logger, cb) {
 
     var project = files.project;
     var modules = files.modules;
@@ -31,7 +35,7 @@ exports.generate = function (files, cb) {
 
 
     } catch (e) {
-        logger.error(e);
+        console.error(e);
     }
 }
 
@@ -164,13 +168,29 @@ var generateFile = function (file, log, utils, project, modules, resources, dbs,
 }
 
 var getGenFiles = function () {
-    var files = fs.readdirSync(pathTemplate).filter(function (file) {
-        var isFile = fs.statSync(path.join(pathTemplate, file)).isFile();
-        if (!isFile) return false;
 
-        console.log(file);
-        return true;
+    return klawSync(pathTemplate, {
+        nodir: true
+    }).map(file => {
+        let content = fs.readFileSync(file.path, "utf8");
+        let genFile = getProperties(content);
 
-    });
 
+        genFile.name = path.relative(pathTemplate, file.path);
+        genFile.template = content;
+        return genFile;
+    })
+}
+
+var getProperties = (content) => {
+    var start = "**** PROPERTIES SKAFFOLDER ****\r\n";
+    var end = '\r\n**** END PROPERTIES SKAFFOLDER ****\r\n';
+    let startPropr = content.indexOf(start);
+    let endPropr = content.indexOf(end);
+
+    let properties = content.substr(startPropr + start.length, endPropr - start.length);
+    properties = JSON.parse(properties);
+    properties.template = content.substr(endPropr - end.length);
+
+    return properties;
 }

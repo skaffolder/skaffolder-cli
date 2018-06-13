@@ -1,3 +1,4 @@
+var fs = require('fs');
 var Handlebars = require('handlebars');
 var helpers = require('handlebars-helpers')({
     handlebars: Handlebars
@@ -71,7 +72,7 @@ var insertInto = function (html, partialTmpl, params, tagFrom, tagTo, log) {
 
         return html;
     } catch (e) {
-        logger.error(e);
+        console.error(e);
         var err = {
             'Error': {
                 "message": e.message
@@ -94,7 +95,7 @@ exports.generateFile = function (log, file, paramLoop, opt) {
         }
 
         param.extra = {};
-        if (opt.extra) {
+        if (opt && opt.extra) {
             for (var i in opt.extra) {
                 if (opt.extra[i])
                     param.extra[opt.extra[i].name] = opt.extra[i].value;
@@ -164,7 +165,7 @@ exports.generateFile = function (log, file, paramLoop, opt) {
         if (output != '')
             fs.writeFileSync(path, output);
     } catch (e) {
-        logger.error(e);
+        console.error(e);
         var err = {
             'Error': {
                 "message": e.message
