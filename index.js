@@ -8,14 +8,16 @@ const reloadGeneratorCmd = require('./lib/reloadGenerator');
 
 prog
     .version('1.0.0')
-    .command('new project', 'Create a new Skaffolder project')
-    .action(createCmd)
     .command('login', 'Log in into Skaffolder')
     .action(loginCmd)
-    .command('logout', 'Log out from Skaffolder')
+    .command('new project', 'Create a new Skaffolder project')
+    .action(createCmd)
+    .command('generate', 'Generate Skaffolder Template')
     .action(logoutCmd)
     .command('reload generator', 'Log out from Skaffolder')
-    .action(reloadGeneratorCmd);
+    .action(reloadGeneratorCmd)
+    .command('logout', 'Log out from Skaffolder')
+    .action(logoutCmd);
 //.argument('<template>', 'Template to use')
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
