@@ -2,7 +2,7 @@ var request = require('request');
 var cache = require('persistent-cache');
 var globals = cache();
 var token = globals.getSync("token");
-let logger = require("winston-color");
+let logger = require("winston");
 var chalk = require('chalk');
 
 module.exports = function (options, cb) {

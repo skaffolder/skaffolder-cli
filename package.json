@@ -18,8 +18,7 @@
     "request": "^2.87.0",
     "select-shell": "^1.0.0",
     "shelljs": "^0.8.2",
-    "winston": "^3.0.0",
-    "winston-color": "^1.0.0"
+    "winston": "^3.0.0"
   },
   "author": "Skaffolder",
   "license": "ISC"
