@@ -28,6 +28,6 @@ exports.ask = function (options, cb) {
     list.list();
 
     // CALLBACK
-    list.on('select', cb);
+    list.on('select', res => cb(res[0]));
 
 }
