@@ -1,5 +1,5 @@
 var properties = require('../properties');
-var request = require('request');
+var request = require('../utils/request');
 var md5 = require('md5');
 
 exports.login = function (mail, password, cb) {
@@ -11,8 +11,8 @@ exports.login = function (mail, password, cb) {
             'user': mail,
             'pass': md5(password),
         }
-    }, function (error, response, body) {
-        cb(error, JSON.parse(body));
+    }, function (error, body) {
+        cb(error, body);
     });
 
 }
