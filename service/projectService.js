@@ -39,9 +39,8 @@ exports.getGeneratorFile = function (idGen, cb) {
 }
 
 exports.getProject = function (idProject, cb) {
-    return cb(null, {});
     request({
-        url: properties.endpoint + "/generatorFile/findBy_generator/" + idGen,
+        url: properties.endpoint + "/project/" + idProject + "/getProject",
         method: "GET",
     }, cb);
 }

@@ -1,10 +1,11 @@
 //var pathWorkspace = "./";
 var pathWorkspace = "./build/";
-var pathTemplate = ".skaffolder/template"
-var fs = require('fs');
-var path = require('path');
+const pathTemplate = ".skaffolder/template"
+const fs = require('fs');
+const path = require('path');
 const klawSync = require('klaw-sync')
-let async = require("async");
+const async = require("async");
+const chalk = require('chalk');
 
 exports.generate = function (files, logger, cb) {
 
@@ -16,7 +17,7 @@ exports.generate = function (files, logger, cb) {
     var log = [];
 
     try {
-        logger.info("START GENERATE ");
+        logger.info(chalk.green("START GENERATE "));
         log.push("START GENERATE ");
 
         var utils = require('./GeneratorUtils.js');
@@ -24,7 +25,7 @@ exports.generate = function (files, logger, cb) {
 
         async.each(genFiles, function (file, cbFile) {
             log.push("Elaborate file " + file.name);
-            logger.info("Elaborate file ", file.name);
+            logger.info(chalk.green("Elaborate file "), file.name);
 
             generateFile(file, log, utils, project, modules, resources, dbs)
 
