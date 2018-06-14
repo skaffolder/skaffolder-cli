@@ -3,6 +3,7 @@
 const prog = require('caporal');
 const createCmd = require('./lib/create');
 const loginCmd = require('./lib/login');
+const openCmd = require('./lib/open');
 const logoutCmd = require('./lib/logout');
 const reloadGeneratorCmd = require('./lib/reloadGenerator');
 const generateCmd = require('./lib/generate');
@@ -14,6 +15,8 @@ prog
     .action(loginCmd)
     .command('new project', 'Create a new Skaffolder project')
     .action(createCmd)
+    .command('open project', 'Open a Skaffolder project')
+    .action(openCmd)
     .command('generate', 'Generate Skaffolder Template')
     .action(generateCmd)
     .command('get project url', 'Get Skaffolder project URL')

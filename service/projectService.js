@@ -12,6 +12,20 @@ exports.create = function (name, cb) {
     }, cb);
 }
 
+exports.getGeneratorList = function (idProj, cb) {
+    request({
+        url: properties.endpoint + "/generator/findBy_project/" + idProj,
+        method: "GET",
+    }, cb);
+}
+
+exports.getProjectList = function (cb) {
+    request({
+        url: properties.endpoint + "/project",
+        method: "GET",
+    }, cb);
+}
+
 exports.getTemplate = function (cb) {
     request({
         url: properties.endpoint + "/template",
