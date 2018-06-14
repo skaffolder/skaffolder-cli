@@ -1,11 +1,13 @@
 //var pathWorkspace = "./";
 var pathWorkspace = "./build/";
-const pathTemplate = ".skaffolder/template"
+const pathTemplate = ".skaffolder/template/"
 const fs = require('fs');
 const path = require('path');
 const klawSync = require('klaw-sync')
 const async = require("async");
 const chalk = require('chalk');
+
+exports.pathTemplate = pathTemplate;
 
 exports.generate = function (files, logger, cb) {
 
@@ -25,7 +27,7 @@ exports.generate = function (files, logger, cb) {
 
         async.each(genFiles, function (file, cbFile) {
             log.push("Elaborate file " + file.name);
-            logger.info(chalk.green("Elaborate file "), file.name);
+            //logger.info(chalk.green("Elaborate file "), file.name);
 
             generateFile(file, log, utils, project, modules, resources, dbs)
 
@@ -184,10 +186,17 @@ var getGenFiles = function () {
 }
 
 var getProperties = (content) => {
-    var start = "**** PROPERTIES SKAFFOLDER ****\r\n";
-    var end = '\r\n**** END PROPERTIES SKAFFOLDER ****\r\n';
+    var start = "**** PROPERTIES SKAFFOLDER ****";
+    var end = '**** END PROPERTIES SKAFFOLDER ****';
     let startPropr = content.indexOf(start);
     let endPropr = content.indexOf(end);
+
+    if (startPropr == -1 || endPropr == -1) {
+        console.warn("Properties Skaffoler not found in file");
+        return {
+            template: content
+        }
+    }
 
     let properties = content.substr(startPropr + start.length, endPropr - start.length);
     properties = JSON.parse(properties);

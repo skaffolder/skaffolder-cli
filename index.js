@@ -14,7 +14,7 @@ prog
     .action(loginCmd)
     .command('new project', 'Create a new Skaffolder project')
     .action(createCmd)
-    .command('getProjectUrl', 'Generate Skaffolder Template')
+    .command('generate', 'Generate Skaffolder Template')
     .action(generateCmd)
     .command('get project url', 'Get Skaffolder project URL')
     .action(getProjectUrlCmd)

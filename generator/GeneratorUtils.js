@@ -1,5 +1,6 @@
 var fs = require('fs');
 var Handlebars = require('handlebars');
+var chalk = require('chalk');
 var helpers = require('handlebars-helpers')({
     handlebars: Handlebars
 });
@@ -107,15 +108,17 @@ exports.generateFile = function (log, file, paramLoop, opt) {
         var fileNameDest = template(param);
 
         if (pathWorkspace) {
-            var path = pathWorkspace + fileNameDest;
+            var path = pathWorkspace + fileNameDest.substring(0, fileNameDest.length - 4);
 
             if (file.ignore && fs.existsSync(path)) {
+                //console.info(chalk.gray("File ignored: ") + file.name);
                 return;
             }
 
             // READ FILE OR TEMPLATE
             if (!file.overwrite && fs.existsSync(path)) {
                 output = fs.readFileSync(path, 'utf8');
+                //console.info(chalk.gray("File ignored: ") + path);
             } else {
                 var template = "";
                 if (paramLoop && paramLoop.module && paramLoop.module.template) {
@@ -128,7 +131,20 @@ exports.generateFile = function (log, file, paramLoop, opt) {
                     template = Handlebars.compile(file.template);
                 }
 
-                output = template(param);
+                try {
+                    output = template(param);
+                    if (fs.existsSync(path)) {
+                        let actual = fs.readFileSync(path, 'utf8');
+                        if (actual != output)
+                            console.info(chalk.green("File modified: ") + path);
+                    } else {
+                        console.info(chalk.green("File created: ") + path);
+
+                    }
+                } catch (e) {
+                    console.log(chalk.red("File with error: ") + path);
+                    console.error(e);
+                }
             }
         } else {
             //FOR TESTING PREVIEW

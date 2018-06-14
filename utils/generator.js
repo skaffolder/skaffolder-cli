@@ -1,4 +1,5 @@
 var projectService = require('../service/projectService');
+var generatorBean = require('../generator/generatorBean');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 
@@ -6,9 +7,9 @@ exports.importGenerator = function (idProj, idGen, cb) {
 
     projectService.getGeneratorFile(idGen, (err, files) => {
         files.filter(file => {
-            let path = '.skaffolder/template/' + file.name;
+            let path = generatorBean.pathTemplate + file.name;
             mkdirp.sync(path.substr(0, path.lastIndexOf('/')));
-            fs.writeFileSync(path, getFileContent(file));
+            fs.writeFileSync(path + ".hbs", getFileContent(file));
         });
 
         cb();
