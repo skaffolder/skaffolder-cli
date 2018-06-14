@@ -1,6 +1,6 @@
 {
   "name": "skaffolder-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI to interact with Skaffolder",
   "main": "index.js",
   "bin": {
@@ -26,5 +26,11 @@
     "winston": "^3.0.0"
   },
   "author": "Skaffolder",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-obfuscator": "^4.0.0",
+    "grunt-publish": "^1.0.0"
+  }
 }
