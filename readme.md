@@ -72,5 +72,9 @@ If you want to manage data models, APIs and pages of your project you can run `s
     https://app.skaffolder.com/#!/projects/my-project-id/design/models
 ```
 
+
+To open an existing project you can run `sk open project`
+
+
 # More documentation
 >You can find <a href="https://skaffolder.com/#/documentation" target="_blank">additional documentation here</a>
