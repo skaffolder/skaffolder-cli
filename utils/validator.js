@@ -15,7 +15,7 @@ exports.isLogged = function () {
     var token = globals.getSync("token");
     if (token) return true
 
-    console.error(chalk.red("You should be logger to run this command"));
+    console.error(chalk.red("You should be logged to run this command"));
     console.error(chalk.red("Run 'sk login' to login"));
     return false;
 }
