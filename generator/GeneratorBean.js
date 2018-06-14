@@ -176,31 +176,34 @@ var getGenFiles = function () {
         nodir: true
     }).map(file => {
         let content = fs.readFileSync(file.path, "utf8");
-        let genFile = getProperties(content);
+        let genFile = getProperties(content, file.path);
 
 
         genFile.name = path.relative(pathTemplate, file.path);
-        genFile.template = content;
         return genFile;
     })
 }
 
-var getProperties = (content) => {
+var getProperties = (content, path) => {
     var start = "**** PROPERTIES SKAFFOLDER ****";
     var end = '**** END PROPERTIES SKAFFOLDER ****';
     let startPropr = content.indexOf(start);
     let endPropr = content.indexOf(end);
 
     if (startPropr == -1 || endPropr == -1) {
-        console.warn("Properties Skaffoler not found in file");
+        console.warn(chalk.yellow("Properties Skaffoler not found in file ") + path);
         return {
             template: content
         }
     }
 
     let properties = content.substr(startPropr + start.length, endPropr - start.length);
-    properties = JSON.parse(properties);
-    properties.template = content.substr(endPropr - end.length);
+    try {
+        properties = JSON.parse(properties);
+    } catch (e) {
+        console.warn(chalk.red("Error parsing JSON Skaffodler properties in file ") + path);
+    }
+    properties.template = content.substr(endPropr + end.length + 1);
 
     return properties;
 }
