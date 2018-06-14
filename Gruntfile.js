@@ -35,6 +35,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-obfuscator');
     grunt.loadNpmTasks('grunt-publish');
 
-    grunt.registerTask('publish', ['clean', 'obfuscator', 'publish']);
+    grunt.registerTask('deploy', ['clean', 'obfuscator', 'publish']);
 
 }
