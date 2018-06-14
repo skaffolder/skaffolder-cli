@@ -19,12 +19,13 @@ module.exports = function (options, cb) {
                 message: error.code
             };
             console.error(chalk.red(error.message));
+            process.exit(0);
         } else if (body && body.message == "Not Authoized") {
             error = {
                 message: "Not Authoized"
             };
             console.error(chalk.red(error.message));
-        } else if (response.statusCode == 401) {
+        } else if (response.statusCode == 401 || response.statusCode == 405) {
             error = {
                 message: "You should loging with command: 'sk login'"
             };

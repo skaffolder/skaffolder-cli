@@ -2,10 +2,15 @@ var projectService = require('../service/projectService');
 var generatorBean = require('../generator/generatorBean');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
+var chalk = require('chalk');
 
 exports.importGenerator = function (idProj, idGen, cb) {
 
     projectService.getGeneratorFile(idGen, (err, files) => {
+        try {
+            files = JSON.parse(files);
+        } catch (e) {}
+
         files.filter(file => {
             let path = generatorBean.pathTemplate + file.name;
             mkdirp.sync(path.substr(0, path.lastIndexOf('/')));
