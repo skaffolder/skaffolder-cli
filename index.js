@@ -2,6 +2,9 @@
 
 const prog = require('caporal');
 const createCmd = require('./lib/create');
+const createPageCmd = require('./lib/createPage');
+const createApiCmd = require('./lib/createApi');
+const createModelCmd = require('./lib/createModel');
 const loginCmd = require('./lib/login');
 const openCmd = require('./lib/open');
 const logoutCmd = require('./lib/logout');
@@ -11,6 +14,8 @@ const getProjectUrlCmd = require('./lib/getProjectUrl');
 
 prog
     .version('1.0.16')
+
+    // start
     .command('login', 'Log in into Skaffolder')
     .action(loginCmd)
     .command('new project', 'Create a new Skaffolder project')
@@ -19,6 +24,16 @@ prog
     .action(openCmd)
     .command('generate', 'Generate Skaffolder Template')
     .action(generateCmd)
+
+    // manage
+    .command('new page', 'Create a new page in Skaffolder project')
+    .action(createPageCmd)
+    .command('new model', 'Create a new model in Skaffolder project')
+    .action(createModelCmd)
+    .command('new api', 'Create a new api in Skaffolder project')
+    .action(createApiCmd)
+
+    // utils
     .command('get project url', 'Get Skaffolder project URL')
     .action(getProjectUrlCmd)
     .command('reload generator', 'Log out from Skaffolder')

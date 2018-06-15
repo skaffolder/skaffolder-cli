@@ -1,5 +1,6 @@
 var properties = require('../properties');
 var request = require('../utils/request');
+var configUtils = require('../utils/config');
 
 exports.create = function (name, cb) {
     request({
@@ -56,5 +57,25 @@ exports.getProject = function (idProject, cb) {
     request({
         url: properties.endpoint + "/project/" + idProject + "/getProject",
         method: "GET",
+    }, cb);
+}
+
+exports.createPage = function (name, cb) {
+    var config = configUtils.getConf();
+    request({
+        url: properties.endpoint + "/page",
+        method: "POST",
+        json: {
+            left: 6200,
+            name: name,
+            state: "pending",
+            top: 5100,
+            url: "/" + name,
+            _links: [],
+            _nesteds: [],
+            _project: config.project,
+            _roles: [],
+            _services: []
+        }
     }, cb);
 }
