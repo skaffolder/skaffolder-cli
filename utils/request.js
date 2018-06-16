@@ -49,10 +49,11 @@ module.exports = function (options, cb) {
         }
 
         try {
-            cb(error, JSON.parse(body));
+            body = JSON.parse(body);
         } catch (e) {
-            cb(error, body);
+            //console.log(chalk.yellow(e));
         }
+        cb(error, body);
     });
 
 }
