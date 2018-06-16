@@ -29,10 +29,12 @@ prog
     .command('add page', 'Create a new page in Skaffolder project')
     .argument('[name]', 'Name of the page', null, "")
     .action(createPageCmd)
-    .command('add model', 'Create a new model in Skaffolder project')
-    .action(createModelCmd)
-    .command('add api', 'Create a new api in Skaffolder project')
-    .action(createApiCmd)
+    // .command('add model', 'Create a new model in Skaffolder project')
+    // .argument('[name]', 'Name of the model', null, "")
+    // .action(createModelCmd)
+    // .command('add api', 'Create a new api in Skaffolder project')
+    // .argument('[model name]', 'Name of the api model', null, "")
+    // .action(createApiCmd)
 
     // utils
     .command('get project url', 'Get Skaffolder project URL')

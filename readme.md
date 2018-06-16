@@ -19,6 +19,7 @@ First of all you have to login into your free Skaffolder account running `sk log
     
     ✔  Login successful
 ```
+### Create project
 
 Now you can create a new project running `sk new project`
 
@@ -44,11 +45,10 @@ Now you can create a new project running `sk new project`
 
 ```
 
-Now you can edit you project on Skaffolder platform adding data models, APIs and pages at your app.
-> CLI commands to manage that are coming soon!
 
-In you current path a folder `.skaffolder` was 	created.
-In `.skaffolder/template` you can find your template files editable, they respect the <a href="https://handlebarsjs.com" target="_blank">Handlebar sintax</a> and you can use also these additional <a href="https://www.npmjs.com/package/handlebars-helpers" target="_blank">helpers functions</a>.
+To open an existing project you can run `sk open project`
+
+### Generate source code
 
 You can use the command `sk generate` to generate your source code from your template files.
 
@@ -64,7 +64,30 @@ You can use the command `sk generate` to generate your source code from your tem
     ✔  Generation complete!
 ```
 
-If you want to manage data models, APIs and pages of your project you can run `sk get project url` and browse the provided link:
+### Edit project
+
+Now you can edit you project on Skaffolder platform adding data models, APIs and pages at your app.
+
+###### Add page
+
+To add a page run `sk add page`.
+You can optionally specity the name running `sk add page <name>`
+
+```bash
+[root@skaffolder ~]$ sk add page mypage
+    START GENERATE
+    File created: ./client/app/pages/mypage/mypage.component.css
+    File created: ./client/app/pages/mypage/mypage.component.html
+    File created: ./client/app/pages/mypage/mypage.component.ts
+    ✔  Generation complete!
+    You can edit your project structure at http://localhost:3001/#!/projects/5b213bab19429c08f6fac8a3/design/models
+```
+
+
+> Others CLI commands to manage that are coming soon!
+
+You can completely manage data models, APIs and pages of your project from a graphic interface.
+You can run `sk get project url` and browse the provided link:
 
 ```bash
 [root@skaffolder ~]$ sk get project url
@@ -72,8 +95,10 @@ If you want to manage data models, APIs and pages of your project you can run `s
     https://app.skaffolder.com/#!/projects/my-project-id/design/models
 ```
 
+### Edit template
 
-To open an existing project you can run `sk open project`
+In you current path a folder `.skaffolder` was 	created.
+In `.skaffolder/template` you can find your template files editable, they respect the <a href="https://handlebarsjs.com" target="_blank">Handlebar sintax</a> and you can use also these additional <a href="https://www.npmjs.com/package/handlebars-helpers" target="_blank">helpers functions</a>.
 
 
 # More documentation
