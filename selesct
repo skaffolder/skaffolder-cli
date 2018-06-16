@@ -152,8 +152,6 @@ Select.prototype.prev = function () {
  * @api private
  */
 Select.prototype.checkoption = function () {
-  console.log('check');
-  rl.close();
   var optionPosition = this.optionsSelected.indexOf(this.currentoption);
 
   if (optionPosition === -1) {
@@ -186,8 +184,6 @@ Select.prototype.uncheckoption = function () {
  * @api private
  */
 Select.prototype.toggleoption = function () {
-  console.log('toggle');
-
   var optionPosition = this.optionsSelected.indexOf(this.currentoption);
 
   if (this.config.multiSelect) {
@@ -211,8 +207,6 @@ Select.prototype.toggleoption = function () {
  * @api public
  */
 Select.prototype.option = function (text, value) {
-  console.log('option');
-
   value = value !== undefined ? value : text;
 
   this.options.push({
@@ -241,8 +235,6 @@ Select.prototype.list = function (onSelect) {
  * @api private
  */
 Select.prototype.close = function () {
-  console.log('closedd');
-
   stream.removeListener('keypress', this.keypress);
   processOut.write(encode('[?25h'));
 };
@@ -253,8 +245,6 @@ Select.prototype.close = function () {
  * @api private
  */
 Select.prototype.selectoption = function () {
-  console.log('select');
-
   if (!this.config.multiSelect) {
     this.checkoption();
   }
@@ -279,7 +269,6 @@ Select.prototype.cancel = function () {
  * @api private
  */
 Select.prototype.keypress = function (ch, key) {
-  console.log('press')
   key = key || {};
 
   switch (key.name) {
