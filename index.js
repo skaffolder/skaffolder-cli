@@ -26,11 +26,12 @@ prog
     .action(generateCmd)
 
     // manage
-    .command('new page', 'Create a new page in Skaffolder project')
+    .command('add page', 'Create a new page in Skaffolder project')
+    .argument('[name]', 'Name of the page', null, "")
     .action(createPageCmd)
-    .command('new model', 'Create a new model in Skaffolder project')
+    .command('add model', 'Create a new model in Skaffolder project')
     .action(createModelCmd)
-    .command('new api', 'Create a new api in Skaffolder project')
+    .command('add api', 'Create a new api in Skaffolder project')
     .action(createApiCmd)
 
     // utils
@@ -40,7 +41,6 @@ prog
     .action(reloadGeneratorCmd)
     .command('logout', 'Log out from Skaffolder')
     .action(logoutCmd);
-//.argument('<template>', 'Template to use')
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
 prog.parse(process.argv);
