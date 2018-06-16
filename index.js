@@ -13,7 +13,7 @@ const generateCmd = require('./lib/generate');
 const getProjectUrlCmd = require('./lib/getProjectUrl');
 
 prog
-    .version('1.0.16')
+    .version('1.0.17')
 
     // start
     .command('login', 'Log in into Skaffolder')
@@ -29,9 +29,9 @@ prog
     .command('add page', 'Create a new page in Skaffolder project')
     .argument('[name]', 'Name of the page', null, "")
     .action(createPageCmd)
-    // .command('add model', 'Create a new model in Skaffolder project')
-    // .argument('[name]', 'Name of the model', null, "")
-    // .action(createModelCmd)
+    .command('add model', 'Create a new model in Skaffolder project')
+    .argument('[name]', 'Name of the model', null, "")
+    .action(createModelCmd)
     // .command('add api', 'Create a new api in Skaffolder project')
     // .argument('[model name]', 'Name of the api model', null, "")
     // .action(createApiCmd)

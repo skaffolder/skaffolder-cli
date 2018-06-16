@@ -2,6 +2,21 @@ var properties = require('../properties');
 var request = require('../utils/request');
 var configUtils = require('../utils/config');
 
+exports.getProject = function (cb) {
+    var config = configUtils.getConf();
+    request({
+        url: properties.endpoint + "/project/" + config.project,
+        method: "GET",
+    }, cb);
+}
+
+exports.getProjectData = function (idProject, cb) {
+    request({
+        url: properties.endpoint + "/project/" + idProject + "/getProject",
+        method: "GET",
+    }, cb);
+}
+
 exports.create = function (name, cb) {
     request({
         url: properties.endpoint + "/Project",
@@ -53,13 +68,6 @@ exports.getGeneratorFile = function (idGen, cb) {
     }, cb);
 }
 
-exports.getProject = function (idProject, cb) {
-    request({
-        url: properties.endpoint + "/project/" + idProject + "/getProject",
-        method: "GET",
-    }, cb);
-}
-
 exports.createPage = function (name, cb) {
     var config = configUtils.getConf();
     request({
@@ -76,6 +84,33 @@ exports.createPage = function (name, cb) {
             _project: config.project,
             _roles: [],
             _services: []
+        }
+    }, cb);
+}
+
+
+exports.createModel = function (name, db, attributes, cb) {
+    var config = configUtils.getConf();
+    let url = name;
+
+    request({
+        url: properties.endpoint + "/model",
+        method: "POST",
+        json: {
+            name: name,
+            left: 6200,
+            top: 5100,
+            _project: config.project,
+            _resource: {
+                _services: [],
+                url: "/" + url
+            },
+            _entity: {
+                _project: config.project,
+                _relations: [],
+                _attrs: attributes,
+                _db: db
+            },
         }
     }, cb);
 }

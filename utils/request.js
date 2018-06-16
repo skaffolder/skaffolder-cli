@@ -30,6 +30,12 @@ module.exports = function (options, cb) {
                 message: "You should loging with command: 'sk login'"
             };
             console.error(chalk.red(error.message));
+        } else if (response.statusCode == 403) {
+            error = {
+                message: "Nor permitted: " + body.message
+            };
+            console.error(chalk.red(error.message));
+            console.error(chalk.blue("Please visit " + chalk.yellow("https://app.skaffolder.com/#!/upgrade")));
         } else if (response.statusCode == 404) {
             error = {
                 message: "URL not found"
