@@ -1,11 +1,28 @@
 var chalk = require('chalk');
-// const cliSelect = require('cli-select');
-
 
 exports.ask = function (options, cb) {
 
     // INIT
 
+    // const prompt = require('select-prompt')
+
+    // const colors = [
+    //     {title: 'red',    value: '#f00'},
+    //     {title: 'yellow', value: '#ff0'},
+    //     {title: 'green',  value: '#0f0'},
+    //     {title: 'blue',   value: '#00f'},
+    //     {title: 'black',  value: '#000'},
+    //     {title: 'white',  value: '#fff'}
+    // ]
+
+    // prompt('What is your favorite color?', colors, {cursor: 3})
+    // .on('data', (e) => console.log('Interim value', e.value))
+    // .on('abort', (v) => console.log('Aborted with', v))
+    // .on('submit', (v) => console.log('Submitted with', v))
+
+    // INIT
+
+    // const cliSelect = require('cli-select');
     // var optArray = options.list.map((val) => val.description);
     // cliSelect({
     //     values: optArray
@@ -16,6 +33,10 @@ exports.ask = function (options, cb) {
     //     }
     //     cb(result);
     // });
+
+
+
+    // INIT
 
     var list = require('select-shell')({
         pointer: ' ▸ ',
@@ -42,6 +63,9 @@ exports.ask = function (options, cb) {
     list.list();
 
     // CALLBACK
-    list.on('select', res => cb(res[0]));
+    list.on('select', res => {
+        // rli.close();
+        return cb(res[0])
+    });
 
 }
