@@ -1,9 +1,9 @@
-var chalk = require('chalk');
+const chalk = require('chalk');
 
 exports.ask = function (options, cb) {
 
     // INIT
-    var list = require('select-shell')({
+    const list = require('select-shell')({
         pointer: ' ▸ ',
         pointerColor: 'yellow',
         checked: ' ◉  ',
@@ -17,7 +17,7 @@ exports.ask = function (options, cb) {
     });
 
     // CONFIGURE
-    for (var i in options.list) {
+    for (const i in options.list) {
         list.option(options.list[i].description, options.list[i].value);
     }
 
