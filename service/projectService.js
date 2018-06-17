@@ -49,6 +49,13 @@ exports.getTemplate = function (cb) {
     }, cb);
 }
 
+exports.getEntityFindByDb = function (db, cb) {
+    request({
+        url: properties.endpoint + "/entity/findBy_db/" + db,
+        method: "GET",
+    }, cb);
+}
+
 exports.createFromTemplate = function (idProj, idFrontend, idBackend, cb) {
     request({
         url: properties.endpoint + "/generator/project/" + idProj + "/createFromTemplate",
@@ -89,7 +96,7 @@ exports.createPage = function (name, cb) {
 }
 
 
-exports.createModel = function (name, db, attributes, cb) {
+exports.createModel = function (name, db, attributes, relations, cb) {
     var config = configUtils.getConf();
     let url = name;
 
@@ -107,7 +114,7 @@ exports.createModel = function (name, db, attributes, cb) {
             },
             _entity: {
                 _project: config.project,
-                _relations: [],
+                _relations: relations,
                 _attrs: attributes,
                 _db: db
             },
