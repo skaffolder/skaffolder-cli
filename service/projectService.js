@@ -75,6 +75,13 @@ exports.getGeneratorFile = function (idGen, cb) {
     }, cb);
 }
 
+exports.createCrud = function (idModel, cb) {
+    request({
+        url: properties.endpoint + "/model/" + idModel + "/createCrud",
+        method: "GET",
+    }, cb);
+}
+
 exports.createPage = function (name, cb) {
     var config = configUtils.getConf();
     request({
