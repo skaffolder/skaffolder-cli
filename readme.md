@@ -84,7 +84,25 @@ You can optionally specity the name running `sk add page <name>`
 ```
 
 
-> Others CLI commands to manage that are coming soon!
+###### Add Data Model
+
+To add a page run `sk add model`.
+You can optionally specity the name running `sk add model <name>`
+
+```bash
+[root@skaffolder ~]$ sk add model
+```
+
+
+###### Add API
+
+To add a page run `sk add api`
+
+```bash
+[root@skaffolder ~]$ sk add api
+```
+
+### Edit project from web interface
 
 You can completely manage data models, APIs and pages of your project from a graphic interface.
 You can run `sk get project url` and browse the provided link:
