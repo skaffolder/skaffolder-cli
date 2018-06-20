@@ -10,9 +10,10 @@ exports.getProject = function (cb) {
     }, cb);
 }
 
-exports.getProjectData = function (idProject, cb) {
+exports.getProjectData = function (cb) {
+    var config = configUtils.getConf();
     request({
-        url: properties.endpoint + "/project/" + idProject + "/getProject",
+        url: properties.endpoint + "/project/" + config.project + "/getProject",
         method: "GET",
     }, cb);
 }
@@ -25,6 +26,14 @@ exports.create = function (name, cb) {
             name: name,
             _dbs: []
         }
+    }, cb);
+}
+
+exports.getModelsList = function (cb) {
+    var config = configUtils.getConf();
+    request({
+        url: properties.endpoint + "/model/findBy_project/" + config.project + "/populate",
+        method: "GET",
     }, cb);
 }
 
@@ -65,6 +74,14 @@ exports.createFromTemplate = function (idProj, idFrontend, idBackend, cb) {
             frontend: idFrontend,
             projId: idProj
         }
+    }, cb);
+}
+
+exports.createApi = function (service, cb) {
+    request({
+        url: properties.endpoint + "/service",
+        method: "POST",
+        json: service
     }, cb);
 }
 
