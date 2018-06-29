@@ -1,36 +1,17 @@
-var chalk = require('chalk');
+const semver = require('semver');
+
 
 exports.ask = function (options, cb) {
 
-    // INIT
 
-    var list = require('./select-shell')({
-        pointer: ' ▸ ',
-        pointerColor: 'yellow',
-        checked: ' ◉  ',
-        unchecked: ' ◎  ',
-        checkedColor: 'blue',
-        msgCancel: 'No selected options!',
-        msgCancelColor: 'orange',
-        multiSelect: false,
-        inverse: true,
-        prepend: true
-    });
+    if (semver.gt(process.version, '8.11.3')) {
+        // prompt question
+        var select = require('./questionService/init-prompt-question');
+        select.start(options, cb);
+    } else {
 
-    // CONFIGURE
-    for (var i in options.list) {
-        list.option(options.list[i].description, options.list[i].value);
+        // intereactive select
+        var select = require('./questionService/init-select-shell');
+        select.start(options, cb);
     }
-
-    // ASK QUESTION
-    console.log(chalk.green('Skaffolder') + ": " + chalk.gray(options.description));
-
-    // ASK LIST
-    list.list();
-
-    // CALLBACK
-    list.on('select', res => {
-        return cb(res[0])
-    });
-
 }

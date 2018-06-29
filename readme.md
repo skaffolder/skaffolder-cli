@@ -21,10 +21,10 @@ First of all you have to login into your free Skaffolder account running `sk log
 ```
 ### Create project
 
-Now you can create a new project running `sk new project`
+Now you can create a new project running `sk new`
 
 ```bash
-[root@skaffolder ~]$ sk new project
+[root@skaffolder ~]$ sk new
 
     Skaffolder: Insert name of your project:  MyProject
 
@@ -46,7 +46,7 @@ Now you can create a new project running `sk new project`
 ```
 
 
-To open an existing project you can run `sk open project`
+To open an existing project you can run `sk open`
 
 ### Generate source code
 

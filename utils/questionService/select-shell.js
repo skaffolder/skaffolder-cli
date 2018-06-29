@@ -9,8 +9,9 @@ var eventEmitter = require('events').EventEmitter;
 var encode = require('./encode');
 var readline = require('colors');
 var readline = require('readline');
-var stream = process.stdin;
+var stdin = process.stdin;
 var processOut = process.stdout;
+
 
 /**
  * Expose function invoke
@@ -56,7 +57,7 @@ var Select = function (conf) {
         this.config[c] = conf[c];
     }
 
-    stream.on('keypress', this.keypress);
+    process.stdin.on('keypress', this.keypress);
 };
 
 /**
@@ -121,9 +122,9 @@ Select.prototype.changeSelected = function () {
  * @api private
  */
 Select.prototype.clearList = function (postionCursor) {
-    readline.cursorTo(stream, 0);
-    readline.moveCursor(stream, 0, -this.optionsLength);
-    readline.clearScreenDown(stream);
+    readline.cursorTo(process.stdin, 0);
+    readline.moveCursor(process.stdin, 0, -this.optionsLength);
+    readline.clearScreenDown(process.stdin);
 };
 
 /**
@@ -195,7 +196,7 @@ Select.prototype.toggleoption = function () {
     } else {
         // if in single select mode, just select the option
         this.checkoption();
-        readline.moveCursor(stream, 0, -1); /* remove new line */
+        readline.moveCursor(process.stdin, 0, -1); /* remove new line */
         this.selectoption();
     }
 };
@@ -236,7 +237,7 @@ Select.prototype.list = function (onSelect) {
  */
 Select.prototype.close = function () {
     this.rl.close();
-    stream.removeListener('keypress', this.keypress);
+    process.stdin.removeListener('keypress', this.keypress);
     processOut.write(encode('[?25h'));
 };
 
@@ -289,7 +290,7 @@ Select.prototype.keypress = function (ch, key) {
             this.toggleoption();
             break;
         case 'return':
-            readline.moveCursor(stream, 0, -1); /* remove new line */
+            readline.moveCursor(process.stdin, 0, -1); /* remove new line */
             this.selectoption();
             break;
         case 'escape':
