@@ -14,6 +14,17 @@ exports.importGenerator = function (idProj, idGen, cb) {
         files.filter(file => {
             let path = generatorBean.pathTemplate + file.name;
             mkdirp.sync(path.substr(0, path.lastIndexOf('/')));
+
+            if (file.templateList) {
+                fs.writeFileSync(path + "_SK_LIST.hbs", file.templateList);
+                file.templateList = undefined;
+            }
+
+            if (file.templateEdit) {
+                fs.writeFileSync(path + "_SK_EDIT.hbs", file.templateEdit);
+                file.templateEdit = undefined;
+            }
+
             fs.writeFileSync(path + ".hbs", getFileContent(file));
         });
 
