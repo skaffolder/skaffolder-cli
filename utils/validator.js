@@ -7,7 +7,7 @@ exports.isSkaffolderFolder = function () {
     if (config.getConf().project) return true
 
     console.error(chalk.red("You need to run this command from a Skaffolder project folder"));
-    console.error(chalk.red("Run 'sk new project' to create a new project"));
+    console.error(chalk.red("Run " + chalk.green("'sk new'") + " to create a new project"));
     return false;
 }
 
@@ -16,6 +16,6 @@ exports.isLogged = function () {
     if (token) return true
 
     console.error(chalk.red("You should be logged to run this command"));
-    console.error(chalk.red("Run 'sk login' to login"));
+    console.error(chalk.red("Run " + chalk.green("'sk login'") + "  to login"));
     return false;
 }
