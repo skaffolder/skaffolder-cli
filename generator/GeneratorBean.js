@@ -1,4 +1,4 @@
-//var pathWorkspace = "./";
+var pathWorkspace = "./";
 const pathTemplate = ".skaffolder/template/"
 const fs = require('fs');
 const path = require('path');
@@ -14,7 +14,7 @@ exports.generate = function (files, logger, cb) {
     var modules = files.modules;
     var resources = files.resources;
     var dbs = files.dbs;
-    var genFiles = getGenFiles();
+    var genFiles = getGenFiles(pathTemplate);
     var log = [];
 
     try {
@@ -173,6 +173,7 @@ var generateFile = function (file, log, utils, project, modules, resources, dbs,
 var getGenFiles = function (pathTemplate) {
     var klawSync = require('klaw-sync')
 
+    //console.log("-----" + pathTemplate);
     return klawSync(pathTemplate, {
         nodir: true
     }).map(file => {
