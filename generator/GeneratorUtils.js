@@ -87,6 +87,7 @@ var insertInto = function (html, partialTmpl, params, tagFrom, tagTo, log) {
 exports.generateFile = function (log, file, paramLoop, opt) {
 
     var output = "";
+    var path = require('path');
 
     try {
         //SET PARAMS
@@ -104,21 +105,25 @@ exports.generateFile = function (log, file, paramLoop, opt) {
         }
 
         //GET FILE NAME
-        var template = Handlebars.compile(file.name);
+        console.log('----------\nORIG:' ,file.name);
+        var fileName = file.name.replace(/{{\\(([A-Za-z\s])*)}}/g, '{{/$1}}');
+        console.log('REPLACE:' ,fileName);
+        var template = Handlebars.compile(fileName);
         var fileNameDest = template(param);
+        console.log('DEST:' ,fileNameDest);
 
         if (pathWorkspace) {
-            var path = pathWorkspace + fileNameDest;
+            var pathFile = path.normalize(pathWorkspace + fileNameDest);
 
-            if (file.ignore && fs.existsSync(path)) {
+            if (file.ignore && fs.existsSync(pathFile)) {
                 //console.info(chalk.gray("File ignored: ") + file.name);
                 return;
             }
 
             // READ FILE OR TEMPLATE
-            if (!file.overwrite && fs.existsSync(path)) {
-                output = fs.readFileSync(path, 'utf8');
-                //console.info(chalk.gray("File ignored: ") + path);
+            if (!file.overwrite && fs.existsSync(pathFile)) {
+                output = fs.readFileSync(pathFile, 'utf8');
+                //console.info(chalk.gray("File ignored: ") + pathFile);
             } else {
                 var template = "";
                 if (paramLoop && paramLoop.module && paramLoop.module.template) {
@@ -134,7 +139,7 @@ exports.generateFile = function (log, file, paramLoop, opt) {
                 try {
                     output = template(param);
                 } catch (e) {
-                    console.log(chalk.red("File with error: ") + path);
+                    console.log(chalk.red("File with error: ") + pathFile);
                     console.error(e);
                 }
             }
@@ -169,18 +174,19 @@ exports.generateFile = function (log, file, paramLoop, opt) {
         }
 
         //WRITE
-        mkdirp.sync(path.substr(0, path.lastIndexOf('/')));
+        var folderFile = path.normalize(pathFile.substr(0, pathFile.lastIndexOf(path.normalize('/'))));
+        var res = mkdirp.sync(folderFile);
         if (output != '') {
 
-            if (fs.existsSync(path)) {
-                let actual = fs.readFileSync(path, 'utf8');
+            if (fs.existsSync(pathFile)) {
+                let actual = fs.readFileSync(pathFile, 'utf8');
                 if (actual != output)
-                    console.info(chalk.green("File modified: ") + path);
+                    console.info(chalk.green("File modified: ") + pathFile);
             } else {
-                console.info(chalk.green("File created: ") + path);
+                console.info(chalk.green("File created: ") + pathFile);
             }
     
-            fs.writeFileSync(path, output);
+            fs.writeFileSync(pathFile, output);
         }
     } catch (e) {
         console.error(e);
