@@ -1,1 +1,245 @@
-var _0xecf7=['utf8','relative','substr','length','_SK_LIST','filter','****\x20PROPERTIES\x20SKAFFOLDER\x20****','****\x20END\x20PROPERTIES\x20SKAFFOLDER\x20****','indexOf','warn','Properties\x20Skaffoler\x20not\x20found\x20in\x20file\x20','parse','_SK_LIST.hbs','existsSync','templateList','_SK_EDIT.hbs','utf-8','path','klaw-sync','async','pathTemplate','generate','project','modules','resources','dbs','info','green','START\x20GENERATE\x20','push','each','Elaborate\x20file\x20','name','error','forEachObj','oneTime','generateFile','paramsForEach','_id','toString','_entity','table','module','template','_resources','_template_resource','List_Crud','url','replace','{id}','map','readFileSync'];(function(_0x213ea9,_0x27e245){var _0x246cc4=function(_0x6d08b4){while(--_0x6d08b4){_0x213ea9['push'](_0x213ea9['shift']());}};_0x246cc4(++_0x27e245);}(_0xecf7,0x17d));var _0x7ecf=function(_0x35885a,_0x42fed7){_0x35885a=_0x35885a-0x0;var _0xe86249=_0xecf7[_0x35885a];return _0xe86249;};var pathWorkspace='./';const pathTemplate='.skaffolder/template/';const fs=require('fs');const path=require(_0x7ecf('0x0'));const klawSync=require(_0x7ecf('0x1'));const async=require(_0x7ecf('0x2'));const chalk=require('chalk');exports[_0x7ecf('0x3')]=pathTemplate;exports[_0x7ecf('0x4')]=function(_0xf0730f,_0x43c17e,_0x5ba6ff){var _0x3624a9=_0xf0730f[_0x7ecf('0x5')];var _0x148bfe=_0xf0730f[_0x7ecf('0x6')];var _0x2edf49=_0xf0730f[_0x7ecf('0x7')];var _0x11cd91=_0xf0730f[_0x7ecf('0x8')];var _0x5c7d78=getGenFiles(pathTemplate);var _0x2c9e70=[];try{_0x43c17e[_0x7ecf('0x9')](chalk[_0x7ecf('0xa')](_0x7ecf('0xb')));_0x2c9e70[_0x7ecf('0xc')](_0x7ecf('0xb'));var _0x24ff10=require('./GeneratorUtils.js');_0x24ff10['init'](pathWorkspace,_0x3624a9,_0x148bfe,_0x2edf49,_0x11cd91);async[_0x7ecf('0xd')](_0x5c7d78,function(_0x22debb,_0x122a4a){_0x2c9e70[_0x7ecf('0xc')](_0x7ecf('0xe')+_0x22debb[_0x7ecf('0xf')]);generateFile(_0x22debb,_0x2c9e70,_0x24ff10,_0x3624a9,_0x148bfe,_0x2edf49,_0x11cd91);_0x122a4a(null);},function(_0x1452a8){_0x5ba6ff(_0x1452a8,_0x2c9e70);});}catch(_0x5d3bc9){console[_0x7ecf('0x10')](_0x5d3bc9);}};var generateFile=function(_0x39d595,_0xc4f85,_0x577329,_0x14982,_0x27654d,_0x34d936,_0x3a6015,_0x22f9b8){if(_0x39d595[_0x7ecf('0x11')]==_0x7ecf('0x12')){return _0x577329[_0x7ecf('0x13')](_0xc4f85,_0x39d595,{},_0x22f9b8);}else if(_0x39d595[_0x7ecf('0x11')]=='db'){if(_0x22f9b8&&_0x22f9b8[_0x7ecf('0x14')]){for(var _0x27d908 in _0x3a6015){if(_0x3a6015[_0x27d908][_0x7ecf('0x15')][_0x7ecf('0x16')]()==_0x22f9b8[_0x7ecf('0x14')]){var _0x2b7d51=_0x34d936[_0x27d908];_0x2b7d51[_0x7ecf('0x17')]=_0x3a6015[_0x27d908][_0x7ecf('0x17')];return _0x577329['generateFile'](_0xc4f85,_0x39d595,{'db':_0x2b7d51},_0x22f9b8);}}}else{for(var _0x27d908 in _0x3a6015){var _0x2b7d51=_0x34d936[_0x27d908];_0x2b7d51[_0x7ecf('0x17')]=_0x3a6015[_0x27d908][_0x7ecf('0x17')];_0x577329['generateFile'](_0xc4f85,_0x39d595,{'db':_0x2b7d51},_0x22f9b8);}}}else if(_0x39d595[_0x7ecf('0x11')]==_0x7ecf('0x18')){for(var _0x27d908 in _0x3a6015){var _0x2b7d51=_0x3a6015[_0x27d908];for(var _0xff71a8 in _0x3a6015[_0x27d908][_0x7ecf('0x17')]){var _0xf62a88=_0x3a6015[_0x27d908]['_entity'][_0xff71a8];if(_0x22f9b8&&_0x22f9b8[_0x7ecf('0x14')]){if(_0xf62a88[_0x7ecf('0x15')]['toString']()==_0x22f9b8[_0x7ecf('0x14')])return _0x577329[_0x7ecf('0x13')](_0xc4f85,_0x39d595,{'entity':_0xf62a88,'db':_0x2b7d51},_0x22f9b8);;}else{_0x577329[_0x7ecf('0x13')](_0xc4f85,_0x39d595,{'entity':_0xf62a88,'db':_0x2b7d51},_0x22f9b8);}}}}else if(_0x39d595['forEachObj']==_0x7ecf('0x19')){for(var _0x27d908 in _0x27654d){var _0x53561e=_0x27654d[_0x27d908];var _0x3ac5f7={'url':''};var _0x5cb30d='';var _0x2ef86f='';var _0xf5cd34='';var _0x243173='';if(_0x53561e[_0x7ecf('0x1a')]){var _0x47168c='';for(dbId in _0x34d936){var _0x1e9c1b=_0x34d936[dbId][_0x7ecf('0x1b')];for(resId in _0x1e9c1b){var _0x4f8782=_0x1e9c1b[resId];if(_0x53561e[_0x7ecf('0x1c')]['toString']()==_0x4f8782[_0x7ecf('0x15')]){_0x243173=_0x4f8782;}}}for(modId in _0x27654d){var _0x455e4e=_0x27654d[modId];if(_0x455e4e[_0x7ecf('0x1a')]==_0x7ecf('0x1d')&&_0x53561e['_template_resource']&&_0x455e4e[_0x7ecf('0x1c')]&&_0x455e4e['_template_resource']['toString']()==_0x53561e[_0x7ecf('0x1c')]['toString']()){_0x3ac5f7=_0x27654d[modId];}}}if(_0x22f9b8&&_0x22f9b8[_0x7ecf('0x14')]){if(_0x53561e[_0x7ecf('0x15')][_0x7ecf('0x16')]()==_0x22f9b8[_0x7ecf('0x14')]){return _0x577329[_0x7ecf('0x13')](_0xc4f85,_0x39d595,{'module':_0x53561e,'crudResource':_0x243173,'linkUrl':_0x3ac5f7[_0x7ecf('0x1e')][_0x7ecf('0x1f')](_0x7ecf('0x20'),'')+'/'},_0x22f9b8);}}else{_0x577329[_0x7ecf('0x13')](_0xc4f85,_0x39d595,{'module':_0x53561e,'crudResource':_0x243173,'linkUrl':_0x3ac5f7['url'][_0x7ecf('0x1f')](_0x7ecf('0x20'),'')+'/'},_0x22f9b8);}}}else if(_0x39d595[_0x7ecf('0x11')]=='resource'){for(var _0x27d908 in _0x34d936){var _0x2b7d51=_0x34d936[_0x27d908];for(var _0x56cb61 in _0x34d936[_0x27d908][_0x7ecf('0x1b')]){var _0x4f8782=_0x34d936[_0x27d908][_0x7ecf('0x1b')][_0x56cb61];if(_0x22f9b8&&_0x22f9b8['paramsForEach']){if(_0x4f8782[_0x7ecf('0x15')][_0x7ecf('0x16')]()==_0x22f9b8['paramsForEach'])return _0x577329[_0x7ecf('0x13')](_0xc4f85,_0x39d595,{'resource':_0x4f8782,'db':_0x2b7d51},_0x22f9b8);}else{_0x577329['generateFile'](_0xc4f85,_0x39d595,{'resource':_0x4f8782,'db':_0x2b7d51},_0x22f9b8);}}}}};var getGenFiles=function(_0x126cf5){var _0x542f54=require(_0x7ecf('0x1'));return _0x542f54(_0x126cf5,{'nodir':!![]})[_0x7ecf('0x21')](_0xa0bc97=>{let _0x12b645=fs[_0x7ecf('0x22')](_0xa0bc97[_0x7ecf('0x0')],_0x7ecf('0x23'));let _0x42a9d9=path[_0x7ecf('0x24')](_0x126cf5,_0xa0bc97[_0x7ecf('0x0')]);if(_0x42a9d9[_0x7ecf('0x25')](-0x4)=='.hbs'){_0x42a9d9=_0x42a9d9[_0x7ecf('0x25')](0x0,_0x42a9d9[_0x7ecf('0x26')]-0x4);}if(_0x42a9d9['substr'](-0x8)=='_SK_EDIT'||_0x42a9d9[_0x7ecf('0x25')](-0x8)==_0x7ecf('0x27')){_0x42a9d9=_0x42a9d9[_0x7ecf('0x25')](0x0,_0x42a9d9[_0x7ecf('0x26')]-0x8);return null;}let _0x23221a=getProperties(_0x12b645,_0x42a9d9,_0x126cf5);_0x23221a[_0x7ecf('0xf')]=_0x42a9d9;return _0x23221a;})[_0x7ecf('0x28')](_0x212b7f=>_0x212b7f);};var getProperties=(_0x1899e8,_0x36716a,_0x19933b)=>{var _0x1bf598=_0x7ecf('0x29');var _0xb41fd=_0x7ecf('0x2a');let _0x498563=_0x1899e8[_0x7ecf('0x2b')](_0x1bf598);let _0x8cf5bf=_0x1899e8[_0x7ecf('0x2b')](_0xb41fd);if(_0x498563==-0x1||_0x8cf5bf==-0x1){console[_0x7ecf('0x2c')](_0x7ecf('0x2d')+_0x36716a);return{'template':_0x1899e8};}let _0x4e4191=_0x1899e8[_0x7ecf('0x25')](_0x498563+_0x1bf598['length'],_0x8cf5bf-_0x1bf598[_0x7ecf('0x26')]);_0x4e4191=JSON[_0x7ecf('0x2e')](_0x4e4191);let _0x5ac9e8=_0x36716a+_0x7ecf('0x2f');let _0x5b283=_0x19933b+'/'+_0x5ac9e8;if(fs[_0x7ecf('0x30')](_0x5b283)){_0x4e4191[_0x7ecf('0x31')]=fs[_0x7ecf('0x22')](_0x5b283,'utf-8');}let _0x3683e2=_0x36716a+_0x7ecf('0x32');let _0x2af9e7=_0x19933b+'/'+_0x3683e2;if(fs[_0x7ecf('0x30')](_0x2af9e7)){_0x4e4191['templateEdit']=fs[_0x7ecf('0x22')](_0x2af9e7,_0x7ecf('0x33'));}_0x4e4191['template']=_0x1899e8[_0x7ecf('0x25')](_0x8cf5bf+_0xb41fd['length']);return _0x4e4191;};
+var pathWorkspace = "./";
+const pathTemplate = ".skaffolder/template/"
+const fs = require('fs');
+const path = require('path');
+const klawSync = require('klaw-sync')
+const async = require("async");
+const chalk = require('chalk');
+
+exports.pathTemplate = pathTemplate;
+
+exports.generate = function (files, logger, cb) {
+
+    var project = files.project;
+    var modules = files.modules;
+    var resources = files.resources;
+    var dbs = files.dbs;
+    var genFiles = getGenFiles(pathTemplate);
+    var log = [];
+
+    try {
+        logger.info(chalk.green("START GENERATE "));
+        log.push("START GENERATE ");
+
+        var utils = require('./GeneratorUtils.js');
+        utils.init(pathWorkspace, project, modules, resources, dbs);
+
+        async.each(genFiles, function (file, cbFile) {
+            log.push("Elaborate file " + file.name);
+            //logger.info(chalk.green("Elaborate file "), file.name);
+
+            generateFile(file, log, utils, project, modules, resources, dbs)
+
+            cbFile(null);
+        }, function (err) {
+            cb(err, log);
+        })
+
+
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+var generateFile = function (file, log, utils, project, modules, resources, dbs, opt) {
+    if (file.forEachObj == 'oneTime') {
+        return utils.generateFile(log, file, {}, opt);
+
+    } else if (file.forEachObj == 'db') {
+
+        if (opt && opt.paramsForEach) {
+            for (var index in dbs) {
+                if (dbs[index]._id.toString() == opt.paramsForEach) {
+                    var db = resources[index];
+                    db._entity = dbs[index]._entity;
+                    return utils.generateFile(log, file, {
+                        db: db
+                    }, opt);
+                }
+            }
+        } else {
+            for (var index in dbs) {
+                var db = resources[index];
+                db._entity = dbs[index]._entity;
+                utils.generateFile(log, file, {
+                    db: db
+                }, opt);
+            }
+        }
+
+    } else if (file.forEachObj == 'table') {
+
+        for (var index in dbs) {
+            var db = dbs[index];
+            for (var indexEnt in dbs[index]._entity) {
+
+                var entity = dbs[index]._entity[indexEnt];
+
+                if (opt && opt.paramsForEach) {
+                    if (entity._id.toString() == opt.paramsForEach)
+                        return utils.generateFile(log, file, {
+                            entity: entity,
+                            db: db
+                        }, opt);;
+                } else {
+                    utils.generateFile(log, file, {
+                        entity: entity,
+                        db: db
+                    }, opt);
+                }
+            }
+        }
+
+    } else if (file.forEachObj == 'module') {
+        for (var index in modules) {
+
+            var mod = modules[index];
+            var moduleLink = {
+                url: ""
+            };
+            var templateName = "";
+            var templateResourceName = "";
+            var linkUrl = "";
+            var crudResource = "";
+
+            if (mod.template) {
+                var typeLink = "";
+
+                //TROVA RISORSA CRUD
+                for (dbId in resources) {
+                    var resourcesForDb = resources[dbId]._resources;
+                    for (resId in resourcesForDb) {
+                        var resource = resourcesForDb[resId];
+                        if (mod._template_resource.toString() == resource._id) {
+                            crudResource = resource;
+                        }
+                    }
+                }
+
+                //TROVA LINK MODULO
+                for (modId in modules) {
+                    var module = modules[modId];
+                    if (module.template == "List_Crud" &&
+                        mod._template_resource &&
+                        module._template_resource &&
+                        module._template_resource.toString() == mod._template_resource.toString()) {
+
+                        moduleLink = modules[modId];
+                    }
+
+                }
+
+            }
+
+            if (opt && opt.paramsForEach) {
+                if (mod._id.toString() == opt.paramsForEach) {
+                    return utils.generateFile(log, file, {
+                        module: mod,
+                        crudResource: crudResource,
+                        linkUrl: moduleLink.url.replace('{id}', '') + "/"
+                    }, opt);
+                }
+            } else {
+                utils.generateFile(log, file, {
+                    module: mod,
+                    crudResource: crudResource,
+                    linkUrl: moduleLink.url.replace('{id}', '') + "/"
+                }, opt);
+            }
+        }
+    } else if (file.forEachObj == 'resource') {
+        for (var index in resources) {
+            var db = resources[index];
+            for (var indexRes in resources[index]._resources) {
+                var resource = resources[index]._resources[indexRes];
+
+                //console.log(resource._entity._attrs);
+                if (opt && opt.paramsForEach) {
+                    if (resource._id.toString() == opt.paramsForEach)
+                        return utils.generateFile(log, file, {
+                            resource: resource,
+                            db: db
+                        }, opt);
+                } else {
+                    utils.generateFile(log, file, {
+                        resource,
+                        db: db
+                    }, opt);
+                }
+            }
+        }
+    }
+}
+
+// Convert folder file hbs to generator files db
+var getGenFiles = function (pathTemplate) {
+    var klawSync = require('klaw-sync')
+
+    //console.log("-----" + pathTemplate);
+    return klawSync(pathTemplate, {
+        nodir: true
+    }).map(file => {
+        let content = fs.readFileSync(file.path, "utf8");
+        let nameFileTemplate = path.relative(pathTemplate, file.path);
+
+        // Remove extension
+        if (nameFileTemplate.substr(-4) == ".hbs") {
+            nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 4);
+        }
+
+        // CHECK LIST EDIT FILE
+        if (nameFileTemplate.substr(-8) == "_SK_EDIT" || nameFileTemplate.substr(-8) == "_SK_LIST") {
+            nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 8);
+            return null;
+        }
+
+        // get properties
+        let genFile = getProperties(content, nameFileTemplate, pathTemplate);
+        genFile.name = nameFileTemplate;
+
+        return genFile;
+    }).filter(file => file);
+}
+
+var getProperties = (content, nameFileTemplate, pathTemplate) => {
+
+    // get properties
+    var start = "**** PROPERTIES SKAFFOLDER ****";
+    var end = '**** END PROPERTIES SKAFFOLDER ****';
+    let startPropr = content.indexOf(start);
+    let endPropr = content.indexOf(end);
+
+    if (startPropr == -1 || endPropr == -1) {
+        console.warn("Properties Skaffoler not found in file " + nameFileTemplate);
+        return {
+            template: content
+        }
+    }
+
+    let properties = content.substr(startPropr + start.length, endPropr - start.length);
+    properties = JSON.parse(properties);
+
+    // search list edit template
+    let nameTemplateList = nameFileTemplate + "_SK_LIST.hbs";
+    let fileNameList = pathTemplate + "/" + nameTemplateList;
+    if (fs.existsSync(fileNameList)) {
+        properties.templateList = fs.readFileSync(fileNameList, "utf-8");
+    }
+
+    let nameTemplateEdit = nameFileTemplate + "_SK_EDIT.hbs";
+    let fileNameEdit = pathTemplate + "/" + nameTemplateEdit;
+    if (fs.existsSync(fileNameEdit)) {
+        properties.templateEdit = fs.readFileSync(fileNameEdit, "utf-8");
+    }
+
+    // set template
+    properties.template = content.substr(endPropr + end.length);
+
+    if (properties.template.charAt(0) == '\r')
+        properties.template = properties.template.substr(1);
+
+    if (properties.template.charAt(0) == '\n')
+        properties.template = properties.template.substr(1);
+    
+    return properties;
+}
