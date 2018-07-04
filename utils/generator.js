@@ -13,6 +13,7 @@ exports.importGenerator = function (idProj, idGen, cb) {
 
         files.filter(file => {
             let path = generatorBean.pathTemplate + file.name;
+            path = path.replace(/{{#([^}]+)}}{{\/([^}]+)}}/g, "{{$1}}");
             mkdirp.sync(path.substr(0, path.lastIndexOf('/')));
 
             if (file.templateList) {
