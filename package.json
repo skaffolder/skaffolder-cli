@@ -1,6 +1,6 @@
 {
   "name": "skaffolder-cli",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "CLI to interact with Skaffolder, you can generate boilerplate in different programming languages and customize your own scaffolding.",
   "homepage": "https://www.skaffolder.com",
   "author": {
