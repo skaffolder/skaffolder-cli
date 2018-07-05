@@ -13,16 +13,19 @@ const generateCmd = require('./lib/generate');
 const getProjectUrlCmd = require('./lib/getProjectUrl');
 
 prog
-    .version('1.0.26')
+    .version('1.0.27')
 
     // start
     .command('login', 'Log in into Skaffolder')
     .action(loginCmd)
+    .command('logout', 'Log out from Skaffolder\n\n---- Create Project ----\n')
+    .action(logoutCmd)
+
     .command('new', 'Create a new Skaffolder project')
     .action(createCmd)
     .command('open', 'Open a Skaffolder project')
     .action(openCmd)
-    .command('generate', 'Generate Skaffolder Template')
+    .command('generate', 'Generate Skaffolder Template\n\n---- Manage Project ----\n')
     .action(generateCmd)
 
     // manage
@@ -32,17 +35,15 @@ prog
     .command('add model', 'Create a new model in Skaffolder project')
     .argument('[name]', 'Name of the model', null, "")
     .action(createModelCmd)
-    .command('add api', 'Create a new api in Skaffolder project')
-    .argument('[model name]', 'Name of the api model', null, "")
+    .command('add api', 'Create a new api in Skaffolder project\n\n---- Utils ----\n')
     .action(createApiCmd)
 
     // utils
+
     .command('get project url', 'Get Skaffolder project URL')
     .action(getProjectUrlCmd)
     .command('reload generator', 'Log out from Skaffolder')
     .action(reloadGeneratorCmd)
-    .command('logout', 'Log out from Skaffolder')
-    .action(logoutCmd);
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
 prog.parse(process.argv);
