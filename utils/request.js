@@ -25,9 +25,14 @@ module.exports = function (options, cb) {
                 message: "Not Authoized"
             };
             console.error(chalk.red(error.message));
-        } else if (response.statusCode == 401 || response.statusCode == 405) {
+        } else if (response.statusCode == 401) {
             error = {
                 message: "You should loging with command: 'sk login'"
+            };
+            console.error(chalk.red(error.message));
+        } else if (response.statusCode == 405) {
+            error = {
+                message: "User not allowed\r\nYou should loging with command: 'sk login'"
             };
             console.error(chalk.red(error.message));
         } else if (response.statusCode == 403) {
