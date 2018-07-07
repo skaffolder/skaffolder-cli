@@ -13,7 +13,7 @@ const generateCmd = require('./lib/generate');
 const getProjectUrlCmd = require('./lib/getProjectUrl');
 
 prog
-    .version('1.0.28')
+    .version('1.0.29')
 
     // start
     .command('login', 'Log in into Skaffolder')
