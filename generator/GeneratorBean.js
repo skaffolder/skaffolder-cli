@@ -1,1 +1,249 @@
-var _0x655e=['filter','****\x20PROPERTIES\x20SKAFFOLDER\x20****','indexOf','warn','Properties\x20Skaffoler\x20not\x20found\x20in\x20file\x20','_SK_LIST.hbs','utf-8','_SK_EDIT.hbs','existsSync','templateEdit','charAt','push','shift','.skaffolder/template/','0x0','0x1','0x2','0x3','0x5','0x6','0x7','0x8','0x9','0xa','green','0xb','0xc','./GeneratorUtils.js','0xe','0xf','0x10','0x12','0x14','0x15','0x16','0x17','0x18','0x19','0x1a','0x1d','0x1e','0x1c','_template_resource','0x1f','0x20','0x21','resource','0x22','0x23','utf8','substr','0x25','0x26','0x27','0x28','0x2a','****\x20END\x20PROPERTIES\x20SKAFFOLDER\x20****','0x2b','0x2d','0x2e','parse','0x30','0x31','0x32','0x33','0x35','template','path','klaw-sync','async','chalk','pathTemplate','modules','resources','info','START\x20GENERATE\x20','init','each','Elaborate\x20file\x20','name','error','forEachObj','oneTime','generateFile','toString','_entity','table','paramsForEach','module','_resources','_id','List_Crud','url','replace','{id}','map','readFileSync','_SK_EDIT'];(function(_0x4cab1d,_0x11bebb){var _0x1ccd66=function(_0x3d3a07){while(--_0x3d3a07){_0x4cab1d['push'](_0x4cab1d['shift']());}};_0x1ccd66(++_0x11bebb);}(_0x655e,0x1cb));var _0xe655=function(_0x4901b0,_0x4e3a9e){_0x4901b0=_0x4901b0-0x0;var _0x7d97a8=_0x655e[_0x4901b0];return _0x7d97a8;};var _0x58df=[_0xe655('0x0'),_0xe655('0x1'),_0xe655('0x2'),_0xe655('0x3'),_0xe655('0x4'),'generate','project',_0xe655('0x5'),_0xe655('0x6'),'dbs',_0xe655('0x7'),_0xe655('0x8'),'push',_0xe655('0x9'),_0xe655('0xa'),_0xe655('0xb'),_0xe655('0xc'),_0xe655('0xd'),_0xe655('0xe'),_0xe655('0xf'),_0xe655('0x10'),_0xe655('0x11'),_0xe655('0x12'),_0xe655('0x13'),_0xe655('0x14'),_0xe655('0x15'),'template',_0xe655('0x16'),'_template_resource',_0xe655('0x17'),_0xe655('0x18'),_0xe655('0x19'),_0xe655('0x1a'),_0xe655('0x1b'),_0xe655('0x1c'),_0xe655('0x1d'),'relative','.hbs','substr',_0xe655('0x1e'),'_SK_LIST',_0xe655('0x1f'),_0xe655('0x20'),_0xe655('0x21'),_0xe655('0x22'),_0xe655('0x23'),'length',_0xe655('0x24'),'templateList',_0xe655('0x25'),_0xe655('0x26'),_0xe655('0x27'),_0xe655('0x28'),_0xe655('0x29')];(function(_0x55f1d2,_0x33c1e1){var _0x23eaeb=function(_0x3f8832){while(--_0x3f8832){_0x55f1d2[_0xe655('0x2a')](_0x55f1d2[_0xe655('0x2b')]());}};_0x23eaeb(++_0x33c1e1);}(_0x58df,0xd8));var _0xf58d=function(_0x50ea96,_0x599d5a){_0x50ea96=_0x50ea96-0x0;var _0x1a90c4=_0x58df[_0x50ea96];return _0x1a90c4;};var pathWorkspace='./';const pathTemplate=_0xe655('0x2c');const fs=require('fs');const path=require(_0xf58d(_0xe655('0x2d')));const klawSync=require(_0xf58d(_0xe655('0x2e')));const async=require(_0xf58d(_0xe655('0x2f')));const chalk=require(_0xf58d(_0xe655('0x30')));exports[_0xf58d('0x4')]=pathTemplate;exports[_0xf58d(_0xe655('0x31'))]=function(_0x34088d,_0x1a6e17,_0x10ccfb){var _0x4548c9=_0x34088d[_0xf58d(_0xe655('0x32'))];var _0x2861fa=_0x34088d[_0xf58d(_0xe655('0x33'))];var _0x45fe04=_0x34088d[_0xf58d(_0xe655('0x34'))];var _0x32467a=_0x34088d[_0xf58d(_0xe655('0x35'))];var _0x28f56d=getGenFiles(pathTemplate);var _0x40da4d=[];try{_0x1a6e17[_0xf58d(_0xe655('0x36'))](chalk[_0xe655('0x37')](_0xf58d(_0xe655('0x38'))));_0x40da4d[_0xf58d(_0xe655('0x39'))](_0xf58d(_0xe655('0x38')));var _0x5a1389=require(_0xe655('0x3a'));_0x5a1389[_0xf58d('0xd')](pathWorkspace,_0x4548c9,_0x2861fa,_0x45fe04,_0x32467a);async[_0xf58d(_0xe655('0x3b'))](_0x28f56d,function(_0x3d5a01,_0x5b9ce2){_0x40da4d[_0xf58d(_0xe655('0x39'))](_0xf58d(_0xe655('0x3c'))+_0x3d5a01[_0xf58d(_0xe655('0x3d'))]);generateFile(_0x3d5a01,_0x40da4d,_0x5a1389,_0x4548c9,_0x2861fa,_0x45fe04,_0x32467a);_0x5b9ce2(null);},function(_0x5441e6){_0x10ccfb(_0x5441e6,_0x40da4d);});}catch(_0x1f86ff){console[_0xf58d('0x11')](_0x1f86ff);}};var generateFile=function(_0x50228d,_0x294ee4,_0x520438,_0x9c5595,_0x3cb956,_0x48f3cf,_0x3ff531,_0x319e04){if(_0x50228d[_0xf58d(_0xe655('0x3e'))]==_0xf58d('0x13')){return _0x520438[_0xf58d(_0xe655('0x3f'))](_0x294ee4,_0x50228d,{},_0x319e04);}else if(_0x50228d[_0xf58d('0x12')]=='db'){if(_0x319e04&&_0x319e04[_0xe655('0x14')]){for(var _0x9dd8c3 in _0x3ff531){if(_0x3ff531[_0x9dd8c3][_0xe655('0x17')][_0xf58d(_0xe655('0x40'))]()==_0x319e04[_0xe655('0x14')]){var _0x1df323=_0x48f3cf[_0x9dd8c3];_0x1df323[_0xf58d(_0xe655('0x41'))]=_0x3ff531[_0x9dd8c3][_0xf58d(_0xe655('0x41'))];return _0x520438[_0xf58d(_0xe655('0x3f'))](_0x294ee4,_0x50228d,{'db':_0x1df323},_0x319e04);}}}else{for(var _0x9dd8c3 in _0x3ff531){var _0x1df323=_0x48f3cf[_0x9dd8c3];_0x1df323[_0xe655('0x12')]=_0x3ff531[_0x9dd8c3][_0xf58d(_0xe655('0x41'))];_0x520438[_0xf58d('0x14')](_0x294ee4,_0x50228d,{'db':_0x1df323},_0x319e04);}}}else if(_0x50228d[_0xf58d(_0xe655('0x3e'))]==_0xf58d(_0xe655('0x42'))){for(var _0x9dd8c3 in _0x3ff531){var _0x1df323=_0x3ff531[_0x9dd8c3];for(var _0x48831d in _0x3ff531[_0x9dd8c3][_0xe655('0x12')]){var _0xb8a276=_0x3ff531[_0x9dd8c3][_0xe655('0x12')][_0x48831d];if(_0x319e04&&_0x319e04[_0xf58d(_0xe655('0x43'))]){if(_0xb8a276[_0xe655('0x17')][_0xe655('0x11')]()==_0x319e04[_0xf58d(_0xe655('0x43'))])return _0x520438[_0xf58d('0x14')](_0x294ee4,_0x50228d,{'entity':_0xb8a276,'db':_0x1df323},_0x319e04);;}else{_0x520438[_0xf58d(_0xe655('0x3f'))](_0x294ee4,_0x50228d,{'entity':_0xb8a276,'db':_0x1df323},_0x319e04);}}}}else if(_0x50228d[_0xf58d('0x12')]==_0xf58d(_0xe655('0x44'))){for(var _0x9dd8c3 in _0x3cb956){var _0x301189=_0x3cb956[_0x9dd8c3];var _0x4647c2={'url':''};var _0x273efa='';var _0x2e9384='';var _0x41a430='';var _0x529566='';if(_0x301189[_0xf58d(_0xe655('0x45'))]){var _0x23a618='';for(dbId in _0x48f3cf){var _0x21103b=_0x48f3cf[dbId][_0xf58d('0x1b')];for(resId in _0x21103b){var _0x5713bd=_0x21103b[resId];if(_0x301189[_0xf58d('0x1c')][_0xf58d(_0xe655('0x40'))]()==_0x5713bd[_0xf58d(_0xe655('0x46'))]){_0x529566=_0x5713bd;}}}for(modId in _0x3cb956){var _0x4a3d07=_0x3cb956[modId];if(_0x4a3d07[_0xf58d(_0xe655('0x45'))]==_0xf58d(_0xe655('0x47'))&&_0x301189[_0xf58d(_0xe655('0x48'))]&&_0x4a3d07[_0xe655('0x49')]&&_0x4a3d07[_0xf58d(_0xe655('0x48'))]['toString']()==_0x301189[_0xe655('0x49')][_0xf58d(_0xe655('0x40'))]()){_0x4647c2=_0x3cb956[modId];}}}if(_0x319e04&&_0x319e04[_0xf58d(_0xe655('0x43'))]){if(_0x301189[_0xe655('0x17')][_0xf58d(_0xe655('0x40'))]()==_0x319e04[_0xe655('0x14')]){return _0x520438[_0xf58d(_0xe655('0x3f'))](_0x294ee4,_0x50228d,{'module':_0x301189,'crudResource':_0x529566,'linkUrl':_0x4647c2[_0xf58d(_0xe655('0x4a'))][_0xf58d(_0xe655('0x4b'))](_0xf58d(_0xe655('0x4c')),'')+'/'},_0x319e04);}}else{_0x520438[_0xf58d(_0xe655('0x3f'))](_0x294ee4,_0x50228d,{'module':_0x301189,'crudResource':_0x529566,'linkUrl':_0x4647c2[_0xe655('0x19')][_0xf58d('0x20')](_0xe655('0x1b'),'')+'/'},_0x319e04);}}}else if(_0x50228d[_0xf58d(_0xe655('0x3e'))]==_0xe655('0x4d')){for(var _0x9dd8c3 in _0x48f3cf){var _0x1df323=_0x48f3cf[_0x9dd8c3];for(var _0x590167 in _0x48f3cf[_0x9dd8c3][_0xe655('0x16')]){var _0x5713bd=_0x48f3cf[_0x9dd8c3][_0xe655('0x16')][_0x590167];if(_0x319e04&&_0x319e04[_0xe655('0x14')]){if(_0x5713bd[_0xf58d('0x1d')][_0xe655('0x11')]()==_0x319e04[_0xf58d(_0xe655('0x43'))])return _0x520438[_0xe655('0x10')](_0x294ee4,_0x50228d,{'resource':_0x5713bd,'db':_0x1df323},_0x319e04);}else{_0x520438[_0xf58d(_0xe655('0x3f'))](_0x294ee4,_0x50228d,{'resource':_0x5713bd,'db':_0x1df323},_0x319e04);}}}}};var getGenFiles=function(_0x3a9199){var _0x58aab0=require(_0xf58d(_0xe655('0x2e')));return _0x58aab0(_0x3a9199,{'nodir':!![]})[_0xf58d(_0xe655('0x4e'))](_0x336662=>{let _0x28debf=fs[_0xf58d(_0xe655('0x4f'))](_0x336662['path'],_0xe655('0x50'));let _0x3c8556=path[_0xf58d('0x24')](_0x3a9199,_0x336662[_0xf58d(_0xe655('0x2d'))]);if(_0x3c8556[_0xe655('0x51')](-0x4)==_0xf58d(_0xe655('0x52'))){_0x3c8556=_0x3c8556[_0xf58d('0x26')](0x0,_0x3c8556['length']-0x4);}if(_0x3c8556[_0xf58d(_0xe655('0x53'))](-0x8)==_0xf58d(_0xe655('0x54'))||_0x3c8556[_0xf58d(_0xe655('0x53'))](-0x8)==_0xf58d(_0xe655('0x55'))){_0x3c8556=_0x3c8556[_0xe655('0x51')](0x0,_0x3c8556['length']-0x8);return null;}let _0x222bfd=getProperties(_0x28debf,_0x3c8556,_0x3a9199);_0x222bfd[_0xf58d(_0xe655('0x3d'))]=_0x3c8556;return _0x222bfd;})[_0xf58d('0x29')](_0x52ae4b=>_0x52ae4b);};var getProperties=(_0x5e4573,_0x472704,_0x8a37cc)=>{var _0x4a495c=_0xf58d(_0xe655('0x56'));var _0x44111b=_0xe655('0x57');let _0x180369=_0x5e4573[_0xf58d(_0xe655('0x58'))](_0x4a495c);let _0x1fd1c8=_0x5e4573[_0xf58d(_0xe655('0x58'))](_0x44111b);if(_0x180369==-0x1||_0x1fd1c8==-0x1){console[_0xf58d('0x2c')](_0xf58d(_0xe655('0x59'))+_0x472704);return{'template':_0x5e4573};}let _0x57573e=_0x5e4573[_0xf58d(_0xe655('0x53'))](_0x180369+_0x4a495c[_0xf58d(_0xe655('0x5a'))],_0x1fd1c8-_0x4a495c[_0xf58d(_0xe655('0x5a'))]);_0x57573e=JSON[_0xe655('0x5b')](_0x57573e);let _0x1d15b5=_0x472704+_0xf58d('0x2f');let _0x4caa16=_0x8a37cc+'/'+_0x1d15b5;if(fs[_0xe655('0x27')](_0x4caa16)){_0x57573e[_0xf58d(_0xe655('0x5c'))]=fs[_0xf58d(_0xe655('0x4f'))](_0x4caa16,_0xf58d(_0xe655('0x5d')));}let _0x1042f4=_0x472704+_0xf58d(_0xe655('0x5e'));let _0x14675a=_0x8a37cc+'/'+_0x1042f4;if(fs[_0xf58d(_0xe655('0x5f'))](_0x14675a)){_0x57573e[_0xf58d('0x34')]=fs[_0xf58d(_0xe655('0x4f'))](_0x14675a,_0xf58d(_0xe655('0x5d')));}_0x57573e[_0xf58d('0x1a')]=_0x5e4573[_0xf58d('0x26')](_0x1fd1c8+_0x44111b['length']);if(_0x57573e[_0xf58d(_0xe655('0x45'))][_0xf58d(_0xe655('0x60'))](0x0)=='\x0d')_0x57573e[_0xe655('0x61')]=_0x57573e[_0xf58d('0x1a')][_0xf58d(_0xe655('0x53'))](0x1);if(_0x57573e[_0xf58d(_0xe655('0x45'))][_0xe655('0x29')](0x0)=='\x0a')_0x57573e[_0xf58d('0x1a')]=_0x57573e[_0xf58d(_0xe655('0x45'))][_0xe655('0x51')](0x1);return _0x57573e;};
+var pathWorkspace = "./";
+const pathTemplate = ".skaffolder/template/"
+const fs = require('fs');
+const path = require('path');
+const klawSync = require('klaw-sync')
+const async = require("async");
+const chalk = require('chalk');
+
+exports.pathTemplate = pathTemplate;
+
+exports.generate = function (files, logger, cb) {
+
+    var project = files.project;
+    var modules = files.modules;
+    var resources = files.resources;
+    var dbs = files.dbs;
+    var genFiles = getGenFiles(pathTemplate);
+    var log = [];
+
+    try {
+        logger.info(chalk.green("START GENERATE "));
+        log.push("START GENERATE ");
+
+        var utils = require('./GeneratorUtils.js');
+        utils.init(pathWorkspace, project, modules, resources, dbs);
+
+        async.each(genFiles, function (file, cbFile) {
+            log.push("Elaborate file " + file.name);
+            //logger.info(chalk.green("Elaborate file "), file.name);
+
+            generateFile(file, log, utils, project, modules, resources, dbs)
+
+            cbFile(null);
+        }, function (err) {
+            cb(err, log);
+        })
+
+
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+var generateFile = function (file, log, utils, project, modules, resources, dbs, opt) {
+    if (file.forEachObj == 'oneTime') {
+        return utils.generateFile(log, file, {}, opt);
+
+    } else if (file.forEachObj == 'db') {
+
+        if (opt && opt.paramsForEach) {
+            for (var index in dbs) {
+                if (dbs[index]._id.toString() == opt.paramsForEach) {
+                    var db = resources[index];
+                    db._entity = dbs[index]._entity;
+                    return utils.generateFile(log, file, {
+                        db: db
+                    }, opt);
+                }
+            }
+        } else {
+            for (var index in dbs) {
+                var db = resources[index];
+                db._entity = dbs[index]._entity;
+                utils.generateFile(log, file, {
+                    db: db
+                }, opt);
+            }
+        }
+
+    } else if (file.forEachObj == 'table') {
+
+        for (var index in dbs) {
+            var db = dbs[index];
+            for (var indexEnt in dbs[index]._entity) {
+
+                var entity = dbs[index]._entity[indexEnt];
+
+                if (opt && opt.paramsForEach) {
+                    if (entity._id.toString() == opt.paramsForEach)
+                        return utils.generateFile(log, file, {
+                            entity: entity,
+                            db: db
+                        }, opt);;
+                } else {
+                    utils.generateFile(log, file, {
+                        entity: entity,
+                        db: db
+                    }, opt);
+                }
+            }
+        }
+
+    } else if (file.forEachObj == 'module') {
+        for (var index in modules) {
+
+            var mod = modules[index];
+            var moduleLink = {
+                url: ""
+            };
+            var templateName = "";
+            var templateResourceName = "";
+            var linkUrl = "";
+            var crudResource = "";
+
+            if (mod.template) {
+                var typeLink = "";
+
+                //TROVA RISORSA CRUD
+                for (dbId in resources) {
+                    var resourcesForDb = resources[dbId]._resources;
+                    for (resId in resourcesForDb) {
+                        var resource = resourcesForDb[resId];
+                        if (mod._template_resource.toString() == resource._id) {
+                            crudResource = resource;
+                        }
+                    }
+                }
+
+                //TROVA LINK MODULO
+                for (modId in modules) {
+                    var module = modules[modId];
+                    if (module.template == "List_Crud" &&
+                        mod._template_resource &&
+                        module._template_resource &&
+                        module._template_resource.toString() == mod._template_resource.toString()) {
+
+                        moduleLink = modules[modId];
+                    }
+
+                }
+
+            }
+
+            if (opt && opt.paramsForEach) {
+                if (mod._id.toString() == opt.paramsForEach) {
+                    return utils.generateFile(log, file, {
+                        module: mod,
+                        crudResource: crudResource,
+                        linkUrl: moduleLink.url.replace('{id}', '') + "/"
+                    }, opt);
+                }
+            } else {
+                utils.generateFile(log, file, {
+                    module: mod,
+                    crudResource: crudResource,
+                    linkUrl: moduleLink.url.replace('{id}', '') + "/"
+                }, opt);
+            }
+        }
+    } else if (file.forEachObj == 'resource') {
+        for (var index in resources) {
+            var db = resources[index];
+            for (var indexRes in resources[index]._resources) {
+                var resource = resources[index]._resources[indexRes];
+
+                //console.log(resource._entity._attrs);
+                if (opt && opt.paramsForEach) {
+                    if (resource._id.toString() == opt.paramsForEach)
+                        return utils.generateFile(log, file, {
+                            resource: resource,
+                            db: db
+                        }, opt);
+                } else {
+                    utils.generateFile(log, file, {
+                        resource,
+                        db: db
+                    }, opt);
+                }
+            }
+        }
+    }
+}
+
+// Convert folder file hbs to generator files db
+var getGenFiles = function (pathTemplate) {
+    var klawSync = require('klaw-sync')
+
+    //console.log("-----" + pathTemplate);
+    return klawSync(pathTemplate, {
+        nodir: true
+    }).map(file => {
+        let content = fs.readFileSync(file.path, "utf8");
+        let nameFileTemplate = path.relative(pathTemplate, file.path);
+
+        // Remove extension
+        if (nameFileTemplate.substr(-4) == ".hbs") {
+            nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 4);
+        }
+
+        // CHECK LIST EDIT FILE
+        if (nameFileTemplate.substr(-8) == "_SK_EDIT" || nameFileTemplate.substr(-8) == "_SK_LIST") {
+            nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 8);
+            return null;
+        }
+
+        // get properties
+        let genFile = getProperties(content, nameFileTemplate, pathTemplate);
+        genFile.name = nameFileTemplate;
+
+        return genFile;
+    }).filter(file => file);
+}
+
+var getProperties = (content, nameFileTemplate, pathTemplate) => {
+
+    // get properties
+    var start = "**** PROPERTIES SKAFFOLDER ****";
+    var end = '**** END PROPERTIES SKAFFOLDER ****';
+    let startPropr = content.indexOf(start);
+    let endPropr = content.indexOf(end);
+
+    if (startPropr == -1 || endPropr == -1) {
+        console.warn(chalk.yellow("WARN:") + " Properties Skaffoler not found in file " + nameFileTemplate);
+        return {
+            template: content,
+            forEachObj: "oneTime"
+        }
+    }
+
+    let properties = content.substr(startPropr + start.length, endPropr - start.length);
+    properties = JSON.parse(properties);
+
+    // search list edit template
+    let nameTemplateList = nameFileTemplate + "_SK_LIST.hbs";
+    let fileNameList = pathTemplate + "/" + nameTemplateList;
+    if (fs.existsSync(fileNameList)) {
+        properties.templateList = fs.readFileSync(fileNameList, "utf-8");
+    }
+
+    let nameTemplateEdit = nameFileTemplate + "_SK_EDIT.hbs";
+    let fileNameEdit = pathTemplate + "/" + nameTemplateEdit;
+    if (fs.existsSync(fileNameEdit)) {
+        properties.templateEdit = fs.readFileSync(fileNameEdit, "utf-8");
+    }
+
+    // set template
+    properties.template = content.substr(endPropr + end.length);
+
+    if (properties.template.charAt(0) == '\r')
+        properties.template = properties.template.substr(1);
+
+    if (properties.template.charAt(0) == '\n')
+        properties.template = properties.template.substr(1);
+
+    if (!properties.forEachObj)
+        properties.forEachObj = "oneTime"
+
+    return properties;
+}
