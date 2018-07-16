@@ -113,11 +113,130 @@ You can run `sk get project url` and browse the provided link:
     https://app.skaffolder.com/#!/projects/my-project-id/design/models
 ```
 
-### Edit template
+## Create a custom template generator
 
 In you current path a folder `.skaffolder` was 	created.
 In `.skaffolder/template` you can find your template files editable, they respect the <a href="https://handlebarsjs.com" target="_blank">Handlebar sintax</a> and you can use also these additional <a href="https://www.npmjs.com/package/handlebars-helpers" target="_blank">helpers functions</a>.
 
+
+You can create a new template from any boilerplate.
+Put in your Skaffolder project folder your boilerplate files and run
+
+```bash
+[root@skaffolder ~]$ sk generator import
+```
+
+With this command all files in Skaffolder project folder will be imported in `.skaffolder/template` with handlebar sintax and default Skaffolder properties.
+
+###Skaffolder Properties
+
+Each template file in `.skaffolder/template` folder has `.hbs` extension and first lines of file can be (optional) Skaffodler properties.
+This section is delimitated by `**** PROPERTIES SKAFFOLDER ****` token and contains JSON formatted properties.
+
+
+<table>
+    <tr>
+        <th>Properties</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>forEachObj</td>
+        <td>String</td>
+        <td>Generate this file for each selected value:
+            <ul>
+                <li>oneTime</li>
+                <li>db</li>
+                <li>table</li>
+                <li>module</li>
+                <li>resource</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>overwrite</td>
+        <td>Boolean</td>
+        <td>If true overwites existing files</td>
+    </td>
+    <tr>
+        <td>partials</td>
+        <td>
+            Array of Object
+        </td>
+        <td>
+            Object with:
+            <ul>
+                <li>
+                    <b>name</b>
+                    <div>
+                        Name of partial
+                    </div>
+                </li>
+                <li>
+                    <b>template</b>
+                    <div>
+                        Content to insert in partial section
+                    </div>
+                </li>
+                <li>
+                    <b>tagFrom</b>
+                    <div>
+                        Start delimiter of partial
+                    </div>
+                </li>
+                <li>
+                    <b>tagTo</b> 
+                    <div>
+                        End delimiter of partial
+                    </div>
+                </li>
+            </ul>
+        </td>
+    </td>
+</table>
+
+
+####Example:
+
+You can create the file `.skaffolder/template/{{capitalize entity.name}}Dao.java.hbs` with this content and run `sk generate`
+
+```java
+**** PROPERTIES SKAFFOLDER ****
+{
+    "forEachObj": "table",
+    "overwrite": true,
+    "_partials": [
+        {
+            "name": "Description",
+            "template": "// Partial comment",
+            "tagFrom": "// START - PARTIAL",
+            "tagTo": "// END - PARTIAL"
+        }
+    ]
+}
+**** END PROPERTIES SKAFFOLDER ****
+// This is my file content
+// File name: {{capitalize entity.name}}Dao.java.hbs
+
+// START - PARTIAL
+// END - PARTIAL
+public class {{capitalize entity.name}} {
+	
+    private Long _id;
+	
+    // Attributes
+    {{#each entity._attrs}}
+    private String {{name}};
+    {{/each}}
+}
+
+/** 
+    All Handlebars parameters:
+
+{{json .}}
+
+**/
+```
 
 # More documentation
 >You can find <a href="https://skaffolder.com/#/documentation" target="_blank">additional documentation here</a>
