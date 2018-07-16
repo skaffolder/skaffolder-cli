@@ -9,6 +9,7 @@ const loginCmd = require('./lib/login');
 const openCmd = require('./lib/open');
 const logoutCmd = require('./lib/logout');
 const reloadGeneratorCmd = require('./lib/reloadGenerator');
+const importGeneratorCmd = require('./lib/importGenerator');
 const generateCmd = require('./lib/generate');
 const getProjectUrlCmd = require('./lib/getProjectUrl');
 
@@ -35,15 +36,18 @@ prog
     .command('add model', 'Create a new model in Skaffolder project')
     .argument('[name]', 'Name of the model', null, "")
     .action(createModelCmd)
-    .command('add api', 'Create a new api in Skaffolder project\n\n---- Utils ----\n')
+    .command('add api', 'Create a new api in Skaffolder project\n\n---- Generator ----\n')
     .action(createApiCmd)
 
-    // utils
+    // generator
+    .command('generator load', 'Load generator files from Skaffolder database')
+    .action(reloadGeneratorCmd)
+    .command('generator import', 'Import generator files from current folder\n\n---- Utils ----\n')
+    .action(importGeneratorCmd)
 
+    // utils
     .command('get project url', 'Get Skaffolder project URL')
     .action(getProjectUrlCmd)
-    .command('reload generator', 'Log out from Skaffolder')
-    .action(reloadGeneratorCmd)
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
 prog.parse(process.argv);

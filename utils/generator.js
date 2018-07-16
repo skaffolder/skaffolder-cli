@@ -1,10 +1,47 @@
 var projectService = require('../service/projectService');
 var generatorBean = require('../generator/generatorBean');
-var fs = require('fs');
+var fs = require('fs-extra');
 var mkdirp = require('mkdirp');
 var chalk = require('chalk');
+var path = require('path');
+var klawSync = require('klaw-sync');
+var prependFile = require('prepend-file');
 
-exports.importGenerator = function (idProj, idGen, cb) {
+exports.importGenerator = function () {
+
+    let templateFolder = path.normalize('./.skaffolder/template');
+    // clean generator
+    fs.removeSync(templateFolder);
+
+    klawSync(process.cwd(), {
+        filter: function (item) {
+            const basename = path.basename(item.path)
+            let filter = basename[0] !== '.' &&
+                basename !== 'dist' &&
+                basename !== 'bin' &&
+                basename !== 'node_modules'
+            return filter;
+        }
+
+    }).map(file => {
+        if (file.stats.isFile()) {
+            let destPath = path.normalize(templateFolder + '/' + path.relative(process.cwd(), file.path) + ".hbs");
+
+            mkdirp.sync(destPath.substr(0, destPath.lastIndexOf('/')));
+            fs.copyFileSync(file.path, destPath);
+            let header = `**** PROPERTIES SKAFFOLDER ****
+{
+    "forEachObj": "oneTime",
+    "overwrite": false,
+    "_partials": []
+}
+**** END PROPERTIES SKAFFOLDER ****`;
+            prependFile.sync(destPath, header);
+        }
+    });
+}
+
+exports.loadGenerator = function (idProj, idGen, cb) {
 
     projectService.getGeneratorFile(idGen, (err, files) => {
         try {
