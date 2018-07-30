@@ -27,7 +27,7 @@ exports.importGenerator = function () {
         if (file.stats.isFile()) {
             let destPath = path.normalize(templateFolder + '/' + path.relative(process.cwd(), file.path) + ".hbs");
 
-            mkdirp.sync(path.normalize(destPath.substr(0, destPath.lastIndexOf('/'))));
+            mkdirp.sync(path.normalize(destPath.substr(0, destPath.lastIndexOf(path.sep))));
             fs.copyFileSync(file.path, destPath);
             let header = `**** PROPERTIES SKAFFOLDER ****
 {
