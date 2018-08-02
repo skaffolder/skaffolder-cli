@@ -50,6 +50,7 @@
     "handlebars": "^4.0.11",
     "handlebars-group-by": "^1.0.1",
     "handlebars-helpers": "^0.10.0",
+    "isbinaryfile": "^3.0.2",
     "klaw-sync": "^4.0.0",
     "md5": "^2.2.1",
     "mkdirp": "^0.5.1",

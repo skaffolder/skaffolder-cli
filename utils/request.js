@@ -25,32 +25,38 @@ module.exports = function (options, cb) {
                 message: "Not Authoized"
             };
             console.error(chalk.red(error.message));
+            process.exit(0);
         } else if (response.statusCode == 401) {
             error = {
                 message: "You should loging with command: 'sk login'"
             };
             console.error(chalk.red(error.message));
+            process.exit(0);
         } else if (response.statusCode == 405) {
             error = {
                 message: "User not allowed\r\nYou should loging with command: 'sk login'"
             };
             console.error(chalk.red(error.message));
+            process.exit(0);
         } else if (response.statusCode == 403) {
             error = {
                 message: "Nor permitted: " + body.message
             };
             console.error(chalk.red(error.message));
             console.error(chalk.blue("Please visit " + chalk.yellow("https://app.skaffolder.com/#!/upgrade")));
+            process.exit(0);
         } else if (response.statusCode == 404) {
             error = {
                 message: "URL not found"
             };
             console.error(chalk.red(body));
+            process.exit(0);
         } else if (response.statusCode != 200) {
             error = {
                 message: "ERROR " + response.statusCode
             };
             console.error(chalk.red(error.message));
+            process.exit(0);
         }
 
         try {

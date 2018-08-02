@@ -25,18 +25,28 @@ exports.importGenerator = function () {
 
     }).map(file => {
         if (file.stats.isFile()) {
-            let destPath = path.normalize(templateFolder + '/' + path.relative(process.cwd(), file.path) + ".hbs");
+            var isBinaryFile = require("isbinaryfile");
 
-            mkdirp.sync(path.normalize(destPath.substr(0, destPath.lastIndexOf(path.sep))));
-            fs.copyFileSync(file.path, destPath);
-            let header = `**** PROPERTIES SKAFFOLDER ****
+            if (isBinaryFile.sync(file.path)) {
+                // is binary file
+                let destPath = path.normalize(templateFolder + '/' + path.relative(process.cwd(), file.path));
+                mkdirp.sync(path.normalize(destPath.substr(0, destPath.lastIndexOf(path.sep))));
+                fs.copyFileSync(file.path, destPath);
+            } else {
+                // is text file
+                let destPath = path.normalize(templateFolder + '/' + path.relative(process.cwd(), file.path) + ".hbs");
+                mkdirp.sync(path.normalize(destPath.substr(0, destPath.lastIndexOf(path.sep))));
+                fs.copyFileSync(file.path, destPath);
+                let header = `**** PROPERTIES SKAFFOLDER ****
 {
     "forEachObj": "oneTime",
     "overwrite": false,
     "_partials": []
 }
-**** END PROPERTIES SKAFFOLDER ****`;
-            prependFile.sync(destPath, header);
+**** END PROPERTIES SKAFFOLDER ****
+`;
+                prependFile.sync(destPath, header);
+            }
         }
     });
 }
