@@ -13,8 +13,7 @@ const importGeneratorCmd = require('./lib/importGenerator');
 const generateCmd = require('./lib/generate');
 const getProjectUrlCmd = require('./lib/getProjectUrl');
 
-prog
-    .version('1.1.2')
+prog.version('1.1.3')
 
     // start
     .command('login', 'Log in into Skaffolder')
