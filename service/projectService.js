@@ -30,8 +30,9 @@ exports.create = function (name, cb) {
 }
 
 exports.importDb = function (fileContent, cb) {
+    var config = configUtils.getConf();
     request({
-        url: properties.endpoint + "/Project/importDb",
+        url: properties.endpoint + "/Project/" + config.project + "/importDb",
         method: "POST",
         json: {
             fileContent: fileContent,
