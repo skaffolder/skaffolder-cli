@@ -12,6 +12,7 @@ const reloadGeneratorCmd = require('./lib/reloadGenerator');
 const importGeneratorCmd = require('./lib/importGenerator');
 const generateCmd = require('./lib/generate');
 const getProjectUrlCmd = require('./lib/getProjectUrl');
+const importDbCmd = require('./lib/importDb');
 
 prog.version('1.1.3')
 
@@ -47,6 +48,9 @@ prog.version('1.1.3')
     // utils
     .command('get project url', 'Get Skaffolder project URL')
     .action(getProjectUrlCmd)
+    .command('import db', 'Import database entities from Schema Spy XML')
+    .argument('<file>', 'XML file to import', null, null)
+    .action(importDbCmd)
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
 prog.parse(process.argv);

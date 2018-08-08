@@ -29,6 +29,16 @@ exports.create = function (name, cb) {
     }, cb);
 }
 
+exports.importDb = function (fileContent, cb) {
+    request({
+        url: properties.endpoint + "/Project/importDb",
+        method: "POST",
+        json: {
+            fileContent: fileContent,
+        }
+    }, cb);
+}
+
 exports.getModelsList = function (cb) {
     var config = configUtils.getConf();
     request({
