@@ -227,8 +227,20 @@ exports.generateFile = function (log, file, paramLoop, opt) {
     }
 };
 
+// EXTENDS HELPERS
+var extra = {};
+try {
+    extra = require(process.cwd() + '/extra');
+} catch (e) {}
 
-//SET HANDLEBARS
+if (extra.helpers) {
+    for (var i in extra.helpers) {
+        var help = extra.helpers[i];
+        Handlebars.registerHelper(help.name, help.fn);
+    }
+}
+
+// SET HANDLEBARS
 Handlebars.registerHelper('joinObj', function (arr, field) {
     var result = [];
     for (i in arr) {

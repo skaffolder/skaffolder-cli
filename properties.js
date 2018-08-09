@@ -1,8 +1,8 @@
-var config = {};
+var extra = {};
 try {
-    config = require(process.cwd() + '/.skaffolder/extra');
+    extra = require(process.cwd() + '/extra');
 } catch (e) {}
 
 module.exports = {
-    endpoint: config.endpoint || "https://app.skaffolder.com"
+    endpoint: extra.endpoint || "https://app.skaffolder.com"
 }
