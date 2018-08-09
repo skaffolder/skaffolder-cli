@@ -116,7 +116,7 @@ You can run `sk get project url` and browse the provided link:
 ## Create a custom template generator
 
 In you current path a folder `.skaffolder` was 	created.
-In `.skaffolder/template` you can find your template files editable, they respect the <a href="https://handlebarsjs.com" target="_blank">Handlebar sintax</a> and you can use also these additional <a href="https://www.npmjs.com/package/handlebars-helpers" target="_blank">helpers functions</a>.
+In `.skaffolder/template` you can find your template files editable, they respect the <a href="https://handlebarsjs.com" target="_blank">Handlebars sintax</a> and you can use also these additional <a href="https://www.npmjs.com/package/handlebars-helpers" target="_blank">helpers functions</a>.
 
 
 You can create a new template from any boilerplate.
@@ -126,7 +126,7 @@ Put in your Skaffolder project folder your boilerplate files and run
 [root@skaffolder ~]$ sk generator import
 ```
 
-With this command all files in Skaffolder project folder will be imported in `.skaffolder/template` with handlebar sintax and default Skaffolder properties.
+With this command all files in Skaffolder project folder will be imported in `.skaffolder/template` with Handlebars sintax and default Skaffolder properties.
 
 ###Skaffolder Properties
 
@@ -237,6 +237,45 @@ public class {{capitalize entity.name}} {
 
 **/
 ```
+
+###Add a custom Handlebars Helper
+
+Handlebars Helpers are custom function that you can execute on your template.
+
+You can add an helper creating a file name `extra.js` in your project folder with an array of helpers function as shown in the example below
+
+```javascript
+exports.helpers = [
+    {
+        name: "myFunction",
+        fn: function(param1, options) {
+            return param1 + " Hello World"
+        }
+    }
+]
+```
+
+You can now use this function in your `.hbs` template file:
+
+```handlebars
+HBS file:
+my HBS file {{myFunction "test"}}
+
+Result:
+my HBS file test Hello World
+
+```
+###Import Schema from existing Database
+
+You can import you Db schema in Skaffolder from a XML file.
+The XML file is produced by <a href="http://schemaspy.sourceforge.net" target="_blank"> SchemaSpy</a> you can find an <a href="https://skaffolder.com/docs/schema_example.xml" target="_blank">example file here</a>.
+
+In order to import this file in your Skaffolder project run:
+
+```bash
+[root@skaffolder ~]$ sk import db <path_file>
+```
+Now you have data models on Skaffolder platform.
 
 # More documentation
 >You can find <a href="https://skaffolder.com/#/documentation" target="_blank">additional documentation here</a>
