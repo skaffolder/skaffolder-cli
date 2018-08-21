@@ -157,7 +157,7 @@ This section is delimitated by `**** PROPERTIES SKAFFOLDER ****` token and conta
         <td>overwrite</td>
         <td>Boolean</td>
         <td>If true overwites existing files</td>
-    </td>
+    </tr>
     <tr>
         <td>partials</td>
         <td>
@@ -192,7 +192,7 @@ This section is delimitated by `**** PROPERTIES SKAFFOLDER ****` token and conta
                 </li>
             </ul>
         </td>
-    </td>
+    </tr>
 </table>
 
 
