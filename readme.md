@@ -80,7 +80,7 @@ You can optionally specity the name running `sk add page <name>`
     File created: ./client/app/pages/mypage/mypage.component.html
     File created: ./client/app/pages/mypage/mypage.component.ts
     ✔  Generation complete!
-    You can edit your project structure at http://localhost:3001/#!/projects/5b213bab19429c08f6fac8a3/design/models
+    You can edit your project structure at http://app.skaffolder.com/#!/projects/my-project-id/design/models
 ```
 
 
