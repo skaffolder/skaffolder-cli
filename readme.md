@@ -86,7 +86,7 @@ You can optionally specity the name running `sk add page <name>`
 
 ###### Add Data Model
 
-To add a page run `sk add model`.
+To add a data model run `sk add model`.
 You can optionally specity the name running `sk add model <name>`
 
 ```bash
@@ -96,7 +96,7 @@ You can optionally specity the name running `sk add model <name>`
 
 ###### Add API
 
-To add a page run `sk add api`
+To add an API run `sk add api`
 
 ```bash
 [root@skaffolder ~]$ sk add api
