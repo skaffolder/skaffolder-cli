@@ -88,6 +88,17 @@ exports.createFromTemplate = function (idProj, idFrontend, idBackend, cb) {
     }, cb);
 }
 
+exports.shareGenerator = function (genFiles, helpers, cb) {
+    request({
+        url: properties.endpoint + "/generator/share",
+        method: "POST",
+        json: {
+            genFiles: genFiles,
+            helpers: helpers
+        }
+    }, cb);
+}
+
 exports.createApi = function (service, cb) {
     request({
         url: properties.endpoint + "/service",

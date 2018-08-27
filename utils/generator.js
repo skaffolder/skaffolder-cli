@@ -7,6 +7,94 @@ var path = require('path');
 var klawSync = require('klaw-sync');
 var prependFile = require('prepend-file');
 
+// Convert folder file hbs to generator files db
+var getGenFiles = function (pathTemplate) {
+    var klawSync = require('klaw-sync')
+
+    return klawSync(pathTemplate, {
+        nodir: true
+    }).map(file => {
+        let nameFileTemplate = path.relative(pathTemplate, file.path);
+
+        // Remove extension
+        if (nameFileTemplate.substr(-4) == ".hbs") {
+            let content = fs.readFileSync(file.path);
+            nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 4);
+            content = content.toString();
+
+            // CHECK LIST EDIT FILE
+            if (nameFileTemplate.substr(-8) == "_SK_EDIT" || nameFileTemplate.substr(-8) == "_SK_LIST") {
+                nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 8);
+                return undefined;
+            }
+
+            // get properties
+            let genFile = getProperties(content, nameFileTemplate, pathTemplate);
+
+            nameFileTemplate = nameFileTemplate.replace(/\\/g, "/");
+            genFile.name = nameFileTemplate;
+
+            return genFile;
+        } else {
+            // Binary file
+            let content = fs.readFileSync(file.path, "binary");
+            nameFileTemplate = nameFileTemplate.replace(/\\/g, "/");
+            return {
+                templateBinary: content,
+                name: nameFileTemplate
+            }
+        }
+    }).filter(file => file);
+}
+
+
+var getProperties = (content, nameFileTemplate, pathTemplate) => {
+
+    // get properties
+    let start = "**** PROPERTIES SKAFFOLDER ****\r\n";
+    let startPropr = content.indexOf(start);
+    if (startPropr == -1) {
+        start = "**** PROPERTIES SKAFFOLDER ****\n";
+        startPropr = content.indexOf(start);
+    }
+
+    let end = '\r\n**** END PROPERTIES SKAFFOLDER ****\r\n';
+    let endPropr = content.indexOf(end);
+    if (endPropr == -1) {
+        end = '\n**** END PROPERTIES SKAFFOLDER ****\n';
+        endPropr = content.indexOf(end);
+    }
+
+    if (startPropr == -1 || endPropr == -1) {
+        console.warn("Properties Skaffoler not found in file " + nameFileTemplate);
+        return {
+            template: content
+        }
+    }
+
+    let properties = content.substr(startPropr + start.length, endPropr - start.length);
+    properties = JSON.parse(properties);
+
+    // search list edit template
+    let nameTemplateList = nameFileTemplate + "_SK_LIST.hbs";
+    let fileNameList = pathTemplate + "/" + nameTemplateList;
+    if (fs.existsSync(fileNameList)) {
+        properties.templateList = fs.readFileSync(fileNameList, "utf-8");
+    }
+
+    let nameTemplateEdit = nameFileTemplate + "_SK_EDIT.hbs";
+    let fileNameEdit = pathTemplate + "/" + nameTemplateEdit;
+    if (fs.existsSync(fileNameEdit)) {
+        properties.templateEdit = fs.readFileSync(fileNameEdit, "utf-8");
+    }
+
+    // set template
+    properties.template = content.substr(endPropr + end.length);
+
+    return properties;
+}
+
+
 exports.importGenerator = function () {
 
     let templateFolder = path.normalize('./.skaffolder/template');
@@ -96,3 +184,5 @@ let getFileContent = (file) => {
 
     return content;
 }
+
+exports.getGenFiles = getGenFiles;

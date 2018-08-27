@@ -10,6 +10,7 @@ const openCmd = require('./lib/open');
 const logoutCmd = require('./lib/logout');
 const reloadGeneratorCmd = require('./lib/reloadGenerator');
 const importGeneratorCmd = require('./lib/importGenerator');
+const publishGeneratorCmd = require('./lib/publishGenerator');
 const generateCmd = require('./lib/generate');
 const getProjectUrlCmd = require('./lib/getProjectUrl');
 const importDbCmd = require('./lib/importDb');
@@ -44,6 +45,10 @@ prog.version('1.1.5')
     .action(reloadGeneratorCmd)
     .command('generator import', 'Import generator files from current folder\n\n---- Utils ----\n')
     .action(importGeneratorCmd)
+    //.command('generator export', 'Save your local generator files to Skaffolder pltform\n\n---- Utils ----\n')
+    //.action(exportGeneratorCmd)
+    .command('generator publish', 'Share your local generator files with Skaffolder community\n\n---- Utils ----\n')
+    .action(publishGeneratorCmd)
 
     // utils
     .command('get project url', 'Get Skaffolder project URL')
