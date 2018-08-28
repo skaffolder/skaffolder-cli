@@ -103,7 +103,7 @@ exports.generateFile = function (log, file, paramLoop, opt) {
         }
     }
 
-    // Bynary files
+    // Binary files
     if (file.templateBinary) {
         var template = Handlebars.compile(file.name.replace(/\\/g, "/"));
         var fileNameDest = template(param);
