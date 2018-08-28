@@ -105,10 +105,8 @@ exports.generateFile = function (log, file, paramLoop, opt) {
 
     // Bynary files
     if (file.templateBinary) {
-        console.log(file.name);
         var template = Handlebars.compile(file.name);
         var fileNameDest = template(param);
-        console.log(fileNameDest);
         if (pathWorkspace) {
             var path = pathWorkspace + fileNameDest;
             mkdirp.sync(path.substr(0, path.lastIndexOf('/')));
