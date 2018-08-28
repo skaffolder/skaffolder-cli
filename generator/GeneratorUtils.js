@@ -105,7 +105,7 @@ exports.generateFile = function (log, file, paramLoop, opt) {
 
     // Bynary files
     if (file.templateBinary) {
-        var template = Handlebars.compile(file.name);
+        var template = Handlebars.compile(file.name.replace(/\\/g, "/"));
         var fileNameDest = template(param);
         if (pathWorkspace) {
             var path = pathWorkspace + fileNameDest;
