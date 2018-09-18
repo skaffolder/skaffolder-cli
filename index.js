@@ -15,7 +15,7 @@ const generateCmd = require('./lib/generate');
 const getProjectUrlCmd = require('./lib/getProjectUrl');
 const importDbCmd = require('./lib/importDb');
 
-prog.version('1.1.6')
+prog.version('1.1.7')
 
     // start
     .command('login', 'Log in into Skaffolder')
@@ -52,6 +52,7 @@ prog.version('1.1.6')
 
     // utils
     .command('get project url', 'Get Skaffolder project URL')
+    .argument('[opt]', '', null, null)
     .action(getProjectUrlCmd)
     .command('import db', 'Import database entities from Schema Spy XML')
     .argument('<file>', 'XML file to import', null, null)
