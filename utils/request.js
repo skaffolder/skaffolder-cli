@@ -12,7 +12,6 @@ module.exports = function (options, cb) {
         options.headers.Token = token;
 
     request(options, function (error, response, body) {
-        //console.debug(error, body);
 
         if (error) {
             error = {
@@ -20,15 +19,18 @@ module.exports = function (options, cb) {
             };
             console.error(chalk.red(error.message));
             process.exit(0);
-        } else if (body && body.message == "Not Authoized") {
+        } else if (
+            (body && body.toLowerCase() == "not authorized") ||
+            (body && body.message && body.message.toLowerCase() == "not authorized")
+        ) {
             error = {
-                message: "Not Authoized"
+                message: "Not Authorized, try to change user the command: 'sk login' or check the command you ran"
             };
             console.error(chalk.red(error.message));
             process.exit(0);
         } else if (response.statusCode == 401) {
             error = {
-                message: "You should loging with command: 'sk login'"
+                message: "You should loging with the command: 'sk login'"
             };
             console.error(chalk.red(error.message));
             process.exit(0);
