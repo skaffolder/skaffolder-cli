@@ -240,7 +240,7 @@ if (extra.helpers) {
     }
 }
 
-// SET HANDLEBARS
+//SET HANDLEBARS
 Handlebars.registerHelper('joinObj', function (arr, field) {
     var result = [];
     for (i in arr) {
@@ -290,6 +290,7 @@ Handlebars.registerHelper('roleObj', function (arr) {
 Handlebars.registerHelper('json', function (context) {
     return new Handlebars.SafeString(JSON.stringify(context, null, 2));
 });
+
 
 Handlebars.registerHelper('firstUpperCase', function (s, options) {
     return s && s[0].toUpperCase() + s.slice(1);
@@ -451,12 +452,6 @@ Handlebars.registerHelper('isEmptyNull', function (value, options) {
     else
         return options.fn(this);
 });
-Handlebars.registerHelper('isEmpty', function (value, options) {
-    if (value && value.length != 0)
-        return options.inverse(this);
-    else
-        return options.fn(this);
-});
 Handlebars.registerHelper('notNull', function (value, options) {
     if (value != undefined)
         return options.fn(this);
@@ -529,8 +524,8 @@ Handlebars.registerHelper('toJavaType', function (type) {
 });
 
 Handlebars.registerHelper('toCType', function (type) {
-    if (type == 'Integer') type = "integer";
-    if (type == 'Decimal') type = "number";
+    if (type == 'Integer') type = "int";
+    if (type == 'Decimal') type = "string";
     if (type == 'Number') type = "int";
     if (type == 'ObjectId') type = "string";
     if (type == 'String') type = "string";
@@ -685,6 +680,22 @@ Handlebars.registerHelper('distinctModules', function (array, options) {
         }
     }
     return buffer;
+});
+
+Handlebars.registerHelper('equalFindBy', function (str1, str2, options) {
+    if (('findBy' + str1).toLowerCase() === str2.toLowerCase()) {
+        if (options.fn)
+            return options.fn(this);
+        else
+            return 1;
+    }
+});
+
+Handlebars.registerHelper('findByNotRelation', function (resource, crud, options) {
+    if (resource._relations.filter(rel => rel.name === crud.slice(6)).length > 0)
+        return options.inverse(this);
+    else
+        return options.fn(this);
 });
 
 
