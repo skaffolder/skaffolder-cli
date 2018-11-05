@@ -12,7 +12,6 @@ module.exports = function (options, cb) {
         options.headers.Token = token;
 
     request(options, function (error, response, body) {
-
         if (error) {
             error = {
                 message: error.code
@@ -20,7 +19,7 @@ module.exports = function (options, cb) {
             console.error(chalk.red(error.message));
             process.exit(0);
         } else if (
-            (body && body.toLowerCase() == "not authorized") ||
+            (body && typeof (body) == "String" && body.toLowerCase() == "not authorized") ||
             (body && body.message && body.message.toLowerCase() == "not authorized")
         ) {
             error = {
