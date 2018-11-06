@@ -9,6 +9,7 @@ const loginCmd = require('./lib/login');
 const openCmd = require('./lib/open');
 const logoutCmd = require('./lib/logout');
 const reloadGeneratorCmd = require('./lib/reloadGenerator');
+const saveGeneratorCmd = require('./lib/saveGenerator');
 const importGeneratorCmd = require('./lib/importGenerator');
 const publishGeneratorCmd = require('./lib/publishGenerator');
 const generateCmd = require('./lib/generate');
@@ -43,17 +44,17 @@ prog.version('1.1.11')
     .action(createApiCmd)
 
     // generator
-    .command('generator load', 'Load generator files from Skaffolder database')
+    .command('generator load', 'Load generator files from Skaffolder platform to local folder')
     .action(reloadGeneratorCmd)
+    .command('generator save', 'Save generator files from local folder to Skaffolder platform')
+    .action(saveGeneratorCmd)
     .command('generator import', 'Import generator files from current folder')
     .action(importGeneratorCmd)
-    //.command('generator export', 'Save your local generator files to Skaffolder platform\n\n---- Utils ----\n')
-    //.action(exportGeneratorCmd)
     .command('generator publish', 'Share your local generator files with Skaffolder community\n\n---- Utils ----\n')
     .action(publishGeneratorCmd)
 
     // utils
-    .command('get project url', 'Get Skaffolder project URL')
+    .command('get project url', 'Get Skaffolder project URL') // get project url endpoint:http://localhost:3001
     .argument('[opt]', '', null, null)
     .action(getProjectUrlCmd)
     .command('import db', 'Import database entities from Schema Spy XML')

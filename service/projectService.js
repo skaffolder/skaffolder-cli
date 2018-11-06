@@ -99,6 +99,18 @@ exports.shareGenerator = function (genFiles, helpers, cb) {
     }, cb);
 }
 
+
+exports.saveGenerator = function (idGen, genFiles, helpers, cb) {
+    request({
+        url: properties.endpoint + "/generator/" + idGen + "/save",
+        method: "POST",
+        json: {
+            genFiles: genFiles,
+            helpers: helpers
+        }
+    }, cb);
+}
+
 exports.createApi = function (service, cb) {
     request({
         url: properties.endpoint + "/service",
