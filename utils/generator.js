@@ -35,6 +35,8 @@ var getGenFiles = function (pathTemplate) {
             genFile.name = nameFileTemplate;
 
             return genFile;
+        } else if (nameFileTemplate.endsWith(".DS_Store")) {
+            return undefined;
         } else {
             // Binary file
             let content = fs.readFileSync(file.path, "binary");
