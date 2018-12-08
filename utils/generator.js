@@ -1,5 +1,5 @@
 var projectService = require('../service/projectService');
-var generatorBean = require('../generator/generatorBean');
+var generatorBean = require('../generator/GeneratorBean');
 var fs = require('fs-extra');
 var mkdirp = require('mkdirp');
 var chalk = require('chalk');
