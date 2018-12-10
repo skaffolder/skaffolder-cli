@@ -12,6 +12,7 @@ module.exports = function (options, cb) {
         options.headers.Token = token;
 
     request(options, function (error, response, body) {
+
         if (error) {
             error = {
                 message: error.code
@@ -20,7 +21,8 @@ module.exports = function (options, cb) {
             process.exit(0);
         } else if (
             (body && typeof (body) == "String" && body.toLowerCase() == "not authorized") ||
-            (body && body.message && body.message.toLowerCase() == "not authorized")
+            (body && body.message && body.message.toLowerCase() == "not authorized" ||
+                response.statusCode == 502)
         ) {
             error = {
                 message: "Not Authorized, try to change user the command: 'sk login' or check the command you ran"
