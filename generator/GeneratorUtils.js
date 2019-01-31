@@ -447,6 +447,12 @@ Handlebars.registerHelper('isEmpty', function (value, options) {
     else
         return options.fn(this);
 });
+Handlebars.registerHelper('isEmptyNull', function (value, options) {
+    if (value && value.length != 0)
+        return options.inverse(this);
+    else
+        return options.fn(this);
+});
 Handlebars.registerHelper('notNull', function (value, options) {
     if (value != undefined)
         return options.fn(this);
