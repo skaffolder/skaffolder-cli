@@ -54,7 +54,7 @@ prog.version('1.1.18')
     .action(publishGeneratorCmd)
 
     // utils
-    .command('get project url', 'Get Skaffolder project URL') // get project url endpoint:http://localhost:3001
+    .command('get project url', 'Get Skaffolder project URL') // sk get project url endpoint:http://localhost:3001
     .argument('[opt]', '', null, null)
     .action(getProjectUrlCmd)
     .command('import db', 'Import database entities from Schema Spy XML')
