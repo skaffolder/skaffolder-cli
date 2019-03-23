@@ -1,1 +1,764 @@
-var _0x0b40=['Decimal','string','toJSType','toTSType','number','toJDBCType','Int','BigDecimal','Double','Long','toSwaggerType','integer','removeFinalSlash','removeInitialSlash','isRequired','toFileName','isMtoM','m:m','relations','eachResource','_resource','getDbName','getDbNameToFileName','buildUrlSecurity','/{id}','firstElementArray','{id}','moreThanOneElement','1:m','distinctModules','_db','_relations','chalk','handlebars-helpers','register','mkdirp','util','_extend','Generated\x20by\x20Skaffolder\x0aFor\x20documentation\x20visit\x20http://skaffolder.com/#/documentation','//\x20-------------\x0a//\x20','\x0a//\x20-------------\x0a\x0a','<!--\x20\x0a\x20\x20\x20\x20\x20','\x0a-->\x0a\x20\x20\x20\x20\x0a','<?php\x20\x0a//','endsWith','template','open','close','init','indexOf','compile','slice','error','message','generateFile','path','templateBinary','name','sync','substr','writeFileSync','extra','value','replace','normalize','ignore','existsSync','overwrite','readFileSync','module','List','templateList','log','Please\x20add\x20file\x20','Edit','templateEdit','yellow','Template\x20Edit\x20not\x20found\x20for\x20page\x20','_SK_EDIT.hbs','red','params','split','_partials','tagFrom','lastIndexOf','utf8','info','File\x20modified:\x20','green','File\x20created:\x20','push','registerHelper','joinObj','stringify','joinObj2',',\x20\x22','SafeString','joinRoleObj',',\x20\x22ROLE_','roleObj','joinRoleObj2','length','\x22ROLE_','json','firstUpperCase','toUpperCase','subStr','subStrCap','charAt','toString','inverse','isNotLastUser','username','isNotLastRelations','_id','checkRelation','checkExternalRelation','_ent1','exact','notHome','toLowerCase','home','notEqualArray','update','create','delete','list','get','relationName','find','type','_ent2','relationNameService','resolveSQLtype','Number','numeric','Date','Integer','int','decimal(6,2)','String','Boolean','ObjectId','isEmptyArray','notEmpty','isEmptyNull','isNull','startWith','notStartWith','editUrlParam','editUrlParamRegExp','toGoType','time.Time','float32'];(function(_0x16603e,_0x1a62af){var _0x172800=function(_0x300ce9){while(--_0x300ce9){_0x16603e['push'](_0x16603e['shift']());}};_0x172800(++_0x1a62af);}(_0x0b40,0xba));var _0x00b4=function(_0x58db4e,_0x439d8d){_0x58db4e=_0x58db4e-0x0;var _0x40139a=_0x0b40[_0x58db4e];return _0x40139a;};var fs=require('fs');var Handlebars=require('handlebars');var chalk=require(_0x00b4('0x0'));var helpers=require(_0x00b4('0x1'))({'handlebars':Handlebars});var groupBy=require('handlebars-group-by');groupBy[_0x00b4('0x2')](Handlebars);var mkdirp=require(_0x00b4('0x3'));var extend=require(_0x00b4('0x4'))[_0x00b4('0x5')];var paramsGenerator={};var comment=function(_0x350fba,_0x40d4f4){var _0x4ff8ad=_0x00b4('0x6');var _0xbcf545={'js':{'open':_0x00b4('0x7'),'close':_0x00b4('0x8')},'ts':{'open':'//\x20-------------\x0a//\x20','close':_0x00b4('0x8')},'html':{'open':_0x00b4('0x9'),'close':_0x00b4('0xa')},'java':{'open':'//\x20-------------\x0a//\x20','close':_0x00b4('0x8')},'php':{'open':_0x00b4('0xb'),'close':'\x0a?>\x0a\x0a'}};if(_0x350fba['name'][_0x00b4('0xc')](_0x40d4f4)){_0x350fba[_0x00b4('0xd')]=_0xbcf545[_0x40d4f4][_0x00b4('0xe')]+_0x4ff8ad+_0xbcf545[_0x40d4f4][_0x00b4('0xf')]+_0x350fba[_0x00b4('0xd')];}return _0x350fba[_0x00b4('0xd')];};exports[_0x00b4('0x10')]=function(_0x31efbe,_0x3958a9,_0x44caf5,_0x31c694,_0x3704e8){paramsGenerator={'project':_0x3958a9,'modules':_0x44caf5,'resources':_0x31c694,'dbs':_0x3704e8};pathWorkspace=_0x31efbe;};var insertInto=function(_0x51c6b4,_0x4f70ae,_0xc5fad4,_0x333eef,_0x356290,_0x2868e9){try{var _0x592948=_0x51c6b4[_0x00b4('0x11')](_0x333eef);if(_0x592948!=-0x1){var _0x204bbe=_0x51c6b4[_0x00b4('0x11')](_0x356290);var _0x3f1e81=Handlebars[_0x00b4('0x12')](_0x4f70ae);var _0x11983e=_0x3f1e81(_0xc5fad4);_0x51c6b4=_0x51c6b4[_0x00b4('0x13')](0x0,_0x592948+_0x333eef['length'])+'\x0a'+_0x11983e+_0x51c6b4[_0x00b4('0x13')](_0x204bbe-0x1);}return _0x51c6b4;}catch(_0xaa8b09){console[_0x00b4('0x14')](_0xaa8b09);var _0x3f4b1d={'Error':{'message':_0xaa8b09[_0x00b4('0x15')]}};_0x2868e9['push'](_0x3f4b1d);}};exports[_0x00b4('0x16')]=function(_0x317bac,_0x1ebb7a,_0x5ec333,_0x42b07c){var _0x277e32='';var _0x3ed4b7=require(_0x00b4('0x17'));if(_0x1ebb7a[_0x00b4('0x18')]){var _0x2e77d9=Handlebars['compile'](_0x1ebb7a[_0x00b4('0x19')]);var _0x1f43d9=_0x2e77d9(_0x3d2edb);if(pathWorkspace){var _0x3ed4b7=pathWorkspace+_0x1f43d9;mkdirp[_0x00b4('0x1a')](_0x3ed4b7[_0x00b4('0x1b')](0x0,_0x3ed4b7['lastIndexOf']('/')));fs[_0x00b4('0x1c')](_0x3ed4b7,_0x1ebb7a[_0x00b4('0x18')],'binary');return;}}try{var _0x3d2edb=paramsGenerator;for(var _0x40d7ba in _0x5ec333){_0x3d2edb[_0x40d7ba]=_0x5ec333[_0x40d7ba];}_0x3d2edb[_0x00b4('0x1d')]={};if(_0x42b07c&&_0x42b07c['extra']){for(var _0x4b1f9f in _0x42b07c[_0x00b4('0x1d')]){if(_0x42b07c[_0x00b4('0x1d')][_0x4b1f9f])_0x3d2edb['extra'][_0x42b07c['extra'][_0x4b1f9f][_0x00b4('0x19')]]=_0x42b07c[_0x00b4('0x1d')][_0x4b1f9f][_0x00b4('0x1e')];}}var _0xce0681=_0x1ebb7a[_0x00b4('0x19')][_0x00b4('0x1f')](/{{\\(([A-Za-z\s])*)}}/g,'{{/$1}}');_0xce0681=_0xce0681[_0x00b4('0x1f')](/\\/g,'\x5c\x5c');var _0x2e77d9=Handlebars[_0x00b4('0x12')](_0xce0681);var _0x1f43d9=_0x2e77d9(_0x3d2edb);if(pathWorkspace){var _0x1e4e77=_0x3ed4b7[_0x00b4('0x20')](pathWorkspace+_0x1f43d9);if(_0x1ebb7a[_0x00b4('0x21')]&&fs[_0x00b4('0x22')](_0x1e4e77)){return;}if(!_0x1ebb7a[_0x00b4('0x23')]&&fs[_0x00b4('0x22')](_0x1e4e77)){_0x277e32=fs[_0x00b4('0x24')](_0x1e4e77,'utf8');}else{var _0x2e77d9='';if(_0x5ec333&&_0x5ec333[_0x00b4('0x25')]&&_0x5ec333[_0x00b4('0x25')][_0x00b4('0xd')]){var _0x4f7ea8=_0x5ec333['module'][_0x00b4('0xd')]['split']('_');if(_0x4f7ea8[0x0]==_0x00b4('0x26')){if(_0x1ebb7a[_0x00b4('0x27')]){_0x2e77d9=Handlebars['compile'](_0x1ebb7a[_0x00b4('0x27')]);}else{console['warn'](chalk['yellow']('Template\x20List\x20not\x20found\x20for\x20page\x20'+_0x5ec333[_0x00b4('0x25')][_0x00b4('0x19')]));console[_0x00b4('0x28')](_0x00b4('0x29')+_0x1ebb7a['name']+'_SK_LIST.hbs');_0x2e77d9=Handlebars[_0x00b4('0x12')](_0x1ebb7a[_0x00b4('0xd')]);}}if(_0x4f7ea8[0x0]==_0x00b4('0x2a')){if(_0x1ebb7a[_0x00b4('0x2b')]){_0x2e77d9=Handlebars[_0x00b4('0x12')](_0x1ebb7a[_0x00b4('0x2b')]);}else{console['warn'](chalk[_0x00b4('0x2c')](_0x00b4('0x2d')+_0x5ec333['module']['name']));console[_0x00b4('0x28')]('Please\x20add\x20file\x20'+_0x1ebb7a['name']+_0x00b4('0x2e'));_0x2e77d9=Handlebars[_0x00b4('0x12')](_0x1ebb7a[_0x00b4('0xd')]);}}}else{_0x2e77d9=Handlebars['compile'](_0x1ebb7a[_0x00b4('0xd')]);}try{_0x277e32=_0x2e77d9(_0x3d2edb);}catch(_0x5a4e6){console[_0x00b4('0x28')](chalk[_0x00b4('0x2f')]('File\x20with\x20error:\x20')+_0x1e4e77);console[_0x00b4('0x14')](_0x5a4e6);}}}else{_0x42b07c[_0x00b4('0x30')]['push'](_0x3d2edb);var _0x2e77d9='';if(_0x5ec333&&_0x5ec333[_0x00b4('0x25')]&&_0x5ec333['module'][_0x00b4('0xd')]){var _0x4f7ea8=_0x5ec333[_0x00b4('0x25')][_0x00b4('0xd')][_0x00b4('0x31')]('_');if(_0x4f7ea8[0x0]=='List')_0x2e77d9=Handlebars['compile'](_0x1ebb7a[_0x00b4('0x27')]);if(_0x4f7ea8[0x0]=='Edit')_0x2e77d9=Handlebars[_0x00b4('0x12')](_0x1ebb7a[_0x00b4('0x2b')]);}else{_0x2e77d9=Handlebars[_0x00b4('0x12')](_0x1ebb7a[_0x00b4('0xd')]);}_0x277e32=_0x2e77d9(_0x3d2edb);}for(var _0x4b1f9f in _0x1ebb7a[_0x00b4('0x32')]){var _0xf2af5f=_0x1ebb7a[_0x00b4('0x32')][_0x4b1f9f];_0x277e32=insertInto(_0x277e32,_0xf2af5f[_0x00b4('0xd')],_0x3d2edb,_0xf2af5f[_0x00b4('0x33')],_0xf2af5f['tagTo'],_0x317bac);}if(_0x42b07c&&_0x42b07c['test']){return _0x277e32;}var _0x1cd624=_0x3ed4b7[_0x00b4('0x20')](_0x1e4e77[_0x00b4('0x1b')](0x0,_0x1e4e77[_0x00b4('0x34')](_0x3ed4b7[_0x00b4('0x20')]('/'))));var _0xd46a0e=mkdirp[_0x00b4('0x1a')](_0x1cd624);if(_0x277e32!=''){if(fs[_0x00b4('0x22')](_0x1e4e77)){let _0x4a8dc3=fs[_0x00b4('0x24')](_0x1e4e77,_0x00b4('0x35'));if(_0x4a8dc3!=_0x277e32)console[_0x00b4('0x36')](chalk['green'](_0x00b4('0x37'))+_0x1e4e77);}else{console[_0x00b4('0x36')](chalk[_0x00b4('0x38')](_0x00b4('0x39'))+_0x1e4e77);}fs[_0x00b4('0x1c')](_0x1e4e77,_0x277e32);}}catch(_0x53a9ae){console[_0x00b4('0x14')](_0x53a9ae);var _0xfd68f0={'Error':{'message':_0x53a9ae[_0x00b4('0x15')]}};_0x317bac[_0x00b4('0x3a')](_0xfd68f0);}};Handlebars[_0x00b4('0x3b')](_0x00b4('0x3c'),function(_0x11b642,_0x378fdd){var _0x3f03d9=[];for(i in _0x11b642){_0x3f03d9[_0x00b4('0x3a')](_0x11b642[i][_0x378fdd]);}return JSON[_0x00b4('0x3d')](_0x3f03d9)[_0x00b4('0x1f')](/,/g,',\x20');});Handlebars[_0x00b4('0x3b')](_0x00b4('0x3e'),function(_0x36b6a4){var _0x18292f='';for(i in _0x36b6a4){_0x18292f+=(i!=0x0?_0x00b4('0x3f'):'\x22')+_0x36b6a4[i][_0x00b4('0x19')]+'\x22';}return new Handlebars[(_0x00b4('0x40'))](_0x18292f);});Handlebars['registerHelper'](_0x00b4('0x41'),function(_0x507b08){var _0x17a94f='';for(i in _0x507b08){_0x17a94f+=_0x00b4('0x42')+_0x507b08[i][_0x00b4('0x19')]+'\x22';}return new Handlebars[(_0x00b4('0x40'))](_0x17a94f);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x43'),function(_0x3d0f7c){var _0x2518b9='\x22'+_0x3d0f7c[0x0][_0x00b4('0x19')]+'\x22';for(i in _0x3d0f7c){if(_0x3d0f7c[0x0][_0x00b4('0x19')]===_0x3d0f7c[i][_0x00b4('0x19')])continue;_0x2518b9+=',\x20\x22'+_0x3d0f7c[i]['name']+'\x22';}return new Handlebars[(_0x00b4('0x40'))](_0x2518b9);});Handlebars['registerHelper'](_0x00b4('0x44'),function(_0x434716){var _0x47bf48='';for(let _0x117549=0x0;_0x117549<_0x434716[_0x00b4('0x45')];_0x117549++){if(_0x117549==0x0){_0x47bf48+=_0x00b4('0x46')+_0x434716[_0x117549][_0x00b4('0x19')]+'\x22';}else{_0x47bf48+=_0x00b4('0x42')+_0x434716[_0x117549]['name']+'\x22';}}return new Handlebars[(_0x00b4('0x40'))](_0x47bf48);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x43'),function(_0x2daf27){var _0x410ef9='\x22'+_0x2daf27[0x0][_0x00b4('0x19')]+'\x22';for(i in _0x2daf27){if(_0x2daf27[0x0][_0x00b4('0x19')]===_0x2daf27[i]['name'])continue;_0x410ef9+=_0x00b4('0x3f')+_0x2daf27[i][_0x00b4('0x19')]+'\x22';}return new Handlebars[(_0x00b4('0x40'))](_0x410ef9);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x47'),function(_0x462ba3){return new Handlebars[(_0x00b4('0x40'))](JSON['stringify'](_0x462ba3,null,0x2));});Handlebars[_0x00b4('0x3b')](_0x00b4('0x48'),function(_0x7326d2,_0x1ce6cc){return _0x7326d2&&_0x7326d2[0x0][_0x00b4('0x49')]()+_0x7326d2[_0x00b4('0x13')](0x1);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x4a'),function(_0x3380ea,_0x3003f0,_0x1922d){return _0x3380ea[_0x00b4('0x1b')](_0x3003f0);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x4b'),function(_0x3b4644,_0x53deb1,_0x6d1fa1){return _0x3b4644[_0x00b4('0x1b')](_0x53deb1)[_0x00b4('0x4c')](0x0)['toUpperCase']()+_0x3b4644[_0x00b4('0x1b')](_0x53deb1)[_0x00b4('0x13')](0x1);});Handlebars[_0x00b4('0x3b')]('equal',function(_0x469caa,_0x18db34,_0x533c84){if(_0x469caa)_0x469caa=_0x469caa[_0x00b4('0x4d')]();if(_0x18db34)_0x18db34=_0x18db34[_0x00b4('0x4d')]();if(_0x469caa==_0x18db34){if(_0x533c84['fn'])return _0x533c84['fn'](this);else return 0x1;}if(_0x533c84[_0x00b4('0x4e')])return _0x533c84[_0x00b4('0x4e')](this);else return 0x0;});Handlebars['registerHelper']('isNotLast',function(_0x19524f,_0x4da0ed,_0x20d820){if(_0x19524f[_0x00b4('0x45')]==_0x4da0ed+0x1)return _0x20d820[_0x00b4('0x4e')](this);else return _0x20d820['fn'](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x4f'),function(_0x3234c9,_0x45ea6a,_0x3f2543){if(_0x3234c9[_0x00b4('0x45')]==_0x45ea6a+0x1)return _0x3f2543['inverse'](this);else{if(_0x3234c9['length']==_0x45ea6a+0x2){arrayTmp=_0x3234c9[_0x00b4('0x13')](_0x45ea6a);if(arrayTmp[_0x00b4('0x13')](-0x1)[0x0]['name']==_0x00b4('0x50'))return _0x3f2543[_0x00b4('0x4e')](this);}else return _0x3f2543['fn'](this);}});Handlebars[_0x00b4('0x3b')](_0x00b4('0x51'),function(_0x1ac847,_0x4d30a8,_0x1ca6d7,_0x2d5b16){if(_0x1ac847['length']==_0x1ca6d7+0x1){return _0x2d5b16[_0x00b4('0x4e')](this);}else{for(let _0x982ae3=_0x1ca6d7+0x1;_0x982ae3<_0x1ac847[_0x00b4('0x45')];_0x982ae3++){if(_0x1ac847[_0x982ae3]['_ent1']['_id'][_0x00b4('0x4d')]()!=_0x4d30a8[_0x00b4('0x52')][_0x00b4('0x4d')]())return _0x2d5b16['fn'](this);return _0x2d5b16[_0x00b4('0x4e')](this);}}});Handlebars[_0x00b4('0x3b')](_0x00b4('0x53'),function(_0x2637b6,_0x280e66,_0x575757){if(_0x2637b6[_0x00b4('0x45')]==0x0)return _0x575757[_0x00b4('0x4e')](this);if(_0x2637b6)for(let _0x435050 in _0x2637b6){if(_0x2637b6[_0x435050]['_ent1'][_0x00b4('0x52')]['toString']()==_0x280e66[_0x00b4('0x52')][_0x00b4('0x4d')]())return _0x575757['fn'](this);}});Handlebars[_0x00b4('0x3b')](_0x00b4('0x54'),function(_0x3d268c,_0xbb582,_0x1f002a){if(_0x3d268c[_0x00b4('0x45')]==0x0)return _0x1f002a[_0x00b4('0x4e')](this);if(_0x3d268c)for(let _0x14eef8 in _0x3d268c){if(_0x3d268c[_0x14eef8][_0x00b4('0x55')]['_id'][_0x00b4('0x4d')]()!=_0xbb582[_0x00b4('0x52')][_0x00b4('0x4d')]())return _0x1f002a['fn'](this);}});Handlebars[_0x00b4('0x3b')]('notEqual',function(_0x40ffb6,_0x527a0a,_0x1786e7,_0x2c4fc8){if(_0x40ffb6)_0x40ffb6=_0x40ffb6['toString']();if(_0x527a0a)_0x527a0a=_0x527a0a[_0x00b4('0x4d')]();_0x2c4fc8=_0x2c4fc8||_0x1786e7;_0x1786e7=_0x1786e7===_0x00b4('0x56')?!![]:![];var _0x38c2c9=_0x1786e7?_0x40ffb6===_0x527a0a:_0x40ffb6==_0x527a0a;if(!_0x38c2c9)return _0x2c4fc8['fn'](this);return _0x2c4fc8[_0x00b4('0x4e')](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x57'),function(_0x1165c1,_0x442096){if(_0x1165c1)_0x1165c1=_0x1165c1[_0x00b4('0x4d')]()[_0x00b4('0x58')]();if(_0x1165c1!==_0x00b4('0x59'))return _0x442096['fn'](this);return _0x442096['inverse'](this);});Handlebars['registerHelper'](_0x00b4('0x5a'),function(_0x46b68b,_0x3d92f9){var _0x474296=[_0x00b4('0x5b'),_0x00b4('0x5c'),_0x00b4('0x5d'),_0x00b4('0x5e'),_0x00b4('0x5f')];for(var _0x8e7da1 in _0x474296){if(_0x474296[_0x8e7da1]==_0x46b68b)return _0x3d92f9[_0x00b4('0x4e')](this);}return _0x3d92f9['fn'](this);});Handlebars[_0x00b4('0x3b')]('isInUrl',function(_0x5728fe,_0x241224,_0x2d6232){var _0x19a688=_0x241224['match'](/{\w+}/g);if(_0x19a688&&_0x19a688[_0x00b4('0x11')]('{'+_0x5728fe+'}')!=-0x1)return _0x2d6232['fn'](this);else return _0x2d6232[_0x00b4('0x4e')](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x60'),function(_0x586072,_0x46675b,_0x1a0b31,_0x2f7439){relation=_0x586072[_0x00b4('0x61')](_0x53e408=>_0x53e408[_0x00b4('0x62')]==='m:m');nameRelation=relation&&relation[_0x00b4('0x19')]===_0x46675b[_0x00b4('0x1b')](0x3)&&relation[_0x00b4('0x63')][_0x00b4('0x19')];return nameRelation;});Handlebars[_0x00b4('0x3b')](_0x00b4('0x64'),function(_0x3e3385,_0x176c57,_0x43bd38,_0x4b8d67){relation=_0x3e3385[_0x00b4('0x61')](_0x13e372=>_0x13e372[_0x00b4('0x19')]['toLowerCase']()===_0x176c57['substr'](0x6)['toLowerCase']());nameRelation=relation&&relation[_0x00b4('0x19')]===_0x176c57[_0x00b4('0x1b')](0x6)&&relation[_0x00b4('0x63')][_0x00b4('0x19')];return nameRelation;});Handlebars['registerHelper']('relationNameServiceLowercase',function(_0x4c2ed5,_0x475e3d,_0xd93b3a,_0x515fd5){relation=_0x4c2ed5[_0x00b4('0x61')](_0x539713=>_0x539713[_0x00b4('0x19')][_0x00b4('0x58')]()===_0x475e3d[_0x00b4('0x1b')](0x6)[_0x00b4('0x58')]());nameRelation=relation&&relation[_0x00b4('0x19')]===_0x475e3d[_0x00b4('0x1b')](0x6)&&relation[_0x00b4('0x63')]['name'];return nameRelation['toLowerCase']();});Handlebars[_0x00b4('0x3b')](_0x00b4('0x65'),function(_0x20c65c,_0x42f68a){if(_0x20c65c==_0x00b4('0x66'))return _0x00b4('0x67');else if(_0x20c65c==_0x00b4('0x68'))return'date';else if(_0x20c65c==_0x00b4('0x69'))return _0x00b4('0x6a');else if(_0x20c65c=='Decimal')return _0x00b4('0x6b');else if(_0x20c65c==_0x00b4('0x6c'))return'varchar(40)';else if(_0x20c65c==_0x00b4('0x6d'))return'bool';else if(_0x20c65c==_0x00b4('0x6e'))return'int(11)';return'varchar(30)';});Handlebars[_0x00b4('0x3b')](_0x00b4('0x6f'),function(_0x357559,_0x358e40){if(_0x357559&&_0x357559[_0x00b4('0x45')]==0x0)return _0x358e40['fn'](this);else return _0x358e40[_0x00b4('0x4e')](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x70'),function(_0x241488,_0x42b1ab){if(_0x241488&&_0x241488['length']!=0x0)return _0x42b1ab['fn'](this);else return _0x42b1ab[_0x00b4('0x4e')](this);});Handlebars[_0x00b4('0x3b')]('isEmpty',function(_0x1d2e14,_0x578357){if(_0x1d2e14&&_0x1d2e14['length']!=0x0)return _0x578357[_0x00b4('0x4e')](this);else return _0x578357['fn'](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x71'),function(_0x1ee00a,_0x18ac1a){if(_0x1ee00a&&_0x1ee00a[_0x00b4('0x45')]!=0x0)return _0x18ac1a[_0x00b4('0x4e')](this);else return _0x18ac1a['fn'](this);});Handlebars[_0x00b4('0x3b')]('notNull',function(_0x442d43,_0x1937eb){if(_0x442d43!=undefined)return _0x1937eb['fn'](this);else return _0x1937eb[_0x00b4('0x4e')](this);});Handlebars['registerHelper'](_0x00b4('0x72'),function(_0x3da6d8,_0x45a107){if(_0x3da6d8==null)return _0x45a107['fn'](this);else return _0x45a107[_0x00b4('0x4e')](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x73'),function(_0x28feb7,_0x4cf5e1,_0xdb6fb4){if(_0x28feb7&&_0x28feb7['indexOf'](_0x4cf5e1)==0x0&&_0x28feb7!=_0x4cf5e1){if(_0xdb6fb4['fn'])return _0xdb6fb4['fn'](this);else return 0x1;}else{if(_0xdb6fb4[_0x00b4('0x4e')])return _0xdb6fb4[_0x00b4('0x4e')](this);else return 0x0;}});Handlebars[_0x00b4('0x3b')](_0x00b4('0x74'),function(_0x1ffb59,_0x2a2f5a,_0x2a3f8c){if(_0x1ffb59&&_0x1ffb59['indexOf'](_0x2a2f5a)==0x0&&_0x1ffb59!=_0x2a2f5a)return _0x2a3f8c['inverse'](this);else return _0x2a3f8c['fn'](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x75'),function(_0x29c003){return _0x29c003[_0x00b4('0x1f')](/{/g,':')['replace'](/}/g,'')[_0x00b4('0x1f')](/\/$/,'');});Handlebars[_0x00b4('0x3b')]('editUrlParamGo',function(_0x3cf799){return _0x3cf799;});Handlebars[_0x00b4('0x3b')](_0x00b4('0x76'),function(_0x102cc1){if(_0x102cc1=='/')_0x102cc1='/*';return _0x102cc1[_0x00b4('0x1f')](/{[\s\S]*}/g,'([^/])+');});Handlebars[_0x00b4('0x3b')](_0x00b4('0x77'),function(_0xb45022){if(_0xb45022==_0x00b4('0x69'))_0xb45022='int';if(_0xb45022==_0x00b4('0x68'))_0xb45022=_0x00b4('0x78');if(_0xb45022==_0x00b4('0x66'))_0xb45022=_0x00b4('0x79');if(_0xb45022==_0x00b4('0x7a'))_0xb45022=_0x00b4('0x79');if(_0xb45022==_0x00b4('0x6c'))_0xb45022=_0x00b4('0x7b');if(_0xb45022==_0x00b4('0x6e'))_0xb45022=_0x00b4('0x6a');return _0xb45022;});Handlebars['registerHelper'](_0x00b4('0x7c'),function(_0xf3e33e){if(_0xf3e33e==_0x00b4('0x69'))_0xf3e33e='Number';if(_0xf3e33e==_0x00b4('0x7a'))_0xf3e33e=_0x00b4('0x66');return _0xf3e33e;});Handlebars[_0x00b4('0x3b')](_0x00b4('0x7d'),function(_0x186d8a){if(_0x186d8a==_0x00b4('0x69'))_0x186d8a=_0x00b4('0x7e');if(_0x186d8a==_0x00b4('0x66'))_0x186d8a='number';if(_0x186d8a==_0x00b4('0x7a'))_0x186d8a=_0x00b4('0x7e');if(_0x186d8a==_0x00b4('0x6c'))_0x186d8a=_0x00b4('0x7b');return _0x186d8a;});Handlebars[_0x00b4('0x3b')](_0x00b4('0x7f'),function(_0x51472f){if(_0x51472f==_0x00b4('0x69'))_0x51472f=_0x00b4('0x80');if(_0x51472f==_0x00b4('0x7a'))_0x51472f=_0x00b4('0x81');if(_0x51472f==_0x00b4('0x66'))_0x51472f=_0x00b4('0x81');if(_0x51472f==_0x00b4('0x6e'))_0x51472f='Long';return _0x51472f;});Handlebars[_0x00b4('0x3b')]('toJavaType',function(_0x157d3e){if(_0x157d3e==_0x00b4('0x7a'))_0x157d3e=_0x00b4('0x81');if(_0x157d3e==_0x00b4('0x66'))_0x157d3e=_0x00b4('0x82');if(_0x157d3e==_0x00b4('0x6e'))_0x157d3e=_0x00b4('0x83');return _0x157d3e;});Handlebars[_0x00b4('0x3b')](_0x00b4('0x84'),function(_0x41bc99){if(_0x41bc99==_0x00b4('0x69'))_0x41bc99=_0x00b4('0x85');if(_0x41bc99==_0x00b4('0x7a'))_0x41bc99=_0x00b4('0x7e');if(_0x41bc99==_0x00b4('0x66'))_0x41bc99=_0x00b4('0x7e');if(_0x41bc99=='ObjectId')_0x41bc99=_0x00b4('0x7b');if(_0x41bc99==_0x00b4('0x6c'))_0x41bc99=_0x00b4('0x7b');if(_0x41bc99==_0x00b4('0x68'))_0x41bc99=_0x00b4('0x85');if(_0x41bc99==_0x00b4('0x6d'))_0x41bc99='boolean';if(_0x41bc99==_0x00b4('0x6e'))_0x41bc99=_0x00b4('0x7b');return _0x41bc99;});Handlebars[_0x00b4('0x3b')](_0x00b4('0x86'),function(_0x4bb5c9){if(_0x4bb5c9[_0x4bb5c9[_0x00b4('0x45')]]=='/')_0x4bb5c9[_0x00b4('0x1b')](0x0,_0x4bb5c9[_0x00b4('0x45')]-0x1);return _0x4bb5c9;});Handlebars['registerHelper'](_0x00b4('0x87'),function(_0x363fee){if(_0x363fee[0x0]=='/')return _0x363fee['substr'](0x1,_0x363fee[_0x00b4('0x45')])[_0x00b4('0x1f')](/{/g,':')['replace'](/}/g,'');return _0x363fee;});Handlebars['registerHelper'](_0x00b4('0x88'),function(_0x4c410,_0x11a022){if(!_0x4c410){return _0x11a022['fn']('?');}});Handlebars[_0x00b4('0x3b')](_0x00b4('0x89'),function(_0x140455){_0x140455=_0x140455[_0x00b4('0x1f')](/([a-z])([A-Z])/g,'$1-$2');_0x140455=_0x140455[_0x00b4('0x58')]();return _0x140455;});Handlebars['registerHelper'](_0x00b4('0x8a'),function(_0x1069ca,_0x21d937,_0x384655,_0x30d5f2){var _0x326814=![];_0x1069ca=_0x1069ca[_0x00b4('0x1b')](0x6);for(var _0x24ad82 in _0x21d937){if(_0x21d937[_0x24ad82]['name']==_0x1069ca&&_0x21d937[_0x24ad82][_0x00b4('0x62')]==_0x00b4('0x8b')&&_0x21d937[_0x24ad82][_0x00b4('0x55')]['name']==_0x384655)_0x326814=_0x21d937[_0x24ad82];}this[_0x00b4('0x8c')]=_0x326814;if(_0x326814)return _0x30d5f2['fn'](this);else return _0x30d5f2[_0x00b4('0x4e')](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x8d'),function(_0x4525f4,_0x109854){var _0x29833a={};var _0x53ab59='';for(var _0x72330e in _0x4525f4){if(!_0x29833a[_0x4525f4[_0x72330e]['_resource'][_0x00b4('0x52')]]){_0x29833a[_0x4525f4[_0x72330e]['_resource'][_0x00b4('0x52')]]=!![];_0x53ab59+=_0x109854['fn'](_0x4525f4[_0x72330e][_0x00b4('0x8e')]);}}return _0x53ab59;});Handlebars[_0x00b4('0x3b')](_0x00b4('0x8f'),function(_0x1f288f,_0x449549){for(var _0x3bde14 in _0x1f288f){if(_0x1f288f[_0x3bde14][_0x00b4('0x52')][_0x00b4('0x4d')]()==_0x449549[_0x00b4('0x4d')]())return _0x1f288f[_0x3bde14][_0x00b4('0x19')];}});Handlebars[_0x00b4('0x3b')](_0x00b4('0x90'),function(_0x5c763f,_0x5035c7){for(var _0x5e5954 in _0x5c763f){if(_0x5c763f[_0x5e5954]['_id'][_0x00b4('0x4d')]()==_0x5035c7[_0x00b4('0x4d')]()){var _0x1874ab=_0x5c763f[_0x5e5954][_0x00b4('0x19')];_0x1874ab=_0x1874ab[_0x00b4('0x1f')](/([a-z])([A-Z])/g,'$1-$2');_0x1874ab=_0x1874ab[_0x00b4('0x58')]();return _0x1874ab;}}});Handlebars[_0x00b4('0x3b')](_0x00b4('0x91'),function(_0x2754d1,_0x378863){return _0x2754d1===_0x00b4('0x92')?'/**':_0x2754d1;});Handlebars[_0x00b4('0x3b')]('unslug',function(_0xea3d79){return _0xea3d79[_0x00b4('0x1f')](/_/g,'\x20');});Handlebars[_0x00b4('0x3b')]('oneElementArray',function(_0x5eac91,_0x3424b5){if(_0x5eac91&&_0x5eac91['length']==0x1)return _0x3424b5['fn'](this);else return _0x3424b5[_0x00b4('0x4e')](this);});Handlebars[_0x00b4('0x3b')](_0x00b4('0x93'),function(_0x3ad8f4,_0x4c5aad){return _0x3ad8f4[0x0][_0x00b4('0x19')];});Handlebars[_0x00b4('0x3b')]('urlSecurity',function(_0x2ee0d1,_0x22f6b8){if(_0x2ee0d1==='/')return'';if(_0x2ee0d1[_0x00b4('0x11')](_0x00b4('0x94'))!=-0x1)return _0x2ee0d1[_0x00b4('0x1f')](_0x00b4('0x94'),'**');});Handlebars[_0x00b4('0x3b')](_0x00b4('0x95'),function(_0x5b8110,_0x348672){if(_0x5b8110[_0x00b4('0x45')]>0x1)return _0x348672['fn'](this);else return _0x348672[_0x00b4('0x4e')](this);});Handlebars[_0x00b4('0x3b')]('distinctRelations',function(_0x234af9,_0x145841,_0x3975f7){var _0x2fbd43=[];var _0x328116='';for(var _0x28ace9 in _0x234af9){var _0xfd023=_0x234af9[_0x28ace9];if(_0xfd023[_0x00b4('0x62')]==_0x00b4('0x96')&&_0xfd023[_0x00b4('0x55')][_0x00b4('0x19')]==_0x145841){if(!_0x2fbd43[_0xfd023[_0x00b4('0x63')]['name']]){_0x2fbd43[_0xfd023['_ent2'][_0x00b4('0x19')]]=_0xfd023;_0x328116+=_0x3975f7['fn'](_0xfd023);}}}return _0x328116;});Handlebars['registerHelper'](_0x00b4('0x97'),function(_0x5cf883,_0x161f5b){var _0x446b05=[];var _0x5b179d='';for(var _0x259deb in _0x5cf883){var _0x3a25de=_0x5cf883[_0x259deb];if(!_0x446b05[_0x3a25de[_0x00b4('0x19')]]){_0x446b05[_0x3a25de[_0x00b4('0x19')]]=_0x3a25de;_0x5b179d+=_0x161f5b['fn'](_0x3a25de);}}return _0x5b179d;});Handlebars['registerHelper']('distinctRelationsEditComponent',function(_0x336de8,_0x149fa8){var _0x2c99fb=[];var _0x2c2b61='';_0x2c2b61+=_0x149fa8['fn']({'resourceName':_0x336de8[_0x00b4('0x19')],'dbName':_0x336de8[_0x00b4('0x98')]});_0x2c99fb[_0x336de8['name']]=!![];for(var _0x370e5c in _0x336de8[_0x00b4('0x99')]){var _0x5df012=_0x336de8[_0x00b4('0x99')][_0x370e5c];if(_0x5df012[_0x00b4('0x55')][_0x00b4('0x52')][_0x00b4('0x4d')]()==_0x336de8['_entity'][_0x00b4('0x52')][_0x00b4('0x4d')]()){var _0x253226=_0x5df012[_0x00b4('0x63')][_0x00b4('0x19')];if(!_0x2c99fb[_0x253226]){var _0x4dc6b1={'resourceName':_0x253226,'dbName':_0x5df012[_0x00b4('0x63')][_0x00b4('0x8e')][_0x00b4('0x98')]};_0x2c99fb[_0x253226]=_0x4dc6b1;_0x2c2b61+=_0x149fa8['fn'](_0x4dc6b1);}}else{var _0x253226=_0x5df012['_ent1'][_0x00b4('0x19')];if(!_0x2c99fb[_0x253226]){var _0x4dc6b1={'resourceName':_0x253226,'dbName':_0x5df012[_0x00b4('0x63')][_0x00b4('0x8e')][_0x00b4('0x98')]};_0x2c99fb[_0x253226]=_0x4dc6b1;_0x2c2b61+=_0x149fa8['fn'](_0x4dc6b1);}}}return _0x2c2b61;});
+var fs = require("fs");
+var Handlebars = require("handlebars");
+var chalk = require("chalk");
+var helpers = require("handlebars-helpers")({
+  handlebars: Handlebars
+});
+var groupBy = require("handlebars-group-by");
+
+groupBy.register(Handlebars);
+
+var mkdirp = require("mkdirp");
+var extend = require("util")._extend;
+
+var paramsGenerator = {};
+
+// comment on templates
+var comment = function(file, extension) {
+  var text =
+    "Generated by Skaffolder\nFor documentation visit http://skaffolder.com/#/documentation";
+
+  var linkDoc = {
+    js: {
+      open: "// -------------\n// ",
+      close: "\n// -------------\n\n"
+    },
+    ts: {
+      open: "// -------------\n// ",
+      close: "\n// -------------\n\n"
+    },
+    html: {
+      open: "<!-- \n     ",
+      close: "\n-->\n    \n"
+    },
+    java: {
+      open: "// -------------\n// ",
+      close: "\n// -------------\n\n"
+    },
+    php: {
+      open: "<?php \n//",
+      close: "\n?>\n\n"
+    }
+  };
+
+  if (file.name.endsWith(extension)) {
+    file.template =
+      linkDoc[extension].open + text + linkDoc[extension].close + file.template;
+  }
+
+  return file.template;
+};
+
+exports.init = function(pathWorkspace2, project, modules, resources, dbs) {
+  paramsGenerator = {
+    project: project,
+    modules: modules,
+    resources: resources,
+    dbs: dbs
+  };
+
+  pathWorkspace = pathWorkspace2;
+};
+
+var insertInto = function(html, partialTmpl, params, tagFrom, tagTo, log) {
+  try {
+    var insertAt = html.indexOf(tagFrom);
+
+    if (insertAt != -1) {
+      var untilAt = html.indexOf(tagTo);
+      var template = Handlebars.compile(partialTmpl);
+      var partialCode = template(params);
+      html =
+        html.slice(0, insertAt + tagFrom.length) +
+        "\n" +
+        partialCode +
+        html.slice(untilAt - 1);
+    }
+
+    return html;
+  } catch (e) {
+    console.error(e);
+    var err = {
+      Error: {
+        message: e.message
+      }
+    };
+    log.push(err);
+  }
+};
+
+exports.generateFile = function(log, file, paramLoop, opt) {
+  var output = "";
+  var path = require("path");
+
+  // Bynary files
+  if (file.templateBinary) {
+    var template = Handlebars.compile(file.name);
+    var fileNameDest = template(param);
+    if (pathWorkspace) {
+      var path = pathWorkspace + fileNameDest;
+      mkdirp.sync(path.substr(0, path.lastIndexOf("/")));
+      fs.writeFileSync(path, file.templateBinary, "binary");
+      return;
+    }
+  }
+
+  // Text files
+  try {
+    //SET PARAMS
+    var param = paramsGenerator;
+    for (var index in paramLoop) {
+      param[index] = paramLoop[index];
+    }
+
+    param.extra = {};
+    if (opt && opt.extra) {
+      for (var i in opt.extra) {
+        if (opt.extra[i]) param.extra[opt.extra[i].name] = opt.extra[i].value;
+      }
+    }
+
+    //GET FILE NAME
+    //console.info(chalk.gray("log: ") + file.name);
+    var fileName = file.name.replace(/{{\\(([A-Za-z\s])*)}}/g, "{{/$1}}");
+    fileName = fileName.replace(/\\/g, "\\\\");
+    //console.info(chalk.gray("log: ") + fileName);
+    var template = Handlebars.compile(fileName);
+    var fileNameDest = template(param);
+    //console.info(chalk.gray("log: ") + fileNameDest);
+
+    if (pathWorkspace) {
+      var pathFile = path.normalize(pathWorkspace + fileNameDest);
+
+      if (file.ignore && fs.existsSync(pathFile)) {
+        //console.info(chalk.gray("File ignored: ") + file.name);
+        return;
+      }
+
+      // READ FILE OR TEMPLATE
+      if (!file.overwrite && fs.existsSync(pathFile)) {
+        output = fs.readFileSync(pathFile, "utf8");
+        //console.info(chalk.gray("File ignored: ") + pathFile);
+      } else {
+        var template = "";
+        if (paramLoop && paramLoop.module && paramLoop.module.template) {
+          var templateSplit = paramLoop.module.template.split("_");
+          if (templateSplit[0] == "List") {
+            if (file.templateList) {
+              template = Handlebars.compile(file.templateList);
+            } else {
+              console.warn(
+                chalk.yellow(
+                  "Template List not found for page " + paramLoop.module.name
+                )
+              );
+              console.log("Please add file " + file.name + "_SK_LIST.hbs");
+              template = Handlebars.compile(file.template);
+            }
+          }
+          if (templateSplit[0] == "Edit") {
+            if (file.templateEdit) {
+              template = Handlebars.compile(file.templateEdit);
+            } else {
+              console.warn(
+                chalk.yellow(
+                  "Template Edit not found for page " + paramLoop.module.name
+                )
+              );
+              console.log("Please add file " + file.name + "_SK_EDIT.hbs");
+              template = Handlebars.compile(file.template);
+            }
+          }
+        } else {
+          template = Handlebars.compile(file.template);
+        }
+
+        try {
+          output = template(param);
+        } catch (e) {
+          console.log(chalk.red("File with error: ") + pathFile);
+          console.error(e);
+        }
+      }
+    } else {
+      //FOR TESTING PREVIEW
+      opt.params.push(param);
+
+      var template = "";
+      if (paramLoop && paramLoop.module && paramLoop.module.template) {
+        var templateSplit = paramLoop.module.template.split("_");
+        if (templateSplit[0] == "List")
+          template = Handlebars.compile(file.templateList);
+        if (templateSplit[0] == "Edit")
+          template = Handlebars.compile(file.templateEdit);
+      } else {
+        template = Handlebars.compile(file.template);
+      }
+
+      output = template(param);
+    }
+
+    //EXTRA ACTION
+    for (var i in file._partials) {
+      var partial = file._partials[i];
+      output = insertInto(
+        output,
+        partial.template,
+        param,
+        partial.tagFrom,
+        partial.tagTo,
+        log
+      );
+    }
+
+    //IF IS TEST PREVIEW
+    if (opt && opt.test) {
+      return output;
+    }
+
+    //WRITE
+    var folderFile = path.normalize(
+      pathFile.substr(0, pathFile.lastIndexOf(path.normalize("/")))
+    );
+    var res = mkdirp.sync(folderFile);
+    if (output != "") {
+      if (fs.existsSync(pathFile)) {
+        let actual = fs.readFileSync(pathFile, "utf8");
+        if (actual != output)
+          console.info(chalk.green("File modified: ") + pathFile);
+      } else {
+        console.info(chalk.green("File created: ") + pathFile);
+      }
+
+      fs.writeFileSync(pathFile, output);
+    }
+  } catch (e) {
+    console.error(e);
+    var err = {
+      Error: {
+        message: e.message
+      }
+    };
+    log.push(err);
+  }
+};
+
+//SET HANDLEBARS
+Handlebars.registerHelper("joinObj", function(arr, field) {
+  var result = [];
+  for (i in arr) {
+    result.push(arr[i][field]);
+  }
+  return JSON.stringify(result).replace(/,/g, ", ");
+});
+
+Handlebars.registerHelper("joinObj2", function(arr) {
+  var result = "";
+  for (i in arr) {
+    result += (i != 0 ? ', "' : '"') + arr[i]["name"] + '"';
+  }
+  return new Handlebars.SafeString(result);
+});
+
+Handlebars.registerHelper("joinRoleObj", function(arr) {
+  var result = "";
+  for (i in arr) {
+    result += ', "ROLE_' + arr[i]["name"] + '"';
+  }
+  return new Handlebars.SafeString(result);
+});
+Handlebars.registerHelper("roleObj", function(arr) {
+  var result = '"' + arr[0]["name"] + '"';
+  for (i in arr) {
+    if (arr[0]["name"] === arr[i]["name"]) continue;
+    result += ', "' + arr[i]["name"] + '"';
+  }
+  return new Handlebars.SafeString(result);
+});
+
+Handlebars.registerHelper("joinRoleObj2", function(arr) {
+  var result = "";
+  for (let i = 0; i < arr.length; i++) {
+    if (i == 0) {
+      result += '"ROLE_' + arr[i]["name"] + '"';
+    } else {
+      result += ', "ROLE_' + arr[i]["name"] + '"';
+    }
+  }
+  return new Handlebars.SafeString(result);
+});
+Handlebars.registerHelper("roleObj", function(arr) {
+  var result = '"' + arr[0]["name"] + '"';
+  for (i in arr) {
+    if (arr[0]["name"] === arr[i]["name"]) continue;
+    result += ', "' + arr[i]["name"] + '"';
+  }
+  return new Handlebars.SafeString(result);
+});
+
+Handlebars.registerHelper("json", function(context) {
+  return new Handlebars.SafeString(JSON.stringify(context, null, 2));
+});
+
+Handlebars.registerHelper("firstUpperCase", function(s, options) {
+  return s && s[0].toUpperCase() + s.slice(1);
+});
+Handlebars.registerHelper("subStr", function(string, start, options) {
+  return string.substr(start);
+});
+Handlebars.registerHelper("subStrCap", function(string, start, options) {
+  return (
+    string
+      .substr(start)
+      .charAt(0)
+      .toUpperCase() + string.substr(start).slice(1)
+  );
+});
+Handlebars.registerHelper("equal", function(left, right, options) {
+  if (left) left = left.toString();
+  if (right) right = right.toString();
+
+  if (left == right) {
+    if (options.fn) return options.fn(this);
+    else return 1;
+  }
+
+  if (options.inverse) return options.inverse(this);
+  else return 0;
+});
+Handlebars.registerHelper("isNotLast", function(array, index, options) {
+  if (array.length == index + 1) return options.inverse(this);
+  else return options.fn(this);
+});
+Handlebars.registerHelper("isNotLastUser", function(array, index, options) {
+  if (array.length == index + 1) return options.inverse(this);
+  else {
+    if (array.length == index + 2) {
+      arrayTmp = array.slice(index);
+      if (arrayTmp.slice(-1)[0].name == "username")
+        return options.inverse(this);
+    } else return options.fn(this);
+  }
+});
+Handlebars.registerHelper("isNotLastRelations", function(
+  array,
+  resource,
+  index,
+  options
+) {
+  if (array.length == index + 1) {
+    return options.inverse(this);
+  } else {
+    for (let i = index + 1; i < array.length; i++) {
+      if (array[i]._ent1._id.toString() != resource._id.toString())
+        return options.fn(this);
+      return options.inverse(this);
+    }
+  }
+
+  //else
+  //return options.fn(this);
+});
+Handlebars.registerHelper("checkRelation", function(array, resource, options) {
+  if (array.length == 0) return options.inverse(this);
+  if (array)
+    for (let item in array) {
+      if (array[item]._ent1._id.toString() == resource._id.toString())
+        return options.fn(this);
+    }
+});
+
+Handlebars.registerHelper("checkExternalRelation", function(
+  array,
+  resource,
+  options
+) {
+  if (array.length == 0) return options.inverse(this);
+  if (array)
+    for (let item in array) {
+      if (array[item]._ent1._id.toString() != resource._id.toString())
+        return options.fn(this);
+    }
+});
+Handlebars.registerHelper("notEqual", function(left, right, exact, options) {
+  if (left) left = left.toString();
+  if (right) right = right.toString();
+  options = options || exact;
+  exact = exact === "exact" ? true : false;
+  var is_equal = exact ? left === right : left == right;
+  if (!is_equal) return options.fn(this);
+  return options.inverse(this);
+});
+Handlebars.registerHelper("notHome", function(parameter, options) {
+  if (parameter) parameter = parameter.toString().toLowerCase();
+  if (parameter !== "home") return options.fn(this);
+  return options.inverse(this);
+});
+Handlebars.registerHelper("notEqualArray", function(string, options) {
+  var search = ["update", "create", "delete", "list", "get"];
+  for (var id in search) {
+    if (search[id] == string) return options.inverse(this);
+  }
+  return options.fn(this);
+});
+Handlebars.registerHelper("isInUrl", function(param, url, options) {
+  var urlParams = url.match(/{\w+}/g);
+  if (urlParams && urlParams.indexOf("{" + param + "}") != -1)
+    return options.fn(this);
+  else return options.inverse(this);
+});
+Handlebars.registerHelper("relationName", function(
+  resource,
+  name,
+  url,
+  options
+) {
+  relation = resource.find(x => x.type === "m:m");
+  nameRelation =
+    relation && relation.name === name.substr(3) && relation._ent2.name;
+  return nameRelation;
+});
+Handlebars.registerHelper("relationNameService", function(
+  resource,
+  name,
+  url,
+  options
+) {
+  relation = resource.find(
+    x => x.name.toLowerCase() === name.substr(6).toLowerCase()
+  );
+  nameRelation =
+    relation && relation.name === name.substr(6) && relation._ent2.name;
+  return nameRelation;
+});
+Handlebars.registerHelper("relationNameServiceLowercase", function(
+  resource,
+  name,
+  url,
+  options
+) {
+  relation = resource.find(
+    x => x.name.toLowerCase() === name.substr(6).toLowerCase()
+  );
+  nameRelation =
+    relation && relation.name === name.substr(6) && relation._ent2.name;
+  return nameRelation.toLowerCase();
+});
+Handlebars.registerHelper("resolveSQLtype", function(value, options) {
+  if (value == "Number") return "numeric";
+  else if (value == "Date") return "date";
+  else if (value == "Integer") return "int";
+  else if (value == "Decimal") return "decimal(6,2)";
+  else if (value == "String") return "varchar(40)";
+  else if (value == "Boolean") return "bool";
+  else if (value == "ObjectId") return "int(11)";
+
+  return "varchar(30)";
+});
+Handlebars.registerHelper("isEmptyArray", function(value, options) {
+  if (value && value.length == 0) return options.fn(this);
+  else return options.inverse(this);
+});
+Handlebars.registerHelper("notEmpty", function(value, options) {
+  if (value && value.length != 0) return options.fn(this);
+  else return options.inverse(this);
+});
+Handlebars.registerHelper("isEmpty", function(value, options) {
+  if (value && value.length != 0) return options.inverse(this);
+  else return options.fn(this);
+});
+Handlebars.registerHelper("isEmptyNull", function(value, options) {
+  if (value && value.length != 0) return options.inverse(this);
+  else return options.fn(this);
+});
+Handlebars.registerHelper("notNull", function(value, options) {
+  if (value != undefined) return options.fn(this);
+  else return options.inverse(this);
+});
+Handlebars.registerHelper("isNull", function(value, options) {
+  if (value == null) return options.fn(this);
+  else return options.inverse(this);
+});
+Handlebars.registerHelper("startWith", function(src, search, options) {
+  if (src && src.indexOf(search) == 0 && src != search) {
+    if (options.fn) return options.fn(this);
+    else return 1;
+  } else {
+    if (options.inverse) return options.inverse(this);
+    else return 0;
+  }
+});
+Handlebars.registerHelper("notStartWith", function(src, search, options) {
+  if (src && src.indexOf(search) == 0 && src != search)
+    return options.inverse(this);
+  else return options.fn(this);
+});
+Handlebars.registerHelper("editUrlParam", function(url) {
+  return url
+    .replace(/{/g, ":")
+    .replace(/}/g, "")
+    .replace(/\/$/, "");
+});
+
+Handlebars.registerHelper("editUrlParamGo", function(url) {
+  return url;
+});
+
+Handlebars.registerHelper("editUrlParamRegExp", function(url) {
+  if (url == "/") url = "/*";
+
+  return url.replace(/{[\s\S]*}/g, "([^/])+");
+});
+
+Handlebars.registerHelper("toGoType", function(type) {
+  if (type == "Integer") type = "int";
+  if (type == "Date") type = "time.Time";
+  if (type == "Number") type = "float32";
+  if (type == "Decimal") type = "float32";
+  if (type == "String") type = "string";
+  if (type == "ObjectId") type = "int";
+  return type;
+});
+
+Handlebars.registerHelper("toJSType", function(type) {
+  if (type == "Integer") type = "Number";
+  if (type == "Decimal") type = "Number";
+  return type;
+});
+
+Handlebars.registerHelper("toTSType", function(type) {
+  if (type == "Integer") type = "number";
+  if (type == "Number") type = "number";
+  if (type == "Decimal") type = "number";
+  if (type == "String") type = "string";
+  return type;
+});
+
+Handlebars.registerHelper("toJDBCType", function(type) {
+  if (type == "Integer") type = "Int";
+  if (type == "Decimal") type = "BigDecimal";
+  if (type == "Number") type = "BigDecimal";
+  if (type == "ObjectId") type = "Long";
+  return type;
+});
+
+Handlebars.registerHelper("toJavaType", function(type) {
+  if (type == "Decimal") type = "BigDecimal";
+  if (type == "Number") type = "Double";
+  if (type == "ObjectId") type = "Long";
+  return type;
+});
+
+Handlebars.registerHelper("toSwaggerType", function(type) {
+  if (type == "Integer") type = "integer";
+  if (type == "Decimal") type = "number";
+  if (type == "Number") type = "number";
+  if (type == "ObjectId") type = "string";
+  if (type == "String") type = "string";
+  if (type == "Date") type = "integer";
+  if (type == "Boolean") type = "boolean";
+  if (type == "ObjectId") type = "string";
+  return type;
+});
+
+Handlebars.registerHelper("removeFinalSlash", function(url) {
+  if (url[url.length] == "/") url.substr(0, url.length - 1);
+  return url;
+});
+
+Handlebars.registerHelper("removeInitialSlash", function(url) {
+  if (url[0] == "/")
+    return url
+      .substr(1, url.length)
+      .replace(/{/g, ":")
+      .replace(/}/g, "");
+  return url;
+});
+
+Handlebars.registerHelper("isRequired", function(required, options) {
+  if (!required) {
+    return options.fn("?");
+  }
+});
+
+Handlebars.registerHelper("toFileName", function(name) {
+  name = name.replace(/([a-z])([A-Z])/g, "$1-$2");
+  name = name.toLowerCase();
+  return name;
+});
+
+Handlebars.registerHelper("isMtoM", function(
+  RelationName,
+  relations,
+  resourceName,
+  options
+) {
+  var found = false;
+  RelationName = RelationName.substr(6);
+  for (var i in relations) {
+    if (
+      relations[i].name == RelationName &&
+      relations[i].type == "m:m" &&
+      relations[i]._ent1.name == resourceName
+    )
+      found = relations[i];
+  }
+
+  this.relations = found;
+  if (found) return options.fn(this);
+  else return options.inverse(this);
+});
+
+Handlebars.registerHelper("eachResource", function(services, options) {
+  var resources = {};
+  var buffer = "";
+
+  for (var s in services) {
+    if (!resources[services[s]._resource._id]) {
+      resources[services[s]._resource._id] = true;
+      buffer += options.fn(services[s]._resource);
+    }
+  }
+
+  return buffer;
+});
+
+Handlebars.registerHelper("getDbName", function(dbs, idDb) {
+  for (var i in dbs) {
+    if (dbs[i]._id.toString() == idDb.toString()) return dbs[i].name;
+  }
+});
+
+Handlebars.registerHelper("getDbNameToFileName", function(dbs, idDb) {
+  for (var i in dbs) {
+    if (dbs[i]._id.toString() == idDb.toString()) {
+      var name = dbs[i].name;
+      name = name.replace(/([a-z])([A-Z])/g, "$1-$2");
+      name = name.toLowerCase();
+      return name;
+    }
+  }
+});
+
+Handlebars.registerHelper("buildUrlSecurity", function(url, options) {
+  return url === "/{id}" ? "/**" : url;
+});
+
+Handlebars.registerHelper("unslug", function(msg) {
+  return msg.replace(/_/g, " ");
+});
+
+Handlebars.registerHelper("findInArray", function(array, key, value, options) {
+  for (var i in array) {
+    if (array[i][key] == value) {
+      if (options.fn) return options.fn(this);
+      else return true;
+    }
+  }
+  if (options.inverse) return options.inverse(this);
+  else return false;
+});
+
+Handlebars.registerHelper("hasInArray", function(array, key, options) {
+  for (var i in array) {
+    if (array[i][key] != null) {
+      if (options.fn) return options.fn(this);
+      else return true;
+    }
+  }
+  if (options.inverse) return options.inverse(this);
+  else return false;
+});
+Handlebars.registerHelper("oneElementArray", function(value, options) {
+  if (value && value.length == 1) return options.fn(this);
+  else return options.inverse(this);
+});
+Handlebars.registerHelper("firstElementArray", function(array, options) {
+  return array[0]["name"];
+});
+Handlebars.registerHelper("urlSecurity", function(url, options) {
+  if (url === "/") return "";
+  if (url.indexOf("{id}") != -1) return url.replace("{id}", "**");
+});
+Handlebars.registerHelper("moreThanOneElement", function(array, options) {
+  if (array.length > 1) return options.fn(this);
+  else return options.inverse(this);
+});
+
+Handlebars.registerHelper("distinctRelations", function(
+  array,
+  entityName,
+  options
+) {
+  var present = [];
+  var buffer = "";
+
+  for (var i in array) {
+    var item = array[i];
+
+    if (item.type == "1:m" && item._ent1.name == entityName) {
+      if (!present[item._ent2.name]) {
+        present[item._ent2.name] = item;
+        buffer += options.fn(item);
+      }
+    }
+  }
+
+  return buffer;
+});
+Handlebars.registerHelper("distinctModules", function(array, options) {
+  var present = [];
+  var buffer = "";
+
+  for (var i in array) {
+    var item = array[i];
+    if (!present[item.name]) {
+      present[item.name] = item;
+      buffer += options.fn(item);
+    }
+  }
+  return buffer;
+});
+
+Handlebars.registerHelper("distinctRelationsEditComponent", function(
+  crudResource,
+  options
+) {
+  var present = [];
+  var buffer = "";
+
+  buffer += options.fn({
+    resourceName: crudResource.name,
+    dbName: crudResource._db
+  });
+  present[crudResource.name] = true;
+
+  for (var i in crudResource._relations) {
+    var item = crudResource._relations[i];
+
+    if (item._ent1._id.toString() == crudResource._entity._id.toString()) {
+      var resourceName = item._ent2.name;
+      if (!present[resourceName]) {
+        var result = {
+          resourceName: resourceName,
+          dbName: item._ent2._resource._db
+        };
+        present[resourceName] = result;
+        buffer += options.fn(result);
+      }
+    } else {
+      var resourceName = item._ent1.name;
+
+      if (!present[resourceName]) {
+        var result = {
+          resourceName: resourceName,
+          dbName: item._ent2._resource._db
+        };
+        present[resourceName] = result;
+        buffer += options.fn(result);
+      }
+    }
+  }
+
+  return buffer;
+});
