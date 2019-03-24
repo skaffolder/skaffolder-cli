@@ -267,6 +267,7 @@ Handlebars.registerHelper("joinRoleObj", function(arr) {
   }
   return new Handlebars.SafeString(result);
 });
+
 Handlebars.registerHelper("roleObj", function(arr) {
   var result = '"' + arr[0]["name"] + '"';
   for (i in arr) {
@@ -287,6 +288,7 @@ Handlebars.registerHelper("joinRoleObj2", function(arr) {
   }
   return new Handlebars.SafeString(result);
 });
+
 Handlebars.registerHelper("roleObj", function(arr) {
   var result = '"' + arr[0]["name"] + '"';
   for (i in arr) {
@@ -303,9 +305,11 @@ Handlebars.registerHelper("json", function(context) {
 Handlebars.registerHelper("firstUpperCase", function(s, options) {
   return s && s[0].toUpperCase() + s.slice(1);
 });
+
 Handlebars.registerHelper("subStr", function(string, start, options) {
   return string.substr(start);
 });
+
 Handlebars.registerHelper("subStrCap", function(string, start, options) {
   return (
     string
@@ -314,6 +318,7 @@ Handlebars.registerHelper("subStrCap", function(string, start, options) {
       .toUpperCase() + string.substr(start).slice(1)
   );
 });
+
 Handlebars.registerHelper("equal", function(left, right, options) {
   if (left) left = left.toString();
   if (right) right = right.toString();
@@ -326,10 +331,12 @@ Handlebars.registerHelper("equal", function(left, right, options) {
   if (options.inverse) return options.inverse(this);
   else return 0;
 });
+
 Handlebars.registerHelper("isNotLast", function(array, index, options) {
   if (array.length == index + 1) return options.inverse(this);
   else return options.fn(this);
 });
+
 Handlebars.registerHelper("isNotLastUser", function(array, index, options) {
   if (array.length == index + 1) return options.inverse(this);
   else {
@@ -340,6 +347,7 @@ Handlebars.registerHelper("isNotLastUser", function(array, index, options) {
     } else return options.fn(this);
   }
 });
+
 Handlebars.registerHelper("isNotLastRelations", function(
   array,
   resource,
@@ -422,6 +430,7 @@ Handlebars.registerHelper("checkExternalRelation", function(
         return options.fn(this);
     }
 });
+
 Handlebars.registerHelper("notEqual", function(left, right, exact, options) {
   if (left) left = left.toString();
   if (right) right = right.toString();
@@ -431,11 +440,13 @@ Handlebars.registerHelper("notEqual", function(left, right, exact, options) {
   if (!is_equal) return options.fn(this);
   return options.inverse(this);
 });
+
 Handlebars.registerHelper("notHome", function(parameter, options) {
   if (parameter) parameter = parameter.toString().toLowerCase();
   if (parameter !== "home") return options.fn(this);
   return options.inverse(this);
 });
+
 Handlebars.registerHelper("notEqualArray", function(string, options) {
   var search = ["update", "create", "delete", "list", "get"];
   for (var id in search) {
@@ -443,12 +454,14 @@ Handlebars.registerHelper("notEqualArray", function(string, options) {
   }
   return options.fn(this);
 });
+
 Handlebars.registerHelper("isInUrl", function(param, url, options) {
   var urlParams = url.match(/{\w+}/g);
   if (urlParams && urlParams.indexOf("{" + param + "}") != -1)
     return options.fn(this);
   else return options.inverse(this);
 });
+
 Handlebars.registerHelper("relationName", function(
   resource,
   name,
@@ -460,6 +473,7 @@ Handlebars.registerHelper("relationName", function(
     relation && relation.name === name.substr(3) && relation._ent2.name;
   return nameRelation;
 });
+
 Handlebars.registerHelper("relationNameService", function(
   resource,
   name,
@@ -473,6 +487,7 @@ Handlebars.registerHelper("relationNameService", function(
     relation && relation.name === name.substr(6) && relation._ent2.name;
   return nameRelation;
 });
+
 Handlebars.registerHelper("relationNameServiceLowercase", function(
   resource,
   name,
@@ -486,6 +501,7 @@ Handlebars.registerHelper("relationNameServiceLowercase", function(
     relation && relation.name === name.substr(6) && relation._ent2.name;
   return nameRelation.toLowerCase();
 });
+
 Handlebars.registerHelper("resolveSQLtype", function(value, options) {
   if (value == "Number") return "numeric";
   else if (value == "Date") return "date";
@@ -497,30 +513,37 @@ Handlebars.registerHelper("resolveSQLtype", function(value, options) {
 
   return "varchar(30)";
 });
+
 Handlebars.registerHelper("isEmptyArray", function(value, options) {
   if (value && value.length == 0) return options.fn(this);
   else return options.inverse(this);
 });
+
 Handlebars.registerHelper("notEmpty", function(value, options) {
   if (value && value.length != 0) return options.fn(this);
   else return options.inverse(this);
 });
-Handlebars.registerHelper("isEmpty", function(value, options) {
+
+Handlebars.registerHelper("isEmpty2", function(value, options) {
   if (value && value.length != 0) return options.inverse(this);
   else return options.fn(this);
 });
+
 Handlebars.registerHelper("isEmptyNull", function(value, options) {
   if (value && value.length != 0) return options.inverse(this);
   else return options.fn(this);
 });
+
 Handlebars.registerHelper("notNull", function(value, options) {
   if (value != undefined) return options.fn(this);
   else return options.inverse(this);
 });
+
 Handlebars.registerHelper("isNull", function(value, options) {
   if (value == null) return options.fn(this);
   else return options.inverse(this);
 });
+
 Handlebars.registerHelper("startWith", function(src, search, options) {
   if (src && src.indexOf(search) == 0 && src != search) {
     if (options.fn) return options.fn(this);
@@ -530,11 +553,13 @@ Handlebars.registerHelper("startWith", function(src, search, options) {
     else return 0;
   }
 });
+
 Handlebars.registerHelper("notStartWith", function(src, search, options) {
   if (src && src.indexOf(search) == 0 && src != search)
     return options.inverse(this);
   else return options.fn(this);
 });
+
 Handlebars.registerHelper("editUrlParam", function(url) {
   return url
     .replace(/{/g, ":")
@@ -588,6 +613,17 @@ Handlebars.registerHelper("toJavaType", function(type) {
   if (type == "Decimal") type = "BigDecimal";
   if (type == "Number") type = "Double";
   if (type == "ObjectId") type = "Long";
+  return type;
+});
+
+Handlebars.registerHelper("toCType", function(type) {
+  if (type == "Integer") type = "int";
+  if (type == "Decimal") type = "string";
+  if (type == "Number") type = "int";
+  if (type == "ObjectId") type = "string";
+  if (type == "String") type = "string";
+  if (type == "Date") type = "DateTime";
+  if (type == "Boolean") type = "boolean";
   return type;
 });
 
@@ -690,6 +726,11 @@ Handlebars.registerHelper("unslug", function(msg) {
   return msg.replace(/_/g, " ");
 });
 
+Handlebars.registerHelper("oneElementArray", function(value, options) {
+  if (value && value.length == 1) return options.fn(this);
+  else return options.inverse(this);
+});
+
 Handlebars.registerHelper("findInArray", function(array, key, value, options) {
   for (var i in array) {
     if (array[i][key] == value) {
@@ -711,6 +752,7 @@ Handlebars.registerHelper("hasInArray", function(array, key, options) {
   if (options.inverse) return options.inverse(this);
   else return false;
 });
+
 Handlebars.registerHelper("oneElementArray", function(value, options) {
   if (value && value.length == 1) return options.fn(this);
   else return options.inverse(this);
@@ -718,10 +760,12 @@ Handlebars.registerHelper("oneElementArray", function(value, options) {
 Handlebars.registerHelper("firstElementArray", function(array, options) {
   return array[0]["name"];
 });
+
 Handlebars.registerHelper("urlSecurity", function(url, options) {
   if (url === "/") return "";
   if (url.indexOf("{id}") != -1) return url.replace("{id}", "**");
 });
+
 Handlebars.registerHelper("moreThanOneElement", function(array, options) {
   if (array.length > 1) return options.fn(this);
   else return options.inverse(this);
@@ -760,6 +804,23 @@ Handlebars.registerHelper("distinctModules", function(array, options) {
     }
   }
   return buffer;
+});
+
+Handlebars.registerHelper("equalFindBy", function(str1, str2, options) {
+  if (("findBy" + str1).toLowerCase() === str2.toLowerCase()) {
+    if (options.fn) return options.fn(this);
+    else return 1;
+  }
+});
+
+Handlebars.registerHelper("findByNotRelation", function(
+  resource,
+  crud,
+  options
+) {
+  if (resource._relations.filter(rel => rel.name === crud.slice(6)).length > 0)
+    return options.inverse(this);
+  else return options.fn(this);
 });
 
 Handlebars.registerHelper("distinctRelationsEditComponent", function(
