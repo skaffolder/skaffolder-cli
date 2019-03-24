@@ -368,6 +368,48 @@ Handlebars.registerHelper("checkRelation", function(array, resource, options) {
     }
 });
 
+Handlebars.registerHelper("hasRelation1m", function(resource, options) {
+  var relations = resource._relations;
+
+  if (relations.length == 0) {
+    if (options.inverse) return options.inverse(this);
+    else return false;
+  }
+
+  if (relations)
+    for (let item in relations) {
+      if (
+        relations[item]._ent1._id.toString() ==
+          resource._entity._id.toString() &&
+        relations[item].type == "1:m"
+      ) {
+        if (options.fn) return options.fn(this);
+        else return false;
+      }
+    }
+});
+
+Handlebars.registerHelper("hasRelationmm", function(resource, options) {
+  var relations = resource._relations;
+
+  if (relations.length == 0) {
+    if (options.inverse) return options.inverse(this);
+    else return false;
+  }
+
+  if (relations)
+    for (let item in relations) {
+      if (
+        relations[item]._ent1._id.toString() ==
+          resource._entity._id.toString() &&
+        relations[item].type == "m:m"
+      ) {
+        if (options.fn) return options.fn(this);
+        else return false;
+      }
+    }
+});
+
 Handlebars.registerHelper("checkExternalRelation", function(
   array,
   resource,
