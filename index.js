@@ -17,7 +17,7 @@ const getProjectUrlCmd = require("./lib/getProjectUrl");
 const importDbCmd = require("./lib/importDb");
 
 prog
-  .version("1.1.24")
+  .version("1.1.25")
 
   // start
   .command("login", "Log in into Skaffolder")
