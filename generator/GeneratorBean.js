@@ -1,1 +1,329 @@
-var _0xb7e5=['_SK_EDIT','binary','filter','****\x20PROPERTIES\x20SKAFFOLDER\x20****','****\x20END\x20PROPERTIES\x20SKAFFOLDER\x20****','indexOf','warn','yellow','WARN:','\x20Properties\x20Skaffoler\x20not\x20found\x20in\x20file\x20','search','match','parse','_SK_LIST.hbs','existsSync','templateList','_SK_EDIT.hbs','templateEdit','utf-8','charAt','.skaffolder/template/','path','klaw-sync','async','chalk','generate','project','modules','resources','dbs','info','START\x20GENERATE\x20','./GeneratorUtils.js','init','each','error','forEachObj','oneTime','paramsForEach','_id','toString','_entity','generateFile','table','module','template','_resources','_template_resource','replace','{id}','resource','map','readFileSync','utf8','relative','substr','.hbs','length'];(function(_0x517aaa,_0xe25a7a){var _0x20be1c=function(_0x81c63b){while(--_0x81c63b){_0x517aaa['push'](_0x517aaa['shift']());}};_0x20be1c(++_0xe25a7a);}(_0xb7e5,0xc2));var _0x5b7e=function(_0x14add3,_0x13ce8d){_0x14add3=_0x14add3-0x0;var _0x4a174f=_0xb7e5[_0x14add3];return _0x4a174f;};var pathWorkspace='./';const pathTemplate=_0x5b7e('0x0');const fs=require('fs');const path=require(_0x5b7e('0x1'));const klawSync=require(_0x5b7e('0x2'));const async=require(_0x5b7e('0x3'));const chalk=require(_0x5b7e('0x4'));exports['pathTemplate']=pathTemplate;exports[_0x5b7e('0x5')]=function(_0x38af1c,_0x5b7492,_0x23e99a){var _0x17ac8e=_0x38af1c[_0x5b7e('0x6')];var _0x2185e7=_0x38af1c[_0x5b7e('0x7')];var _0x37735f=_0x38af1c[_0x5b7e('0x8')];var _0x3fce21=_0x38af1c[_0x5b7e('0x9')];var _0x395fb5=getGenFiles(pathTemplate);var _0x1c87e2=[];try{_0x5b7492[_0x5b7e('0xa')](chalk['green'](_0x5b7e('0xb')));_0x1c87e2['push'](_0x5b7e('0xb'));var _0x5b1c24=require(_0x5b7e('0xc'));_0x5b1c24[_0x5b7e('0xd')](pathWorkspace,_0x17ac8e,_0x2185e7,_0x37735f,_0x3fce21);async[_0x5b7e('0xe')](_0x395fb5,function(_0x1f8b2b,_0x40b508){_0x1c87e2['push']('Elaborate\x20file\x20'+_0x1f8b2b['name']);generateFile(_0x1f8b2b,_0x1c87e2,_0x5b1c24,_0x17ac8e,_0x2185e7,_0x37735f,_0x3fce21);_0x40b508(null);},function(_0x26fa89){_0x23e99a(_0x26fa89,_0x1c87e2);});}catch(_0x3ee96b){console[_0x5b7e('0xf')](_0x3ee96b);}};var generateFile=function(_0x49fef7,_0x20166d,_0x595907,_0x57521d,_0x5d6ecc,_0xa92fd7,_0x4dfd8e,_0x38ca67){if(!_0x49fef7['forEachObj']||_0x49fef7[_0x5b7e('0x10')]==_0x5b7e('0x11')){return _0x595907['generateFile'](_0x20166d,_0x49fef7,{},_0x38ca67);}else if(_0x49fef7[_0x5b7e('0x10')]=='db'){if(_0x38ca67&&_0x38ca67[_0x5b7e('0x12')]){for(var _0x7a7ba5 in _0x4dfd8e){if(_0x4dfd8e[_0x7a7ba5][_0x5b7e('0x13')][_0x5b7e('0x14')]()==_0x38ca67[_0x5b7e('0x12')]){var _0x323678=_0xa92fd7[_0x7a7ba5];_0x323678[_0x5b7e('0x15')]=_0x4dfd8e[_0x7a7ba5]['_entity'];return _0x595907[_0x5b7e('0x16')](_0x20166d,_0x49fef7,{'db':_0x323678},_0x38ca67);}}}else{for(var _0x7a7ba5 in _0x4dfd8e){var _0x323678=_0xa92fd7[_0x7a7ba5];_0x323678[_0x5b7e('0x15')]=_0x4dfd8e[_0x7a7ba5]['_entity'];_0x595907[_0x5b7e('0x16')](_0x20166d,_0x49fef7,{'db':_0x323678},_0x38ca67);}}}else if(_0x49fef7[_0x5b7e('0x10')]==_0x5b7e('0x17')){for(var _0x7a7ba5 in _0x4dfd8e){var _0x323678=_0x4dfd8e[_0x7a7ba5];for(var _0x7722a7 in _0x4dfd8e[_0x7a7ba5][_0x5b7e('0x15')]){var _0x369ac0=_0x4dfd8e[_0x7a7ba5]['_entity'][_0x7722a7];if(_0x38ca67&&_0x38ca67[_0x5b7e('0x12')]){if(_0x369ac0[_0x5b7e('0x13')][_0x5b7e('0x14')]()==_0x38ca67[_0x5b7e('0x12')])return _0x595907[_0x5b7e('0x16')](_0x20166d,_0x49fef7,{'entity':_0x369ac0,'db':_0x323678},_0x38ca67);;}else{_0x595907[_0x5b7e('0x16')](_0x20166d,_0x49fef7,{'entity':_0x369ac0,'db':_0x323678},_0x38ca67);}}}}else if(_0x49fef7[_0x5b7e('0x10')]==_0x5b7e('0x18')){for(var _0x7a7ba5 in _0x5d6ecc){var _0x3a6c83=_0x5d6ecc[_0x7a7ba5];var _0x497c5a={'url':''};var _0x35b536='';var _0x40adc9='';var _0x2a2021='';var _0x329fde='';if(_0x3a6c83[_0x5b7e('0x19')]){var _0xac3f0e='';for(dbId in _0xa92fd7){var _0x4c363b=_0xa92fd7[dbId][_0x5b7e('0x1a')];for(resId in _0x4c363b){var _0x5baaa7=_0x4c363b[resId];if(_0x3a6c83['_template_resource'][_0x5b7e('0x14')]()==_0x5baaa7['_id']){_0x329fde=_0x5baaa7;}}}for(modId in _0x5d6ecc){var _0x483ac9=_0x5d6ecc[modId];if(_0x483ac9[_0x5b7e('0x19')]=='List_Crud'&&_0x3a6c83['_template_resource']&&_0x483ac9['_template_resource']&&_0x483ac9[_0x5b7e('0x1b')][_0x5b7e('0x14')]()==_0x3a6c83[_0x5b7e('0x1b')]['toString']()){_0x497c5a=_0x5d6ecc[modId];}}}if(_0x38ca67&&_0x38ca67[_0x5b7e('0x12')]){if(_0x3a6c83[_0x5b7e('0x13')][_0x5b7e('0x14')]()==_0x38ca67[_0x5b7e('0x12')]){return _0x595907['generateFile'](_0x20166d,_0x49fef7,{'module':_0x3a6c83,'crudResource':_0x329fde,'linkUrl':_0x497c5a['url'][_0x5b7e('0x1c')]('{id}','')+'/'},_0x38ca67);}}else{_0x595907['generateFile'](_0x20166d,_0x49fef7,{'module':_0x3a6c83,'crudResource':_0x329fde,'linkUrl':_0x497c5a['url'][_0x5b7e('0x1c')](_0x5b7e('0x1d'),'')+'/'},_0x38ca67);}}}else if(_0x49fef7[_0x5b7e('0x10')]==_0x5b7e('0x1e')){for(var _0x7a7ba5 in _0xa92fd7){var _0x323678=_0xa92fd7[_0x7a7ba5];for(var _0x51a545 in _0xa92fd7[_0x7a7ba5][_0x5b7e('0x1a')]){var _0x5baaa7=_0xa92fd7[_0x7a7ba5][_0x5b7e('0x1a')][_0x51a545];if(_0x38ca67&&_0x38ca67[_0x5b7e('0x12')]){if(_0x5baaa7[_0x5b7e('0x13')][_0x5b7e('0x14')]()==_0x38ca67[_0x5b7e('0x12')])return _0x595907[_0x5b7e('0x16')](_0x20166d,_0x49fef7,{'resource':_0x5baaa7,'db':_0x323678},_0x38ca67);}else{_0x595907[_0x5b7e('0x16')](_0x20166d,_0x49fef7,{'resource':_0x5baaa7,'db':_0x323678},_0x38ca67);}}}}};var getGenFiles=function(_0x13140b){var _0x386fbd=require(_0x5b7e('0x2'));return _0x386fbd(_0x13140b,{'nodir':!![]})[_0x5b7e('0x1f')](_0x3e0f2e=>{let _0x3725de=fs[_0x5b7e('0x20')](_0x3e0f2e[_0x5b7e('0x1')],_0x5b7e('0x21'));let _0x3f9f4f=path[_0x5b7e('0x22')](_0x13140b,_0x3e0f2e[_0x5b7e('0x1')]);if(_0x3f9f4f[_0x5b7e('0x23')](-0x4)==_0x5b7e('0x24')){_0x3f9f4f=_0x3f9f4f['substr'](0x0,_0x3f9f4f[_0x5b7e('0x25')]-0x4);if(_0x3f9f4f[_0x5b7e('0x23')](-0x8)==_0x5b7e('0x26')||_0x3f9f4f[_0x5b7e('0x23')](-0x8)=='_SK_LIST'){_0x3f9f4f=_0x3f9f4f[_0x5b7e('0x23')](0x0,_0x3f9f4f[_0x5b7e('0x25')]-0x8);return null;}let _0x45e157=getProperties(_0x3725de,_0x3f9f4f,_0x13140b);_0x45e157['name']=_0x3f9f4f;return _0x45e157;}else{let _0x3a797b=fs[_0x5b7e('0x20')](_0x3e0f2e[_0x5b7e('0x1')],_0x5b7e('0x27'));return{'templateBinary':_0x3a797b,'name':_0x3f9f4f};}})[_0x5b7e('0x28')](_0x3846d5=>_0x3846d5);};var getProperties=(_0x30876f,_0x55299c,_0x2c550f)=>{var _0x361d91=_0x5b7e('0x29');var _0x7df3d7=_0x5b7e('0x2a');let _0x50a6b9=_0x30876f['indexOf'](_0x361d91);let _0xb12f83=_0x30876f[_0x5b7e('0x2b')](_0x7df3d7);if(_0x50a6b9==-0x1||_0xb12f83==-0x1){console[_0x5b7e('0x2c')](chalk[_0x5b7e('0x2d')](_0x5b7e('0x2e'))+_0x5b7e('0x2f')+_0x55299c);return{'template':_0x30876f,'forEachObj':_0x5b7e('0x11')};}let _0x18466e=_0x30876f['substr'](_0x50a6b9+_0x361d91['length'],_0xb12f83-_0x361d91[_0x5b7e('0x25')]);res=_0x18466e[_0x5b7e('0x30')](/`(.|\r\n|\r|\n)*`/g);backticks=_0x18466e[_0x5b7e('0x31')](/`(.|\r\n|\r|\n)*`/g);for(i in backticks){replacement=backticks[i][_0x5b7e('0x1c')](/"/g,'\x5c\x22')['replace'](/`/g,'\x22')[_0x5b7e('0x1c')](/\r\n/g,'\x5cr\x5cn')['replace'](/\n/g,'\x5cn')[_0x5b7e('0x1c')](/\t/g,'\x5ct');_0x18466e=_0x18466e[_0x5b7e('0x1c')](backticks[i],replacement);}_0x18466e=JSON[_0x5b7e('0x32')](_0x18466e);let _0x3eaba7=_0x55299c+_0x5b7e('0x33');let _0x5be250=_0x2c550f+'/'+_0x3eaba7;if(fs[_0x5b7e('0x34')](_0x5be250)){_0x18466e[_0x5b7e('0x35')]=fs[_0x5b7e('0x20')](_0x5be250,'utf-8');}let _0x5cd76a=_0x55299c+_0x5b7e('0x36');let _0x10b200=_0x2c550f+'/'+_0x5cd76a;if(fs[_0x5b7e('0x34')](_0x10b200)){_0x18466e[_0x5b7e('0x37')]=fs[_0x5b7e('0x20')](_0x10b200,_0x5b7e('0x38'));}_0x18466e['template']=_0x30876f[_0x5b7e('0x23')](_0xb12f83+_0x7df3d7[_0x5b7e('0x25')]);if(_0x18466e['template'][_0x5b7e('0x39')](0x0)=='\x0d')_0x18466e['template']=_0x18466e[_0x5b7e('0x19')][_0x5b7e('0x23')](0x1);if(_0x18466e[_0x5b7e('0x19')][_0x5b7e('0x39')](0x0)=='\x0a')_0x18466e[_0x5b7e('0x19')]=_0x18466e[_0x5b7e('0x19')][_0x5b7e('0x23')](0x1);if(!_0x18466e[_0x5b7e('0x10')])_0x18466e[_0x5b7e('0x10')]=_0x5b7e('0x11');return _0x18466e;};
+var pathWorkspace = "./";
+const pathTemplate = ".skaffolder/template/";
+const fs = require("fs");
+const path = require("path");
+const klawSync = require("klaw-sync");
+const async = require("async");
+const chalk = require("chalk");
+
+exports.pathTemplate = pathTemplate;
+
+exports.generate = function(files, logger, cb) {
+  var project = files.project;
+  var modules = files.modules;
+  var resources = files.resources;
+  var dbs = files.dbs;
+  var genFiles = getGenFiles(pathTemplate);
+  var log = [];
+
+  try {
+    logger.info(chalk.green("START GENERATE "));
+    log.push("START GENERATE ");
+
+    var utils = require("./GeneratorUtils.js");
+    utils.init(pathWorkspace, project, modules, resources, dbs);
+
+    async.each(
+      genFiles,
+      function(file, cbFile) {
+        log.push("Elaborate file " + file.name);
+        //logger.info(chalk.green("Elaborate file "), file.name);
+
+        generateFile(file, log, utils, project, modules, resources, dbs);
+
+        cbFile(null);
+      },
+      function(err) {
+        cb(err, log);
+      }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+var generateFile = function(
+  file,
+  log,
+  utils,
+  project,
+  modules,
+  resources,
+  dbs,
+  opt
+) {
+  if (!file.forEachObj || file.forEachObj == "oneTime") {
+    return utils.generateFile(log, file, {}, opt);
+  } else if (file.forEachObj == "db") {
+    if (opt && opt.paramsForEach) {
+      for (var index in dbs) {
+        if (dbs[index]._id.toString() == opt.paramsForEach) {
+          var db = resources[index];
+          db._entity = dbs[index]._entity;
+          return utils.generateFile(
+            log,
+            file,
+            {
+              db: db
+            },
+            opt
+          );
+        }
+      }
+    } else {
+      for (var index in dbs) {
+        var db = resources[index];
+        db._entity = dbs[index]._entity;
+        utils.generateFile(
+          log,
+          file,
+          {
+            db: db
+          },
+          opt
+        );
+      }
+    }
+  } else if (file.forEachObj == "table") {
+    for (var index in dbs) {
+      var db = dbs[index];
+      for (var indexEnt in dbs[index]._entity) {
+        var entity = dbs[index]._entity[indexEnt];
+
+        if (opt && opt.paramsForEach) {
+          if (entity._id.toString() == opt.paramsForEach)
+            return utils.generateFile(
+              log,
+              file,
+              {
+                entity: entity,
+                db: db
+              },
+              opt
+            );
+        } else {
+          utils.generateFile(
+            log,
+            file,
+            {
+              entity: entity,
+              db: db
+            },
+            opt
+          );
+        }
+      }
+    }
+  } else if (file.forEachObj == "module") {
+    for (var index in modules) {
+      var mod = modules[index];
+      var moduleLink = {
+        url: ""
+      };
+      var templateName = "";
+      var templateResourceName = "";
+      var linkUrl = "";
+      var crudResource = "";
+
+      if (mod.template) {
+        var typeLink = "";
+
+        //TROVA RISORSA CRUD
+        for (dbId in resources) {
+          var resourcesForDb = resources[dbId]._resources;
+          for (resId in resourcesForDb) {
+            var resource = resourcesForDb[resId];
+            if (mod._template_resource.toString() == resource._id) {
+              crudResource = resource;
+            }
+          }
+        }
+
+        //TROVA LINK MODULO
+        for (modId in modules) {
+          var module = modules[modId];
+          if (
+            module.template == "List_Crud" &&
+            mod._template_resource &&
+            module._template_resource &&
+            module._template_resource.toString() ==
+              mod._template_resource.toString()
+          ) {
+            moduleLink = modules[modId];
+          }
+        }
+      }
+
+      if (opt && opt.paramsForEach) {
+        if (mod._id.toString() == opt.paramsForEach) {
+          return utils.generateFile(
+            log,
+            file,
+            {
+              module: mod,
+              crudResource: crudResource,
+              linkUrl: moduleLink.url.replace("{id}", "") + "/"
+            },
+            opt
+          );
+        }
+      } else {
+        utils.generateFile(
+          log,
+          file,
+          {
+            module: mod,
+            crudResource: crudResource,
+            linkUrl: moduleLink.url.replace("{id}", "") + "/"
+          },
+          opt
+        );
+      }
+    }
+  } else if (file.forEachObj == "resource") {
+    for (var index in resources) {
+      var db = resources[index];
+      for (var indexRes in resources[index]._resources) {
+        var resource = resources[index]._resources[indexRes];
+
+        //console.log(resource._entity._attrs);
+        if (opt && opt.paramsForEach) {
+          if (resource._id.toString() == opt.paramsForEach)
+            return utils.generateFile(
+              log,
+              file,
+              {
+                resource: resource,
+                db: db
+              },
+              opt
+            );
+        } else {
+          utils.generateFile(
+            log,
+            file,
+            {
+              resource,
+              db: db
+            },
+            opt
+          );
+        }
+      }
+    }
+  }
+};
+
+// Convert folder file hbs to generator files db
+var getGenFiles = function(pathTemplate) {
+  var klawSync = require("klaw-sync");
+
+  //console.log("-----" + pathTemplate);
+  return klawSync(pathTemplate, {
+    nodir: true
+  })
+    .map(file => {
+      let content = fs.readFileSync(file.path, "utf8");
+      let nameFileTemplate = path.relative(pathTemplate, file.path);
+
+      // Remove extension
+      if (nameFileTemplate.substr(-4) == ".hbs") {
+        nameFileTemplate = nameFileTemplate.substr(
+          0,
+          nameFileTemplate.length - 4
+        );
+
+        // CHECK LIST EDIT FILE
+        if (
+          nameFileTemplate.substr(-8) == "_SK_EDIT" ||
+          nameFileTemplate.substr(-8) == "_SK_LIST"
+        ) {
+          nameFileTemplate = nameFileTemplate.substr(
+            0,
+            nameFileTemplate.length - 8
+          );
+          return null;
+        }
+
+        // get properties
+        let genFile = getProperties(content, nameFileTemplate, pathTemplate);
+        genFile.name = nameFileTemplate;
+
+        return genFile;
+      } else {
+        // Binary file
+        let content = fs.readFileSync(file.path, "binary");
+
+        return {
+          templateBinary: content,
+          name: nameFileTemplate
+        };
+      }
+    })
+    .filter(file => file);
+};
+
+var getProperties = (content, nameFileTemplate, pathTemplate) => {
+  // get properties
+  var start = "**** PROPERTIES SKAFFOLDER ****";
+  var end = "**** END PROPERTIES SKAFFOLDER ****";
+  let startPropr = content.indexOf(start);
+  let endPropr = content.indexOf(end);
+
+  if (startPropr == -1 || endPropr == -1) {
+    console.warn(
+      chalk.yellow("WARN:") +
+        " Properties Skaffoler not found in file " +
+        nameFileTemplate
+    );
+    return {
+      template: content,
+      forEachObj: "oneTime"
+    };
+  }
+
+  let properties = content.substr(
+    startPropr + start.length,
+    endPropr - start.length
+  );
+
+  // backticks
+  res = properties.search(/`(.|\r\n|\r|\n)*`/g);
+  backticks = properties.match(/`(.|\r\n|\r|\n)*`/g);
+  for (i in backticks) {
+    replacement = backticks[i]
+      .replace(/"/g, '\\"')
+      .replace(/`/g, '"')
+      .replace(/\r\n/g, "\\r\\n")
+      .replace(/\n/g, "\\n")
+      .replace(/\t/g, "\\t");
+    properties = properties.replace(backticks[i], replacement);
+  }
+  properties = JSON.parse(properties);
+
+  // search list edit template
+  let nameTemplateList = nameFileTemplate + "_SK_LIST.hbs";
+  let fileNameList = pathTemplate + "/" + nameTemplateList;
+  if (fs.existsSync(fileNameList)) {
+    properties.templateList = fs.readFileSync(fileNameList, "utf-8");
+  }
+
+  let nameTemplateEdit = nameFileTemplate + "_SK_EDIT.hbs";
+  let fileNameEdit = pathTemplate + "/" + nameTemplateEdit;
+  if (fs.existsSync(fileNameEdit)) {
+    properties.templateEdit = fs.readFileSync(fileNameEdit, "utf-8");
+  }
+
+  // set template
+  properties.template = content.substr(endPropr + end.length);
+
+  if (properties.template.charAt(0) == "\r")
+    properties.template = properties.template.substr(1);
+
+  if (properties.template.charAt(0) == "\n")
+    properties.template = properties.template.substr(1);
+
+  if (!properties.forEachObj) properties.forEachObj = "oneTime";
+
+  return properties;
+};
