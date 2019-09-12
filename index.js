@@ -86,3 +86,4 @@ prog.parse(process.argv);
 
 exports.getGenFiles = generatorBean.getGenFiles;
 exports.getTemplate = projectService.getTemplate;
+exports.generate = generatorBean.generate;

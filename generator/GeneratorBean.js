@@ -8,32 +8,40 @@ const chalk = require("chalk");
 
 exports.pathTemplate = pathTemplate;
 
-exports.generate = function(files, logger, cb) {
+exports.generate = function(workspacePrefix, files, logger, cb) {
   var project = files.project;
   var modules = files.modules;
   var resources = files.resources;
   var dbs = files.dbs;
-  var genFiles = getGenFiles(pathTemplate);
+  var genFiles = getGenFiles(workspacePrefix + pathTemplate);
   var log = [];
 
   try {
-    logger.info(chalk.green("START GENERATE "));
-    log.push("START GENERATE ");
+    // logger.info(chalk.green("START GENERATE "));
+    log.push("START GENERATE \n");
 
     var utils = require("./GeneratorUtils.js");
-    utils.init(pathWorkspace, project, modules, resources, dbs);
+    utils.init(
+      workspacePrefix + pathWorkspace,
+      project,
+      modules,
+      resources,
+      dbs
+    );
 
     async.each(
       genFiles,
       function(file, cbFile) {
-        log.push("Elaborate file " + file.name);
-        //logger.info(chalk.green("Elaborate file "), file.name);
+        // log.push("Elaborate file " + file.name);
+        // logger.info(chalk.green("Elaborate file "), file.name);
 
         generateFile(file, log, utils, project, modules, resources, dbs);
 
         cbFile(null);
       },
       function(err) {
+        log.push("\n\nGENERATION COMPLETE");
+
         cb(err, log);
       }
     );
