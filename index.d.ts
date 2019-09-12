@@ -1,6 +1,7 @@
 export as namespace SkaffolderCli;
 
 export function getGenFiles(path: string): GeneratorFile[];
+export function getTemplate(callback: any): any;
 
 export class GeneratorFile {
   public name: string;

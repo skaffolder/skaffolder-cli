@@ -16,9 +16,10 @@ const generateCmd = require("./lib/generate");
 const getProjectUrlCmd = require("./lib/getProjectUrl");
 const importDbCmd = require("./lib/importDb");
 const generatorBean = require("./generator/GeneratorBean");
+const projectService = require("./service/projectService");
 
 prog
-  .version("1.1.25")
+  .version("1.1.27")
 
   // start
   .command("login", "Log in into Skaffolder")
@@ -84,3 +85,4 @@ prog.parse(process.argv);
 // Export Typescript
 
 exports.getGenFiles = generatorBean.getGenFiles;
+exports.getTemplate = projectService.getTemplate;

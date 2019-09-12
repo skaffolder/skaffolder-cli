@@ -327,3 +327,5 @@ var getProperties = (content, nameFileTemplate, pathTemplate) => {
 
   return properties;
 };
+
+exports.getGenFiles = getGenFiles;
