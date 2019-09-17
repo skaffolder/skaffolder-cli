@@ -18,7 +18,7 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
 
   try {
     // logger.info(chalk.green("START GENERATE "));
-    log.push("START GENERATE \n");
+    log.push("<h1>START GENERATE</h1>");
 
     var utils = require("./GeneratorUtils.js");
     utils.init(
@@ -40,7 +40,7 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
         cbFile(null);
       },
       function(err) {
-        log.push("\n\nGENERATION COMPLETE");
+        log.push("<h2>GENERATION COMPLETE</h2>");
 
         cb(err, log);
       }
@@ -136,18 +136,26 @@ var generateFile = function(
       if (mod.template) {
         var typeLink = "";
 
-        //TROVA RISORSA CRUD
-        for (dbId in resources) {
-          var resourcesForDb = resources[dbId]._resources;
-          for (resId in resourcesForDb) {
-            var resource = resourcesForDb[resId];
-            if (mod._template_resource.toString() == resource._id) {
-              crudResource = resource;
+        // TROVA RISORSA CRUD
+        if (mod._template_resource) {
+          for (dbId in resources) {
+            var resourcesForDb = resources[dbId]._resources;
+            for (resId in resourcesForDb) {
+              var resource = resourcesForDb[resId];
+              if (mod._template_resource.toString() == resource._id) {
+                crudResource = resource;
+              }
             }
+          }
+
+          if (crudResource == "") {
+            logger.info(
+              "Resource CRUD not found: " + mod._template_resource.toString()
+            );
           }
         }
 
-        //TROVA LINK MODULO
+        // TROVA LINK MODULO
         for (modId in modules) {
           var module = modules[modId];
           if (

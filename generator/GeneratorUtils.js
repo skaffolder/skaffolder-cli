@@ -61,30 +61,20 @@ exports.init = function(pathWorkspace2, project, modules, resources, dbs) {
 };
 
 var insertInto = function(html, partialTmpl, params, tagFrom, tagTo, log) {
-  try {
-    var insertAt = html.indexOf(tagFrom);
+  var insertAt = html.indexOf(tagFrom);
 
-    if (insertAt != -1) {
-      var untilAt = html.indexOf(tagTo);
-      var template = Handlebars.compile(partialTmpl);
-      var partialCode = template(params);
-      html =
-        html.slice(0, insertAt + tagFrom.length) +
-        "\n" +
-        partialCode +
-        html.slice(untilAt - 1);
-    }
-
-    return html;
-  } catch (e) {
-    console.error(e);
-    var err = {
-      Error: {
-        message: e.message
-      }
-    };
-    log.push(err);
+  if (insertAt != -1) {
+    var untilAt = html.indexOf(tagTo);
+    var template = Handlebars.compile(partialTmpl);
+    var partialCode = template(params);
+    html =
+      html.slice(0, insertAt + tagFrom.length) +
+      "\n" +
+      partialCode +
+      html.slice(untilAt - 1);
   }
+
+  return html;
 };
 
 exports.generateFile = function(log, file, paramLoop, opt) {
@@ -173,15 +163,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
           template = Handlebars.compile(file.template);
         }
 
-        try {
-          output = template(param);
-        } catch (e) {
-          var msg = chalk.red("File with error: ") + pathFile;
-          log.push(msg);
-          log.push("\t\t" + e.stack);
-          console.log(msg);
-          console.error(e);
-        }
+        output = template(param);
       }
     } else {
       //FOR TESTING PREVIEW
@@ -228,23 +210,34 @@ exports.generateFile = function(log, file, paramLoop, opt) {
       if (fs.existsSync(pathFile)) {
         let actual = fs.readFileSync(pathFile, "utf8");
         if (actual != output)
-          log.push(chalk.green("File modified: ") + pathFile);
+          log.push(
+            "<div class='file-result edit'><label>File modified </label><div class='file-name'>" +
+              pathFile +
+              "</div></div>"
+          );
         console.info(chalk.green("File modified: ") + pathFile);
       } else {
-        log.push(chalk.green("File created: ") + pathFile);
+        log.push(
+          "<div class='file-result created'><label>File created</label><div class='file-name'>" +
+            pathFile +
+            "</div></div>"
+        );
         console.info(chalk.green("File created: ") + pathFile);
       }
 
       fs.writeFileSync(pathFile, output);
     }
   } catch (e) {
+    log.push(
+      "<div class='file-result error'><label>File with error</label><div class='file-name'>" +
+        pathFile +
+        "</div></div>"
+    );
+    log.push("<pre>" + e.stack + "</pre>");
+
+    var msg = chalk.red("File with error: ") + pathFile;
+    console.log(msg);
     console.error(e);
-    var err = {
-      Error: {
-        message: e.message
-      }
-    };
-    log.push(err);
   }
 };
 
@@ -717,9 +710,18 @@ Handlebars.registerHelper("eachResource", function(services, options) {
   var buffer = "";
 
   for (var s in services) {
-    if (!resources[services[s]._resource._id]) {
-      resources[services[s]._resource._id] = true;
-      buffer += options.fn(services[s]._resource);
+    try {
+      if (!resources[services[s]._resource._id]) {
+        resources[services[s]._resource._id] = true;
+        buffer += options.fn(services[s]._resource);
+      }
+    } catch (e) {
+      e.message =
+        "Resource not found in service:\n" +
+        JSON.stringify(services[s]) +
+        "\n" +
+        e.message;
+      throw e;
     }
   }
 
@@ -733,13 +735,18 @@ Handlebars.registerHelper("getDbName", function(dbs, idDb) {
 });
 
 Handlebars.registerHelper("getDbNameToFileName", function(dbs, idDb) {
-  for (var i in dbs) {
-    if (dbs[i]._id.toString() == idDb.toString()) {
-      var name = dbs[i].name;
-      name = name.replace(/([a-z])([A-Z])/g, "$1-$2");
-      name = name.toLowerCase();
-      return name;
+  try {
+    for (var i in dbs) {
+      if (dbs[i]._id.toString() == idDb.toString()) {
+        var name = dbs[i].name;
+        name = name.replace(/([a-z])([A-Z])/g, "$1-$2");
+        name = name.toLowerCase();
+        return name;
+      }
     }
+  } catch (e) {
+    e.message = "Database not found: " + idDb + "\n" + e.message;
+    throw e;
   }
 });
 
