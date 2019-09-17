@@ -95,7 +95,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
 
   // Text files
   try {
-    //SET PARAMS
+    // SET PARAMS
     var param = paramsGenerator;
     for (var index in paramLoop) {
       param[index] = paramLoop[index];
@@ -108,7 +108,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
       }
     }
 
-    //GET FILE NAME
+    // GET FILE NAME
     //console.info(chalk.gray("log: ") + file.name);
     var fileName = file.name.replace(/{{\\(([A-Za-z\s])*)}}/g, "{{/$1}}");
     fileName = fileName.replace(/\\/g, "\\\\");
@@ -166,7 +166,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
         output = template(param);
       }
     } else {
-      //FOR TESTING PREVIEW
+      // FOR TESTING PREVIEW
       opt.params.push(param);
 
       var template = "";
@@ -183,7 +183,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
       output = template(param);
     }
 
-    //EXTRA ACTION
+    // EXTRA ACTION
     for (var i in file._partials) {
       var partial = file._partials[i];
       output = insertInto(
@@ -196,12 +196,12 @@ exports.generateFile = function(log, file, paramLoop, opt) {
       );
     }
 
-    //IF IS TEST PREVIEW
+    // IF IS TEST PREVIEW
     if (opt && opt.test) {
       return output;
     }
 
-    //WRITE
+    // WRITE
     var folderFile = path.normalize(
       pathFile.substr(0, pathFile.lastIndexOf(path.normalize("/")))
     );
@@ -209,13 +209,14 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     if (output != "") {
       if (fs.existsSync(pathFile)) {
         let actual = fs.readFileSync(pathFile, "utf8");
-        if (actual != output)
+        if (actual != output) {
           log.push(
             "<div class='file-result edit'><label>File modified </label><div class='file-name'>" +
               pathFile +
               "</div></div>"
           );
-        console.info(chalk.green("File modified: ") + pathFile);
+          console.info(chalk.green("File modified: ") + pathFile);
+        }
       } else {
         log.push(
           "<div class='file-result created'><label>File created</label><div class='file-name'>" +

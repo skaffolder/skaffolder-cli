@@ -19,7 +19,7 @@ const generatorBean = require("./generator/GeneratorBean");
 const projectService = require("./service/projectService");
 
 prog
-  .version("1.1.28")
+  .version("1.1.29")
 
   // start
   .command("login", "Log in into Skaffolder")
