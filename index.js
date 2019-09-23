@@ -17,6 +17,7 @@ const getProjectUrlCmd = require("./lib/getProjectUrl");
 const importDbCmd = require("./lib/importDb");
 const generatorBean = require("./generator/GeneratorBean");
 const projectService = require("./service/projectService");
+const create = require("./utils/generator");
 
 prog
   .version("1.1.29")
@@ -87,3 +88,4 @@ prog.parse(process.argv);
 exports.getGenFiles = generatorBean.getGenFiles;
 exports.getTemplate = projectService.getTemplate;
 exports.generate = generatorBean.generate;
+exports.createProjectExtension = create.createProjectExtension;

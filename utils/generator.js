@@ -6,6 +6,10 @@ var chalk = require('chalk');
 var path = require('path');
 var klawSync = require('klaw-sync');
 var prependFile = require('prepend-file');
+var generate = require('../lib/generate');
+var properties = require('../properties');
+
+
 
 // Convert folder file hbs to generator files db
 var getGenFiles = function (pathTemplate) {
@@ -142,29 +146,14 @@ exports.importGenerator = function () {
 }
 
 exports.loadGenerator = function (idProj, idGen, cb) {
-
     projectService.getGeneratorFile(idGen, (err, files) => {
         try {
             files = JSON.parse(files);
-        } catch (e) {}
-
-        files.filter(file => {
-            let path = generatorBean.pathTemplate + file.name;
-            path = path.replace(/{{#([^}]+)}}{{\/([^}]+)}}/g, "{{$1}}");
-            mkdirp.sync(path.substr(0, path.lastIndexOf('/')));
-
-            if (file.templateList) {
-                fs.writeFileSync(path + "_SK_LIST.hbs", file.templateList);
-                file.templateList = undefined;
-            }
-
-            if (file.templateEdit) {
-                fs.writeFileSync(path + "_SK_EDIT.hbs", file.templateEdit);
-                file.templateEdit = undefined;
-            }
-
-            fs.writeFileSync(path + ".hbs", getFileContent(file));
-        });
+        }
+        catch (e) {
+            console.log(e);
+        }
+        files = writeGeneratorFiles("",files);
 
         cb();
     })
@@ -180,11 +169,57 @@ let getFileContent = (file) => {
     file._generator = undefined;
     file.name = undefined;
     file.ignore = undefined;
-    file._partials.filter(part => part._id = undefined);
+    if (file._partials)
+        file._partials.filter(part => part._id = undefined);
 
     var content = start + JSON.stringify(file, null, 4) + end + template;
 
     return content;
 }
 
+function writeGeneratorFiles(workspacePath,files) {
+    files.filter(file => {
+        let path = generatorBean.pathTemplate + file.name;
+        path = path.replace(/{{#([^}]+)}}{{\/([^}]+)}}/g, "{{$1}}");
+        mkdirp.sync(workspacePath + path.substr(0, path.lastIndexOf('/')));
+        if (file.templateList) {
+            fs.writeFileSync(workspacePath + path + "_SK_LIST.hbs", file.templateList);
+            file.templateList = undefined;
+        }
+        if (file.templateEdit) {
+            fs.writeFileSync(workspacePath + path + "_SK_EDIT.hbs", file.templateEdit);
+            file.templateEdit = undefined;
+        }
+        console.log(workspacePath + path + ".hbs");
+        fs.writeFileSync(workspacePath + path + ".hbs", getFileContent(file));
+    });
+    return files;
+}
+
+function createProjectExtension(workspacePath, projectId, logger, frontendId, backendId) {
+    try {
+        fs.removeSync(workspacePath + "./.skaffolder");        
+        mkdirp.sync(workspacePath + './.skaffolder/template');
+    }
+    catch (e) { 
+        console.error(e);
+    }
+    fs.writeFileSync(workspacePath + './.skaffolder/config.json', JSON.stringify({
+        project: projectId
+    }, null, 4));
+    logger.info(chalk.green('✔   Project created!'));
+    logger.info(chalk.blue("You can edit your project structure at ") + chalk.yellow(properties.endpoint + "/#!/projects/" + projectId + "/models"));
+    
+    try {
+        // CREATE TEMPLATE
+        projectService.getTemplateFiles( frontendId.context, backendId.context, function (err, generatorFiles) {
+            writeGeneratorFiles(workspacePath,generatorFiles);
+        });
+    }
+    catch (e) { 
+        console.error(e);
+    }
+}
+
 exports.getGenFiles = getGenFiles;
+exports.createProjectExtension = createProjectExtension;

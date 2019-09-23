@@ -9,6 +9,10 @@ export function generate(
   callback: (err: string[], log: string[]) => any
 ): any;
 
+export function createProjectExtension(workspacePath: string, projectId: string, 
+  logger: { info: (message: string) => any
+}, frontendId: string, backendId: string, skaffolderObj: any): any;
+
 export class GeneratorFile {
   public name: string;
   public forEachObj: string;

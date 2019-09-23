@@ -87,6 +87,12 @@ exports.createFromTemplate = function (idProj, idFrontend, idBackend, cb) {
         }
     }, cb);
 }
+exports.getTemplateFiles = function (frontendId, backendId,cb) {
+    request({
+        url: properties.endpoint + "/Generator/getTemplateFiles/" +frontendId + "/" +backendId,
+        method: "GET",
+    }, cb);
+}
 
 exports.shareGenerator = function (genFiles, helpers, cb) {
     request({

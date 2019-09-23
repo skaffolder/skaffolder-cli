@@ -1,47 +1,37 @@
 {
-  "name": "skaffolder-cli",
-  "version": "1.1.29",
-  "description": "CLI to interact with Skaffolder, you can generate boilerplate in different programming languages and customize your own scaffolding.",
-  "homepage": "https://www.skaffolder.com",
+  "_args": [
+    [
+      "skaffolder-cli@1.1.29",
+      "/Users/andreagiampa/Documents/git/skaffolder-vscode"
+    ]
+  ],
+  "_from": "skaffolder-cli@1.1.29",
+  "_id": "skaffolder-cli@1.1.29",
+  "_inBundle": false,
+  "_integrity": "sha512-EDMYA17FhVie5xxe/DZ4pjT5rSUmaTMH9XjF+g/yDvBb/x2949mVcVuLfsPYRSpOpgfkqWPUzCrjpl4EZl1wow==",
+  "_location": "/skaffolder-cli",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "skaffolder-cli@1.1.29",
+    "name": "skaffolder-cli",
+    "escapedName": "skaffolder-cli",
+    "rawSpec": "1.1.29",
+    "saveSpec": null,
+    "fetchSpec": "1.1.29"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/skaffolder-cli/-/skaffolder-cli-1.1.29.tgz",
+  "_spec": "1.1.29",
+  "_where": "/Users/andreagiampa/Documents/git/skaffolder-vscode",
   "author": {
     "name": "Skaffolder",
     "email": "info@skaffolder.com",
     "url": "https://github.com/skaffolder"
   },
-  "keywords": [
-    "cli-app",
-    "front-end",
-    "web",
-    "boilerplate",
-    "development",
-    "dev",
-    "build",
-    "cli",
-    "scaffold",
-    "scaffolding",
-    "yeoman",
-    "app",
-    "tool",
-    "stack",
-    "generator",
-    "generate",
-    "boileplate",
-    "node",
-    "NodeJs",
-    "AngularJs",
-    "Angular",
-    "PHP",
-    "JAVA",
-    "MongoDB",
-    "MySQL",
-    "Spring Boot",
-    "Sequelize",
-    "React",
-    "React Native",
-    "Xamarin",
-    "MariaDb"
-  ],
-  "main": "index.js",
   "bin": {
     "sk": "index.js"
   },
@@ -75,8 +65,46 @@
     "socket.io-client": "^2.2.0",
     "winston": "^3.0.0"
   },
-  "license": "GPLv3",
+  "description": "CLI to interact with Skaffolder, you can generate boilerplate in different programming languages and customize your own scaffolding.",
   "devDependencies": {
     "grunt": "^1.0.3"
-  }
+  },
+  "homepage": "https://www.skaffolder.com",
+  "keywords": [
+    "cli-app",
+    "front-end",
+    "web",
+    "boilerplate",
+    "development",
+    "dev",
+    "build",
+    "cli",
+    "scaffold",
+    "scaffolding",
+    "yeoman",
+    "app",
+    "tool",
+    "stack",
+    "generator",
+    "generate",
+    "boileplate",
+    "node",
+    "NodeJs",
+    "AngularJs",
+    "Angular",
+    "PHP",
+    "JAVA",
+    "MongoDB",
+    "MySQL",
+    "Spring Boot",
+    "Sequelize",
+    "React",
+    "React Native",
+    "Xamarin",
+    "MariaDb"
+  ],
+  "license": "GPLv3",
+  "main": "index.js",
+  "name": "skaffolder-cli",
+  "version": "1.1.29"
 }
