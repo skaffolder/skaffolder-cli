@@ -32,7 +32,11 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
     async.each(
       genFiles,
       function(file, cbFile) {
-        // log.push("Elaborate file " + file.name);
+        log.push(
+          "<div class='file-result elaborated'><label>Elaborate file</label><div class='file-name'>" +
+            file.name +
+            "</div></div>"
+        );
         // logger.info(chalk.green("Elaborate file "), file.name);
 
         generateFile(file, log, utils, project, modules, resources, dbs);

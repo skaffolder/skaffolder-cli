@@ -1,5 +1,6 @@
 export as namespace SkaffolderCli;
 
+export function registerHelpers(Handlebar: any): void;
 export function getGenFiles(path: string): GeneratorFile[];
 export function getTemplate(callback: any): any;
 export function generate(
@@ -8,10 +9,6 @@ export function generate(
   logger: { info: (message: string) => any },
   callback: (err: string[], log: string[]) => any
 ): any;
-
-export function createProjectExtension(workspacePath: string, projectId: string, 
-  logger: { info: (message: string) => any
-}, frontendId: string, backendId: string, skaffolderObj: any): any;
 
 export class GeneratorFile {
   public name: string;
