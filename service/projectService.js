@@ -2,6 +2,17 @@ var properties = require("../properties");
 var request = require("../utils/request");
 var configUtils = require("../utils/config");
 
+exports.exportProject = function(params, cb) {
+  request(
+    {
+      url: properties.endpoint + "/project/import/fromCLI",
+      method: "POST",
+      json: params
+    },
+    cb
+  );
+};
+
 exports.getProject = function(cb) {
   var config = configUtils.getConf();
   request(

@@ -19,6 +19,8 @@ const generatorBean = require("./generator/GeneratorBean");
 const projectService = require("./service/projectService");
 const helpers = require("./generator/Helpers");
 const create = require("./utils/generator");
+var cache = require("persistent-cache");
+var globals = cache();
 
 prog
   .version("1.1.29")
@@ -91,3 +93,9 @@ exports.getTemplate = projectService.getTemplate;
 exports.generate = generatorBean.generate;
 exports.registerHelpers = helpers.registerHelpers;
 exports.createProjectExtension = create.createProjectExtension;
+exports.exportProject = projectService.exportProject;
+exports.login = loginCmd;
+exports.getUser = function() {
+  console.log("tokn", globals.getSync("token"));
+  return globals.getSync("user");
+};
