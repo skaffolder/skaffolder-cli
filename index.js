@@ -16,6 +16,7 @@ const generateCmd = require("./lib/generate");
 const getProjectUrlCmd = require("./lib/getProjectUrl");
 const importDbCmd = require("./lib/importDb");
 const generatorBean = require("./generator/GeneratorBean");
+const generatorUtils = require("./generator/GeneratorUtils");
 const projectService = require("./service/projectService");
 const helpers = require("./generator/Helpers");
 const create = require("./utils/generator");
@@ -99,3 +100,6 @@ exports.getUser = function() {
   console.log("tokn", globals.getSync("token"));
   return globals.getSync("user");
 };
+exports.generateFile = generatorUtils.generateFile;
+exports.init = generatorUtils.init;
+exports.getProperties = create.getProperties;

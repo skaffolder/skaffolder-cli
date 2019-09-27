@@ -1,3 +1,5 @@
+import { SkaffolderObject } from "../../src/models/skaffolderObject";
+
 export as namespace SkaffolderCli;
 
 export function getUser(): string | undefined;
@@ -25,14 +27,17 @@ export function generate(
   logger: { info: (message: string) => any },
   callback: (err: string[], log: string[]) => any
 ): any;
-export function createProjectExtension(
-  workspacePath: string,
-  projectId: string,
-  logger: { info: (message: string) => any },
-  frontendId: string,
-  backendId: string,
-  skaffolderObj: any
-): any;
+export function generateFile(log: any,file: {
+  name: string,
+  overwrite: boolean,
+  template: any
+}, paramLoop: any, opt: any): any;
+export function init(workspacePath: string, project: any, modules: any, resources: any, db: any): any;
+export function createProjectExtension(workspacePath: string, projectId: string, 
+  logger: { info: (message: string) => any
+}, frontendId: string, backendId: string, skaffolderObj: any, callback: (files: any) => any): any;
+export function getProperties(content: any, nameFileTemplate: any, pathTemplate: any): any;
+
 
 export class GeneratorFile {
   public name: string;

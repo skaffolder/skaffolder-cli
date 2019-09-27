@@ -62,7 +62,7 @@ var getGenFiles = function(pathTemplate) {
     .filter(file => file);
 };
 
-var getProperties = (content, nameFileTemplate, pathTemplate) => {
+ var getProperties = (content, nameFileTemplate, pathTemplate) => {
   // get properties
   let start = "**** PROPERTIES SKAFFOLDER ****\r\n";
   let startPropr = content.indexOf(start);
@@ -172,8 +172,12 @@ exports.loadGenerator = function(idProj, idGen, cb) {
       console.log(e);
     }
     files = writeGeneratorFiles("", files);
-
-    cb();
+    if(cb) {
+      cb(projectService.getGeneratorFile);
+    } 
+    else {
+      process.exit(0);
+    }
   });
 };
 
@@ -213,7 +217,6 @@ function writeGeneratorFiles(workspacePath, files) {
       );
       file.templateEdit = undefined;
     }
-    console.log(workspacePath + path + ".hbs");
     fs.writeFileSync(workspacePath + path + ".hbs", getFileContent(file));
   });
   return files;
@@ -224,7 +227,9 @@ function createProjectExtension(
   projectId,
   logger,
   frontendId,
-  backendId
+  backendId,
+  skObj,
+  cb
 ) {
   try {
     fs.removeSync(workspacePath + "./.skaffolder");
@@ -257,6 +262,7 @@ function createProjectExtension(
       backendId.context,
       function(err, generatorFiles) {
         writeGeneratorFiles(workspacePath, generatorFiles);
+        cb(skObj);
       }
     );
   } catch (e) {
@@ -266,3 +272,4 @@ function createProjectExtension(
 
 exports.getGenFiles = getGenFiles;
 exports.createProjectExtension = createProjectExtension;
+exports.getProperties = getProperties;

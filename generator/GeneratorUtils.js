@@ -46,7 +46,8 @@ var comment = function(file, extension) {
   return file.template;
 };
 
-exports.init = function(pathWorkspace2, project, modules, resources, dbs) {
+exports.
+init = function(pathWorkspace2, project, modules, resources, dbs) {
   paramsGenerator = {
     project: project,
     modules: modules,
