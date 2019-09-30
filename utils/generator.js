@@ -90,7 +90,8 @@ var getGenFiles = function(pathTemplate) {
     endPropr - start.length
   );
   properties = JSON.parse(properties);
-
+  
+  
   // search list edit template
   let nameTemplateList = nameFileTemplate + "_SK_LIST.hbs";
   let fileNameList = pathTemplate + "/" + nameTemplateList;
@@ -105,7 +106,7 @@ var getGenFiles = function(pathTemplate) {
   }
 
   // set template
-  properties.template = content.substr(endPropr + end.length);
+properties.template = content.substr(endPropr + end.length);
 
   return properties;
 };
@@ -217,7 +218,11 @@ function writeGeneratorFiles(workspacePath, files) {
       );
       file.templateEdit = undefined;
     }
+    if(file.templateBinary) {
+      fs.writeFileSync(workspacePath + path , getFileContent(file));
+    } else {
     fs.writeFileSync(workspacePath + path + ".hbs", getFileContent(file));
+    }
   });
   return files;
 }
