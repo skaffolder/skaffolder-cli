@@ -24,7 +24,7 @@ var cache = require("persistent-cache");
 var globals = cache();
 
 prog
-  .version("1.1.29")
+  .version("1.1.30")
 
   // start
   .command("login", "Log in into Skaffolder")
