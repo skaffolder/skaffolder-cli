@@ -149,7 +149,7 @@ var generateFile = function(
           }
 
           if (crudResource == "") {
-            logger.info(
+            log.push(
               "Resource CRUD not found: " + mod._template_resource.toString()
             );
           }
