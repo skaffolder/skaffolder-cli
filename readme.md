@@ -130,7 +130,7 @@ With this command all files in Skaffolder project folder will be imported in `.s
 
 ###Skaffolder Properties
 
-Each template file in `.skaffolder/template` folder has `.hbs` extension and first lines of file can be (optional) Skaffodler properties.
+Each template file in `.skaffolder/template` folder has `.hbs` extension and first lines of file can be (optional) Skaffolder properties.
 This section is delimitated by `**** PROPERTIES SKAFFOLDER ****` token and contains JSON formatted properties.
 
 
