@@ -18,6 +18,7 @@ const importDbCmd = require("./lib/importDb");
 const generatorBean = require("./generator/GeneratorBean");
 const generatorUtils = require("./generator/GeneratorUtils");
 const projectService = require("./service/projectService");
+const exportProjectCommand = require("./lib/exportProject");
 const helpers = require("./generator/Helpers");
 const create = require("./utils/generator");
 var cache = require("persistent-cache");
@@ -82,7 +83,9 @@ prog
   .action(getProjectUrlCmd)
   .command("import db", "Import database entities from Schema Spy XML")
   .argument("<file>", "XML file to import", null, null)
-  .action(importDbCmd);
+  .action(importDbCmd)
+  .command("export", "Export project to Skaffolder platform")
+  .action(exportProjectCommand)
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
 prog.parse(process.argv);

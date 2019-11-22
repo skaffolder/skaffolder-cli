@@ -73,7 +73,8 @@
     "select-shell": "^1.1.2",
     "shelljs": "^0.8.2",
     "socket.io-client": "^2.2.0",
-    "winston": "^3.0.0"
+    "winston": "^3.0.0",
+    "yaml": "^1.6.0"
   },
   "license": "GPLv3",
   "devDependencies": {
