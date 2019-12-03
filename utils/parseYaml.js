@@ -80,6 +80,7 @@ var translateProject = function () {
 			_model._db = model["x-skaffolder-id-db"]
 			_model.name = model_name
 			_model._attrs = [];
+			_model._relations = []
 
 			// entity._attrs property
 			for (let attr_name in model.properties) {
@@ -141,16 +142,9 @@ var translateProject = function () {
 					_ent1: findRelEntity(rel["x-skaffolder-ent1"])
 				}
 				var _model1 = _entity.find((item) => { return item._id == model["x-skaffolder-id-entity"] })
-				
-				if (!_model1._relations) {
-					_model1._relations = []
-				} 
 				_model1._relations.push(_rel)
 				
 				var _model2 = _entity.find((item) => { return item._id == rel["x-skaffolder-ent2"] })
-				if (!_model2._relations) {
-					_model2._relations = []
-				} 
 				_model2._relations.push(Object.assign({}, _rel))
 			}
 		}
@@ -159,6 +153,76 @@ var translateProject = function () {
 	})
 
 	skProject.dbs = dbs
+
+	// resources property
+	let resources = getDBsArray()
+	var _resources = []
+
+	resources.forEach((db) => {
+		var schemas = components.schemas
+
+		var findResEntity = function (id_db, id_entity) {
+			var db = skProject.dbs.find((db_item) => { return id_db == db_item._id })
+
+			if (db && db._entity) {
+				return db._entity.find((ent_item) => {
+					return ent_item._id == id_entity
+				})
+			}
+
+			return null;
+		}
+
+		// create resources
+		for (model_name in schemas) {
+			var model = schemas[model_name]
+			var _resource = {}
+
+			// _resource
+			_resource._id = model["x-skaffolder-id"]
+			_resource.url = model["x-skaffolder-url"]
+			_resource.name = model_name
+			_resource._project = project._id
+			_resource._db = db._id
+			_resource._entity = JSON.parse(JSON.stringify(findResEntity(db._id, model["x-skaffolder-id-entity"])))	// deep clone
+			_resource._roles = []
+
+			_resources.push(_resource)
+		}
+
+		var findResRelation = function (id_entity) {
+			var res = _resources.find((res) => {
+				return res._entity._id == id_entity;
+			})
+
+			if (res) {
+				return {
+					_id: res._id,
+					url: res.url,
+					name: res.name,
+					_project: res._project,
+					_db: res._db,
+					_entity: id_entity,
+					_roles: res._roles
+				}
+			}
+		}
+
+		_resources.forEach((res) => {
+			var _relations = res._entity._relations;
+
+			_relations.forEach((rel) => {
+				rel._ent1._resource = findResRelation(rel._ent1._id)
+				rel._ent2._resource = findResRelation(rel._ent2._id)
+			})
+
+			res._relations = [...res._entity._relations]
+		})
+	})
+
+	skProject.resources = _resources;
+	// DEBUG: 
+	// console.log(JSON.stringify(skProject))
 }
 
 exports.getYaml = getYaml;
