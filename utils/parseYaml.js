@@ -51,6 +51,8 @@ var translateProject = function () {
 		return [];
 	}
 
+	var cloneObject = (obj) => JSON.parse(JSON.stringify(obj))
+
 	// project property
 	let project = {}
 	project._id = yamlProject.info["x-skaffolder-id-project"];
@@ -158,6 +160,9 @@ var translateProject = function () {
 	let resources = getDBsArray()
 	var _resources = []
 
+	var res_id2resource = {}
+	var serv_id2service = {}
+
 	resources.forEach((db) => {
 		var schemas = components.schemas
 		var paths = yamlProject.paths
@@ -186,10 +191,11 @@ var translateProject = function () {
 			_resource.name = model_name
 			_resource._project = project._id
 			_resource._db = db._id
-			_resource._entity = JSON.parse(JSON.stringify(findResEntity(db._id, model["x-skaffolder-id-entity"])))	// deep clone
+			_resource._entity = cloneObject(findResEntity(db._id, model["x-skaffolder-id-entity"]))	// deep clone
 			_resource._roles = []
 
 			resource_name2id[_resource.name.toLowerCase()] = _resource._id;
+			res_id2resource[_resource._id.toLowerCase()] = cloneObject(_resource)
 
 			_resources.push(_resource)
 		}
@@ -239,7 +245,9 @@ var translateProject = function () {
 				if (!res_id2services[resource_id]) {
 					res_id2services[resource_id] = [];
 				}
+
 				res_id2services[resource_id].push(_service);
+				serv_id2service[_service._id] = cloneObject(_service);
 			}
 		}
 
@@ -280,6 +288,63 @@ var translateProject = function () {
 	})
 
 	skProject.resources = _resources;
+
+	// modules propery
+	let pages = components["x-skaffolder-page"]
+	let modules = [];
+	
+	if (pages) {
+		pages.forEach((page) => {
+			var _module = {} 
+
+			_module._id = page["x-skaffolder-id"]
+			_module.top = 5100
+			_module.left = 6400
+			_module.url = page["x-skaffolder-url"]
+			_module._template_resource = page["x-skaffolder-resource"]
+			_module.template = page["x-skaffolder-template"]
+			_module.name = page["x-skaffolder-name"]
+			_module._services = []
+			_module._resources = []
+
+			let page_services = page["x-skaffolder-services"]
+
+			if (page_services) {
+				page_services.forEach((serv_id) => {
+					var _service = cloneObject(serv_id2service[serv_id]);
+					var resource = res_id2resource[_service._resource];
+
+					if (resource) {
+						_service._resource = {
+							_id: resource._id,
+							url: resource.url,
+							name: resource.name,
+							_project: resource._project,
+							_db: resource._db,
+							_entity: resource._entity._id,
+							__v: resource.__v,
+							_roles: resource._roles
+						}
+					}
+
+					if (!_module._resources.some((item) => { return item._id == _service._resource._id})) {
+						_module._resources.push(Object.assign({}, _service._resource))
+					}
+
+					_module._services.push(_service);
+				});
+			}
+
+			_module._roles = page["x-skaffolder-roles"]
+			_module._nesteds = page["x-skaffolder-nesteds"]
+			_module.links = page["x-skaffolder-links"]
+
+			modules.push(_module)
+		})
+	}
+
+	skProject.modules = modules;
+
 	// DEBUG: 
 	// console.log(JSON.stringify(skProject))
 }
