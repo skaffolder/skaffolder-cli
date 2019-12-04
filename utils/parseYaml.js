@@ -292,6 +292,7 @@ var translateProject = function () {
 	// modules propery
 	let pages = components["x-skaffolder-page"]
 	let modules = [];
+	var page_id2page = {};
 	
 	if (pages) {
 		pages.forEach((page) => {
@@ -305,6 +306,9 @@ var translateProject = function () {
 			_module.template = page["x-skaffolder-template"]
 			_module.name = page["x-skaffolder-name"]
 			_module._services = []
+			_module._roles = page["x-skaffolder-roles"]
+			_module._nesteds = page["x-skaffolder-nesteds"] || []
+			_module._links = page["x-skaffolder-links"] || []
 			_module._resources = []
 
 			let page_services = page["x-skaffolder-services"]
@@ -335,13 +339,26 @@ var translateProject = function () {
 				});
 			}
 
-			_module._roles = page["x-skaffolder-roles"]
-			_module._nesteds = page["x-skaffolder-nesteds"]
-			_module.links = page["x-skaffolder-links"]
-
 			modules.push(_module)
+			page_id2page[_module._id] = cloneObject(_module);
 		})
 	}
+
+	// add nesteds and links
+	modules.forEach((page) => {
+		["_nesteds", "_links"].forEach((page_type) => {
+			page[page_type] = page[page_type].map((page_id) => {
+				var subpage = cloneObject(page_id2page[page_id])
+				delete subpage._resources;
+
+				if (subpage) {
+					subpage._services = subpage._services.map((item) => { return item._id })
+				}
+
+				return subpage
+			})
+		})
+	})
 
 	skProject.modules = modules;
 
