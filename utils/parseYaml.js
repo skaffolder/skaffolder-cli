@@ -143,12 +143,12 @@ var translateProject = function () {
 				}
 				var _model1 = _entity.find((item) => { return item._id == model["x-skaffolder-id-entity"] })
 				_model1._relations.push(_rel)
-				
+
 				var _model2 = _entity.find((item) => { return item._id == rel["x-skaffolder-ent2"] })
 				_model2._relations.push(Object.assign({}, _rel))
 			}
 		}
-		
+
 		db._entity = _entity
 	})
 
@@ -160,6 +160,8 @@ var translateProject = function () {
 
 	resources.forEach((db) => {
 		var schemas = components.schemas
+		var paths = yamlProject.paths
+		var resource_name2id = {}
 
 		var findResEntity = function (id_db, id_entity) {
 			var db = skProject.dbs.find((db_item) => { return id_db == db_item._id })
@@ -187,7 +189,58 @@ var translateProject = function () {
 			_resource._entity = JSON.parse(JSON.stringify(findResEntity(db._id, model["x-skaffolder-id-entity"])))	// deep clone
 			_resource._roles = []
 
+			resource_name2id[_resource.name.toLowerCase()] = _resource._id;
+
 			_resources.push(_resource)
+		}
+
+		// resources services
+		var res_id2services = {};
+
+		for (let path_name in paths) {
+			for (let service_name in paths[path_name]) {
+				var service = paths[path_name][service_name];
+
+				if (service['x-skaffolder-ignore']) continue;
+
+				var resource_id = service['x-skaffolder-id-resource'];
+				if (service['x-skaffolder-resource'] && resource_name2id[service['x-skaffolder-resource'].toLowerCase()]) {
+					resource_id = resource_name2id[service['x-skaffolder-resource'].toLowerCase()];
+				}
+
+				var _service = {
+					_id: service['x-skaffolder-id'] || 'NONE',
+					_resource: resource_id,
+					name: service['x-skaffolder-name'],
+					url: service['x-skaffolder-url'],
+					method: service_name.toUpperCase(),
+					description: service['x-skaffolder-description'] || service['summary'],
+					returnType: service['x-skaffolder-returnType'] || "",
+					crudType: service['x-skaffolder-crudType'] || undefined,
+					crudAction: service['x-skaffolder-crudAction'],
+					_roles: service['x-skaffolder-roles'],
+					returnDesc: service['x-skaffolder-returnDesc'] || undefined,
+					_params: []
+				}
+
+				
+				for (serviceParam_index in service.parameters) {
+					var serviceParam = service.parameters[serviceParam_index];
+					
+					_service._params.push({
+						_id: undefined,				// not in yaml
+						_service: _service._id,
+						name: serviceParam.name,
+						type: serviceParam['x-skaffolder-type'] || serviceParam.schema.type,
+						description: serviceParam.description
+					})
+				}
+				
+				if (!res_id2services[resource_id]) {
+					res_id2services[resource_id] = [];
+				}
+				res_id2services[resource_id].push(_service);
+			}
 		}
 
 		var findResRelation = function (id_entity) {
@@ -208,6 +261,7 @@ var translateProject = function () {
 			}
 		}
 
+		// resources relations and services
 		_resources.forEach((res) => {
 			var _relations = res._entity._relations;
 
@@ -217,6 +271,11 @@ var translateProject = function () {
 			})
 
 			res._relations = [...res._entity._relations]
+
+			var _services = res_id2services[res._id]
+			_services.sort((a, b) => a.name > b.name)
+
+			res._services = _services
 		})
 	})
 
