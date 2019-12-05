@@ -51,7 +51,7 @@ var translateProject = function () {
 		return [];
 	}
 
-	var cloneObject = (obj) => JSON.parse(JSON.stringify(obj))
+	var cloneObject = (obj) => (obj ? JSON.parse(JSON.stringify(obj)) : obj)
 
 	// project property
 	let project = {}
@@ -75,11 +75,16 @@ var translateProject = function () {
 		for (let model_name in schemas) {
 			var model = schemas[model_name];
 			var _model = {}
+			var model_db_id = model["x-skaffolder-id-db"];
 
-			if (model["x-skaffolder-id-db"] != db._id) { continue; }
+			if (!model_db_id) {
+				model_db_id = db._id
+			} else if (model_db_id != db._id) {
+				continue;
+			}
 
 			_model._id = model["x-skaffolder-id-entity"]
-			_model._db = model["x-skaffolder-id-db"]
+			_model._db = model_db_id
 			_model.name = model_name
 			_model._attrs = [];
 			_model._relations = []
@@ -116,8 +121,13 @@ var translateProject = function () {
 		//entity._relations property
 		for (let model_name in schemas) {
 			var model = schemas[model_name];
+			var model_db_id = model["x-skaffolder-id-db"];
 
-			if (model["x-skaffolder-id-db"] != db._id) { continue; }
+			if (!model_db_id) {
+				model_db_id = db._id
+			} else if (model_db_id != db._id) {
+				continue;
+			}
 
 			for (let rel_name in model["x-skaffolder-relations"]) {
 				var rel = model['x-skaffolder-relations'][rel_name];
@@ -194,7 +204,7 @@ var translateProject = function () {
 			_resource._roles = []
 
 			resource_name2id[_resource.name.toLowerCase()] = _resource._id;
-			res_id2resource[_resource._id.toLowerCase()] = cloneObject(_resource)
+			res_id2resource[_resource._id] = cloneObject(_resource)
 
 			_resources.push(_resource)
 		}
@@ -214,7 +224,7 @@ var translateProject = function () {
 				}
 
 				var _service = {
-					_id: service['x-skaffolder-id'] || 'NONE',
+					_id: service['x-skaffolder-id'],
 					_resource: resource_id,
 					name: service['x-skaffolder-name'],
 					url: service['x-skaffolder-url'],
@@ -252,7 +262,11 @@ var translateProject = function () {
 
 		var findResRelation = function (id_entity) {
 			var res = _resources.find((res) => {
+				if (res._entity) {
 				return res._entity._id == id_entity;
+				}
+
+				return false;
 			})
 
 			if (res) {
@@ -270,6 +284,7 @@ var translateProject = function () {
 
 		// resources relations and services
 		_resources.forEach((res) => {
+			if (res._entity) {
 			var _relations = res._entity._relations;
 
 			_relations.forEach((rel) => {
@@ -278,9 +293,15 @@ var translateProject = function () {
 			})
 
 			res._relations = [...res._entity._relations]
+			} else {
+				res._relations = []
+			}
 
-			var _services = res_id2services[res._id]
+			let _services = []
+
+			if (_services = res_id2services[res._id]) {
 			_services.sort((a, b) => a.name > b.name)
+			}
 
 			res._services = _services
 		})
