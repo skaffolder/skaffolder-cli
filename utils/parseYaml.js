@@ -91,7 +91,7 @@ var translateProject = function () {
 
 				var _attr = {
 					_id: attr["x-skaffolder-id-attr"],
-					_model: _model._id,
+					_entity: _model._id,
 					name: attr_name,
 					type: attr["x-skaffolder-type"],
 					required: attr["x-skaffolder-required"],
@@ -158,12 +158,11 @@ var translateProject = function () {
 
 	// resources property
 	let resources = getDBsArray()
-	var _resources = []
-
 	var res_id2resource = {}
 	var serv_id2service = {}
-
+	
 	resources.forEach((db) => {
+		var _resources = []
 		var schemas = components.schemas
 		var paths = yamlProject.paths
 		var resource_name2id = {}
@@ -224,7 +223,7 @@ var translateProject = function () {
 					returnType: service['x-skaffolder-returnType'] || "",
 					crudType: service['x-skaffolder-crudType'] || undefined,
 					crudAction: service['x-skaffolder-crudAction'],
-					_roles: service['x-skaffolder-roles'],
+					_roles: service['x-skaffolder-roles'] ? service['x-skaffolder-roles'].map((item) => { return { name: item, description: item } }) : service['x-skaffolder-roles'],
 					returnDesc: service['x-skaffolder-returnDesc'] || undefined,
 					_params: []
 				}
@@ -285,9 +284,11 @@ var translateProject = function () {
 
 			res._services = _services
 		})
+
+		db._resources = _resources
 	})
 
-	skProject.resources = _resources;
+	skProject.resources = resources;
 
 	// modules propery
 	let pages = components["x-skaffolder-page"]
@@ -364,6 +365,12 @@ var translateProject = function () {
 
 	// DEBUG: 
 	// console.log(JSON.stringify(skProject))
+	return {
+		project: skProject.project,
+		modules: skProject.modules,
+		resources: skProject.resources,
+		dbs: skProject.dbs
+	};
 }
 
 exports.getYaml = getYaml;
