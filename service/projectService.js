@@ -24,15 +24,20 @@ exports.getProject = function(cb) {
   );
 };
 
-exports.getProjectData = function(cb) {
-  var config = configUtils.getConf();
-  request(
-    {
-      url: properties.endpoint + "/project/" + config.project + "/getProject",
-      method: "GET"
-    },
-    cb
-  );
+exports.getProjectData = function (cb) {
+  if (!global.OFFLINE) {
+    var config = configUtils.getConf();
+    request(
+      {
+        url: properties.endpoint + "/project/" + config.project + "/getProject",
+        method: "GET"
+      },
+      cb
+    );
+  } else {
+    var project = require("../utils/parseYaml").translateProject();
+    cb(null, project)
+  }
 };
 
 exports.create = function(name, cb) {

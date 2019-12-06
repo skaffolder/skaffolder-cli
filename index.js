@@ -43,7 +43,12 @@ prog
     "generate",
     "Generate Skaffolder Template\n\n---- Manage Project ----\n"
   )
-  .action(generateCmd)
+  .option("--offline", "Work offline", null, false, false)
+  .action((args, options, logger) => {
+    global.OFFLINE = options.offline;
+    generateCmd(args, options, logger)
+  })
+  // .action(generateCmd)
 
   // manage
   .command("add page", "Create a new page in Skaffolder project")
