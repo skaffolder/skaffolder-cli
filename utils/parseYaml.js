@@ -161,6 +161,7 @@ var translateProject = function () {
 			}
 		}
 
+		_entity.sort((a, b) => { return a.name > b.name })
 		db._entity = _entity
 	})
 
@@ -306,6 +307,7 @@ var translateProject = function () {
 			res._services = _services
 		})
 
+		_resources.sort((a, b) => { return a.name > b.name })
 		db._resources = _resources
 	})
 
