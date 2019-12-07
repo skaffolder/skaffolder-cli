@@ -16,9 +16,10 @@ First of all you have to login into your free Skaffolder account running `sk log
 [root@skaffolder ~]$ sk login
     Skaffolder: Insert your email account:
     Skaffolder: Insert your password:
-    
+
     ✔  Login successful
 ```
+
 ### Create project
 
 Now you can create a new project running `sk new`
@@ -41,10 +42,9 @@ Now you can create a new project running `sk new`
 
     ✔   Project created!
     You can edit your project structure at https://app.skaffolder.com/#!/projects/my-project-id/design/models
-    Generator file imported in ./.skaffolder/template
+    Generator files imported in ./.skaffolder/template
 
 ```
-
 
 To open an existing project you can run `sk open`
 
@@ -60,7 +60,7 @@ You can use the command `sk generate` to generate your source code from your tem
     File created: ./swagger.yaml
     File created: ./app.js
     ...
-    
+
     ✔  Generation complete!
 ```
 
@@ -83,7 +83,6 @@ You can optionally specity the name running `sk add page <name>`
     You can edit your project structure at http://app.skaffolder.com/#!/projects/my-project-id/design/models
 ```
 
-
 ###### Add Data Model
 
 To add a data model run `sk add model`.
@@ -92,7 +91,6 @@ You can optionally specity the name running `sk add model <name>`
 ```bash
 [root@skaffolder ~]$ sk add model
 ```
-
 
 ###### Add API
 
@@ -115,9 +113,8 @@ You can run `sk get project url` and browse the provided link:
 
 ## Create a custom template generator
 
-In you current path a folder `.skaffolder` was 	created.
+In you current path a folder `.skaffolder` was created.
 In `.skaffolder/template` you can find your template files editable, they respect the <a href="https://handlebarsjs.com" target="_blank">Handlebars sintax</a> and you can use also these additional <a href="https://www.npmjs.com/package/handlebars-helpers" target="_blank">helpers functions</a>.
-
 
 You can create a new template from any boilerplate.
 Put in your Skaffolder project folder your boilerplate files and run
@@ -132,7 +129,6 @@ With this command all files in Skaffolder project folder will be imported in `.s
 
 Each template file in `.skaffolder/template` folder has `.hbs` extension and first lines of file can be (optional) Skaffolder properties.
 This section is delimitated by `**** PROPERTIES SKAFFOLDER ****` token and contains JSON formatted properties.
-
 
 <table>
     <tr>
@@ -195,7 +191,6 @@ This section is delimitated by `**** PROPERTIES SKAFFOLDER ****` token and conta
     </tr>
 </table>
 
-
 ####Example:
 
 You can create the file `.skaffolder/template/{{capitalize entity.name}}Dao.java.hbs` with this content and run `sk generate`
@@ -221,16 +216,16 @@ You can create the file `.skaffolder/template/{{capitalize entity.name}}Dao.java
 // START - PARTIAL
 // END - PARTIAL
 public class {{capitalize entity.name}} {
-	
+
     private Long _id;
-	
+
     // Attributes
     {{#each entity._attrs}}
     private String {{name}};
     {{/each}}
 }
 
-/** 
+/**
     All Handlebars parameters:
 
 {{json .}}
@@ -246,13 +241,13 @@ You can add an helper creating a file name `extra.js` in your project folder wit
 
 ```javascript
 exports.helpers = [
-    {
-        name: "myFunction",
-        fn: function(param1, options) {
-            return param1 + " Hello World"
-        }
+  {
+    name: "myFunction",
+    fn: function(param1, options) {
+      return param1 + " Hello World";
     }
-]
+  }
+];
 ```
 
 You can now use this function in your `.hbs` template file:
@@ -265,6 +260,7 @@ Result:
 my HBS file test Hello World
 
 ```
+
 ###Import Schema from existing Database
 
 You can import you Db schema in Skaffolder from a XML file.
@@ -275,7 +271,9 @@ In order to import this file in your Skaffolder project run:
 ```bash
 [root@skaffolder ~]$ sk import db <path_file>
 ```
+
 Now you have data models on Skaffolder platform.
 
 # More documentation
->You can find <a href="https://skaffolder.com/#/documentation" target="_blank">additional documentation here</a>
+
+> You can find <a href="https://skaffolder.com/#/documentation" target="_blank">additional documentation here</a>
