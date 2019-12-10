@@ -2,7 +2,7 @@ var chalk = require('chalk');
 var fs = require('fs');
 var yaml = require('yaml');
 
-var getYaml = function () {
+var getYaml = function (logger) {
 	try {
 		let dataYaml = fs.readFileSync('openapi.yaml', "utf-8");
 
@@ -11,11 +11,13 @@ var getYaml = function () {
 
 			return fileObj;
 		} catch (e) {
-			console.info(chalk.red("openapi.yaml file not parsable"));
+			logger.error(chalk.red("openapi.yaml file not parsable"));
+			logger.debug(e);
 			process.exit(0);
 		}
 	} catch (e) {
-		console.info(chalk.red("openapi.yaml file not found"));
+		logger.error(chalk.red("openapi.yaml file not found"));
+		logger.debug(e);
 		process.exit(0);
 	}
 }
