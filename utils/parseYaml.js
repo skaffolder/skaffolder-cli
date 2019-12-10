@@ -30,7 +30,7 @@ var translateProject = function () {
 
 	var getPagesArray = function () {
 		if (components && components["x-skaffolder-page"]) {
-			return components["x-skaffolder-page"].map((item) => { return item["x-skaffolder-id"] }).sort();
+			return components["x-skaffolder-page"].map((item) => { return item["x-skaffolder-id"] || getDummyId(item.name, "page") }).sort();
 		}
 
 		return [];
@@ -40,7 +40,7 @@ var translateProject = function () {
 		if (components && components["x-skaffolder-db"]) {
 			return components["x-skaffolder-db"].map((item) => {
 				return {
-					_id: item["x-skaffolder-id"],
+					_id: item["x-skaffolder-id"] || getDummyId(item["x-skaffolder-name"], "db"),
 					name: item["x-skaffolder-name"],
 					_owner: "",
 					_members: []
@@ -52,6 +52,8 @@ var translateProject = function () {
 	}
 
 	var cloneObject = (obj) => (obj ? JSON.parse(JSON.stringify(obj)) : obj)
+
+	var getDummyId = (name, type) => { return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "") } 
 
 	// project property
 	let project = {}
@@ -83,7 +85,7 @@ var translateProject = function () {
 				continue;
 			}
 
-			_model._id = model["x-skaffolder-id-entity"]
+			_model._id = model["x-skaffolder-id-entity"] || getDummyId(model_name, "entity")
 			_model._db = model_db_id
 			_model.name = model_name
 			_model._attrs = [];
@@ -95,7 +97,7 @@ var translateProject = function () {
 				var attr = model.properties[attr_name]
 
 				var _attr = {
-					_id: attr["x-skaffolder-id-attr"],
+					_id: attr["x-skaffolder-id-attr"] || getDummyId(`${model_name}_${attr_name}`, "attr"),
 					_entity: _model._id,
 					name: attr_name,
 					type: attr["x-skaffolder-type"],
@@ -153,10 +155,10 @@ var translateProject = function () {
 					_ent2: findRelEntity(rel["x-skaffolder-ent2"]),
 					_ent1: findRelEntity(rel["x-skaffolder-ent1"])
 				}
-				var _model1 = _entity.find((item) => { return item._id == model["x-skaffolder-id-entity"] })
+				var _model1 = _entity.find((item) => { return item._id == (model["x-skaffolder-id-entity"] || getDummyId(item.name, "entity")) })
 				_model1._relations.push(_rel)
 
-				var _model2 = _entity.find((item) => { return item._id == rel["x-skaffolder-ent2"] })
+				var _model2 = _entity.find((item) => { return item._id == (rel["x-skaffolder-ent2"] || getDummyId(item.name, "entity")) })
 				_model2._relations.push(Object.assign({}, _rel))
 			}
 		}
@@ -196,12 +198,12 @@ var translateProject = function () {
 			var _resource = {}
 
 			// _resource
-			_resource._id = model["x-skaffolder-id"]
+			_resource._id = model["x-skaffolder-id"] || getDummyId(model_name, "resource")
 			_resource.url = model["x-skaffolder-url"]
 			_resource.name = model_name
 			_resource._project = project._id
 			_resource._db = db._id
-			_resource._entity = cloneObject(findResEntity(db._id, model["x-skaffolder-id-entity"]))	// deep clone
+			_resource._entity = cloneObject(findResEntity(db._id, (model["x-skaffolder-id-entity"] || getDummyId(model_name, "entity"))))	// deep clone
 			_resource._roles = []
 
 			resource_name2id[_resource.name.toLowerCase()] = _resource._id;
@@ -225,7 +227,7 @@ var translateProject = function () {
 				}
 
 				var _service = {
-					_id: service['x-skaffolder-id'],
+					_id: service['x-skaffolder-id'] ||  getDummyId(`${service_name}_${service['x-skaffolder-name']}`, "service"),
 					_resource: resource_id,
 					name: service['x-skaffolder-name'],
 					url: service['x-skaffolder-url'],
@@ -322,7 +324,7 @@ var translateProject = function () {
 		pages.forEach((page) => {
 			var _module = {} 
 
-			_module._id = page["x-skaffolder-id"]
+			_module._id = page["x-skaffolder-id"] || getDummyId(page["x-skaffolder-name"], "page")
 			_module.top = 5100
 			_module.left = 6400
 			_module.url = page["x-skaffolder-url"]
