@@ -53,7 +53,7 @@ var translateProject = function () {
 
 	var cloneObject = (obj) => (obj ? JSON.parse(JSON.stringify(obj)) : obj)
 
-	var getDummyId = (name, type) => { return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "") } 
+	var getDummyId = (name, type) => { return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "") }
 
 	// project property
 	let project = {}
@@ -173,7 +173,7 @@ var translateProject = function () {
 	let resources = getDBsArray()
 	var res_id2resource = {}
 	var serv_id2service = {}
-	
+
 	resources.forEach((db) => {
 		var _resources = []
 		var schemas = components.schemas
@@ -234,7 +234,7 @@ var translateProject = function () {
 				}
 
 				var _service = {
-					_id: service['x-skaffolder-id'] ||  getDummyId(`${service_name}_${service['x-skaffolder-name']}`, "service"),
+					_id: service['x-skaffolder-id'] || getDummyId(`${service_name}_${service['x-skaffolder-name']}`, "service"),
 					_resource: resource_id,
 					name: service['x-skaffolder-name'],
 					url: service['x-skaffolder-url'],
@@ -248,10 +248,10 @@ var translateProject = function () {
 					_params: []
 				}
 
-				
+
 				for (serviceParam_index in service.parameters) {
 					var serviceParam = service.parameters[serviceParam_index];
-					
+
 					_service._params.push({
 						_id: undefined,				// not in yaml
 						_service: _service._id,
@@ -260,7 +260,7 @@ var translateProject = function () {
 						description: serviceParam.description
 					})
 				}
-				
+
 				if (!res_id2services[resource_id]) {
 					res_id2services[resource_id] = [];
 				}
@@ -273,7 +273,7 @@ var translateProject = function () {
 		var findResRelation = function (id_entity) {
 			var res = _resources.find((res) => {
 				if (res._entity) {
-				return res._entity._id == id_entity;
+					return res._entity._id == id_entity;
 				}
 
 				return false;
@@ -295,14 +295,14 @@ var translateProject = function () {
 		// resources relations and services
 		_resources.forEach((res) => {
 			if (res._entity) {
-			var _relations = res._entity._relations;
+				var _relations = res._entity._relations;
 
-			_relations.forEach((rel) => {
-				rel._ent1._resource = findResRelation(rel._ent1._id)
-				rel._ent2._resource = findResRelation(rel._ent2._id)
-			})
+				_relations.forEach((rel) => {
+					rel._ent1._resource = findResRelation(rel._ent1._id)
+					rel._ent2._resource = findResRelation(rel._ent2._id)
+				})
 
-			res._relations = [...res._entity._relations]
+				res._relations = [...res._entity._relations]
 			} else {
 				res._relations = []
 			}
@@ -310,7 +310,7 @@ var translateProject = function () {
 			let _services = []
 
 			if (_services = res_id2services[res._id]) {
-			_services.sort((a, b) => a.name > b.name)
+				_services.sort((a, b) => a.name > b.name)
 			}
 
 			res._services = _services
@@ -326,10 +326,10 @@ var translateProject = function () {
 	let pages = components["x-skaffolder-page"]
 	let modules = [];
 	var page_id2page = {};
-	
+
 	if (pages) {
 		pages.forEach((page) => {
-			var _module = {} 
+			var _module = {}
 
 			_module._id = page["x-skaffolder-id"] || getDummyId(page["x-skaffolder-name"], "page")
 			_module.top = 5100
@@ -364,7 +364,7 @@ var translateProject = function () {
 						}
 					}
 
-					if (!_module._resources.some((item) => { return item._id == _service._resource._id})) {
+					if (!_module._resources.some((item) => { return item._id == _service._resource._id })) {
 						_module._resources.push(Object.assign({}, _service._resource))
 					}
 
@@ -392,6 +392,7 @@ var translateProject = function () {
 			})
 		})
 	})
+	modules.sort((a, b) => { return a.name > b.name })
 
 	skProject.modules = modules;
 
