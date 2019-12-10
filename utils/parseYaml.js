@@ -195,7 +195,14 @@ var translateProject = function () {
 		// create resources
 		for (model_name in schemas) {
 			var model = schemas[model_name]
+			var model_db_id = model["x-skaffolder-id-db"];
 			var _resource = {}
+
+			if (!model_db_id) {
+				model_db_id = db._id
+			} else if (model_db_id != db._id) {
+				continue;
+			}
 
 			// _resource
 			_resource._id = model["x-skaffolder-id"] || getDummyId(model_name, "resource")
