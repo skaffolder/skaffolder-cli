@@ -19,6 +19,7 @@ const generatorBean = require("./generator/GeneratorBean");
 const generatorUtils = require("./generator/GeneratorUtils");
 const projectService = require("./service/projectService");
 const exportProjectCommand = require("./lib/exportProject");
+const offlineCommandBuilder = require("./lib/offline").offlineCommandBuilder;
 const helpers = require("./generator/Helpers");
 const create = require("./utils/generator");
 var cache = require("persistent-cache");
@@ -44,17 +45,15 @@ prog
     "Generate Skaffolder Template\n\n---- Manage Project ----\n"
   )
   .option("--offline", "Work offline", null, false, false)
-  .action((args, options, logger) => {
-    global.OFFLINE = options.offline;
-    global.logger = logger;
-    generateCmd(args, options, logger)
-  })
+  .action(offlineCommandBuilder(generateCmd))
   // .action(generateCmd)
 
   // manage
   .command("add page", "Create a new page in Skaffolder project")
   .argument("[name]", "Name of the page", null, "")
-  .action(createPageCmd)
+  .option("--offline", "Work offline", null, false, false)
+  .action(offlineCommandBuilder(createPageCmd))
+  // .action(createPageCmd)
   .command("add model", "Create a new model in Skaffolder project")
   .argument("[name]", "Name of the model", null, "")
   .action(createModelCmd)

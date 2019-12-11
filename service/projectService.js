@@ -1,6 +1,7 @@
 var properties = require("../properties");
 var request = require("../utils/request");
 var configUtils = require("../utils/config");
+var offline = require("../lib/offline")
 
 exports.exportProject = function(params, cb) {
   request(
@@ -217,26 +218,30 @@ exports.createCrud = function(idModel, cb) {
 };
 
 exports.createPage = function(name, cb) {
-  var config = configUtils.getConf();
-  request(
-    {
-      url: properties.endpoint + "/page",
-      method: "POST",
-      json: {
-        left: 6200,
-        name: name,
-        state: "pending",
-        top: 5100,
-        url: "/" + name,
-        _links: [],
-        _nesteds: [],
-        _project: config.project,
-        _roles: [],
-        _services: []
-      }
-    },
-    cb
-  );
+  if (!global.OFFLINE) {
+    var config = configUtils.getConf();
+    request(
+      {
+        url: properties.endpoint + "/page",
+        method: "POST",
+        json: {
+          left: 6200,
+          name: name,
+          state: "pending",
+          top: 5100,
+          url: "/" + name,
+          _links: [],
+          _nesteds: [],
+          _project: config.project,
+          _roles: [],
+          _services: []
+        }
+      },
+      cb
+    );
+  } else {
+    cb(null, offline.createPage(name))
+  }
 };
 
 exports.createModel = function(name, db, attributes, relations, cb) {
