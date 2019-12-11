@@ -349,3 +349,4 @@ var getProperties = (content, nameFileTemplate, pathTemplate) => {
 };
 
 exports.getGenFiles = getGenFiles;
+exports.generateFile = generateFile;

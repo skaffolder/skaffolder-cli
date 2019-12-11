@@ -24,6 +24,8 @@ var getYaml = function (logger) {
 	}
 }
 
+var getDummyId = (name, type) => { return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "") }
+
 var translateProject = function (logger) {
 	let yamlProject = getYaml(logger);
 
@@ -56,8 +58,6 @@ var translateProject = function (logger) {
 	}
 
 	var cloneObject = (obj) => (obj ? JSON.parse(JSON.stringify(obj)) : obj)
-
-	var getDummyId = (name, type) => { return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "") }
 
 	// project property
 	let project = {}
@@ -410,5 +410,36 @@ var translateProject = function (logger) {
 	};
 }
 
+var generateYaml = function (projectData, logger) {
+	var generatorBean = require("../generator/GeneratorBean");
+	var utils = require("../generator/GeneratorUtils");
+
+	if (projectData) {
+		var project = projectData.project;
+		var modules = projectData.modules;
+		var resources = projectData.resources;
+		var dbs = projectData.dbs;
+		var generatorFiles = generatorBean.getGenFiles(generatorBean.pathTemplate);
+
+		try {
+			utils.init("./", project, modules, resources, dbs);
+
+			if (generatorFiles) {
+				var file = generatorFiles.find((val) => { return val.name && val.name == "openapi.yaml" })
+
+				if (file) {
+					generatorBean.generateFile(file, [], utils, project, modules, resources, dbs)
+				}
+			}
+		} catch (e) {
+			logger.error("Error while generating openapi.yaml");
+			logger.debug(e);
+			process.exit(0)
+		}
+	}
+}
+
 exports.getYaml = getYaml;
 exports.translateProject = translateProject
+exports.generateYaml = generateYaml
+exports.getDummyId = getDummyId
