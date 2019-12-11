@@ -35,7 +35,7 @@ exports.getProjectData = function (cb) {
       cb
     );
   } else {
-    var project = require("../utils/parseYaml").translateProject();
+    var project = require("../utils/parseYaml").translateProject(global.logger);
     cb(null, project)
   }
 };

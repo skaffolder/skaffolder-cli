@@ -3,6 +3,8 @@ var fs = require('fs');
 var yaml = require('yaml');
 
 var getYaml = function (logger) {
+	if (typeof logger == "undefined") { logger = console }
+
 	try {
 		let dataYaml = fs.readFileSync('openapi.yaml', "utf-8");
 
@@ -22,8 +24,8 @@ var getYaml = function (logger) {
 	}
 }
 
-var translateProject = function () {
-	let yamlProject = getYaml();
+var translateProject = function (logger) {
+	let yamlProject = getYaml(logger);
 
 	if (typeof yamlProject == "undefined") { process.exit(0) }
 

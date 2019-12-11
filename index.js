@@ -46,6 +46,7 @@ prog
   .option("--offline", "Work offline", null, false, false)
   .action((args, options, logger) => {
     global.OFFLINE = options.offline;
+    global.logger = logger;
     generateCmd(args, options, logger)
   })
   // .action(generateCmd)
@@ -94,7 +95,6 @@ prog
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
 prog.parse(process.argv);
-
 // Export Typescript
 
 exports.getGenFiles = generatorBean.getGenFiles;
