@@ -444,7 +444,6 @@ var getProject = function (logger) {
 
 	if (typeof yamlProject == "undefined") { process.exit(0) }
 
-	let skProject = {};
 	let components = yamlProject.components
 
 	var getArrayOfType = function (type) {
@@ -465,9 +464,77 @@ var getProject = function (logger) {
 	project._pages = getArrayOfType("page")
 	project._dbs = getArrayOfType("db")
 
-	skProject.project = project
+	return project;
+}
 
-	return skProject;
+var getEntityFindByDb = function (db_id, logger) {
+	let yamlProject = getYaml(logger);
+
+	if (typeof yamlProject == "undefined") { process.exit(0) }
+
+	let components = yamlProject.components
+	var db;
+
+	if (components && components["x-skaffolder-db"]) {
+		db = components["x-skaffolder-db"].find((item) => {
+			return db_id == item["x-skaffolder-id"] || db_id == getDummyId(item["x-skaffolder-name"], "db")
+		});
+	}
+
+	if (db) {
+		var schemas = components.schemas
+		var _entity = [];
+
+		for (let model_name in schemas) {
+			var model = schemas[model_name];
+			var _model = {}
+			var model_db_id = model["x-skaffolder-id-db"];
+
+			if (!model_db_id) {
+				model_db_id = db_id
+			} else if (model_db_id != db_id) {
+				continue;
+			}
+
+			_model._id = model["x-skaffolder-id-entity"] || getDummyId(model_name, "entity")
+			_model._db = model_db_id
+			_model.name = model_name
+			_model._attrs = [];
+			_model._relations = []
+
+			// entity._attrs property
+			for (let attr_name in model.properties) {
+				if (attr_name == "_id") { continue }
+				var attr = model.properties[attr_name]
+
+				var _attr = {
+					_id: attr["x-skaffolder-id-attr"] || getDummyId(`${model_name}_${attr_name}`, "attr"),
+					_entity: _model._id,
+					name: attr_name,
+					type: attr["x-skaffolder-type"],
+					required: attr["x-skaffolder-required"],
+					unique: attr["x-skaffolder-unique"]
+				}
+
+				if (attr["x-skaffolder-enumeration"]) {
+					_attr._enum = attr["x-skaffolder-enumeration"].map((item) => {
+						return {
+							name: item,
+							_attr: _attr._id
+						}
+					})
+				}
+
+				_model._attrs.push(_attr)
+			}
+			_entity.push(_model)
+		}
+
+		_entity.sort((a, b) => { return a.name > b.name })
+		return _entity
+	}
+
+	return []
 }
 
 exports.getYaml = getYaml;
@@ -476,3 +543,4 @@ exports.getDummyId = getDummyId
 
 exports.getProjectData = getProjectData
 exports.getProject = getProject
+exports.getEntityFindByDb = getEntityFindByDb

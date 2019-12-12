@@ -27,6 +27,7 @@ exports.getProject = function(cb) {
     );
   } else {
     var project = offlineService.getProject(global.logger)
+    console.log(JSON.stringify(project))
     cb(null, project)
   }
 };
@@ -120,14 +121,19 @@ exports.getTemplate = function(cb) {
   );
 };
 
-exports.getEntityFindByDb = function(db, cb) {
-  request(
-    {
-      url: properties.endpoint + "/entity/findBy_db/" + db,
-      method: "GET"
-    },
-    cb
-  );
+exports.getEntityFindByDb = function (db, cb) {
+  if (!global.OFFLINE) {
+    request(
+      {
+        url: properties.endpoint + "/entity/findBy_db/" + db,
+        method: "GET"
+      },
+      cb
+    );
+  } else {
+    var entities = offlineService.getEntityFindByDb(db, global.logger)
+    cb(null, entities)
+  }
 };
 
 exports.createFromTemplate = function(idProj, idFrontend, idBackend, cb) {
