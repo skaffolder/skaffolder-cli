@@ -26,7 +26,7 @@ var getYaml = function (logger) {
 
 var getDummyId = (name, type) => { return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "") }
 
-var translateProject = function (logger) {
+var getProjectData = function (logger) {
 	let yamlProject = getYaml(logger);
 
 	if (typeof yamlProject == "undefined") { process.exit(0) }
@@ -440,6 +440,7 @@ var generateYaml = function (projectData, logger) {
 }
 
 exports.getYaml = getYaml;
-exports.translateProject = translateProject
 exports.generateYaml = generateYaml
 exports.getDummyId = getDummyId
+
+exports.getProjectData = getProjectData

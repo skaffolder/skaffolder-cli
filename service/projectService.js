@@ -2,6 +2,7 @@ var properties = require("../properties");
 var request = require("../utils/request");
 var configUtils = require("../utils/config");
 var offline = require("../lib/offline")
+var offlineService = require("../utils/offlineService")
 
 exports.exportProject = function(params, cb) {
   request(
@@ -36,8 +37,8 @@ exports.getProjectData = function (cb) {
       cb
     );
   } else {
-    var project = require("../utils/parseYaml").translateProject(global.logger);
-    cb(null, project)
+    var projectData = offlineService.getProjectData(global.logger);
+    cb(null, projectData)
   }
 };
 
