@@ -26,10 +26,8 @@ var getYaml = function (logger) {
 
 var getDummyId = (name, type) => { return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "") }
 
-var getProjectData = function (logger) {
-	let yamlProject = getYaml(logger);
-
-	if (typeof yamlProject == "undefined") { process.exit(0) }
+var translateYamlProject = function (yamlProject) {
+	if (typeof yamlProject == "undefined") { return {} }
 
 	let skProject = {};
 	let components = yamlProject.components
@@ -439,6 +437,12 @@ var generateYaml = function (projectData, logger) {
 	}
 }
 
+var getProjectData = function (logger) {
+	let yamlProject = getYaml(logger);
+
+	return translateYamlProject(yamlProject)
+}
+
 var getProject = function (logger) {
 	let yamlProject = getYaml(logger);
 
@@ -540,6 +544,7 @@ var getEntityFindByDb = function (db_id, logger) {
 exports.getYaml = getYaml;
 exports.generateYaml = generateYaml
 exports.getDummyId = getDummyId
+exports.translateYamlProject = translateYamlProject
 
 exports.getProjectData = getProjectData
 exports.getProject = getProject

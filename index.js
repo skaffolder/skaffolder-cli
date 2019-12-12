@@ -56,7 +56,8 @@ prog
   // .action(createPageCmd)
   .command("add model", "Create a new model in Skaffolder project")
   .argument("[name]", "Name of the model", null, "")
-  .action(createModelCmd)
+  .option("--offline", "Work offline", null, false, false)
+  .action(offlineCommandBuilder(createModelCmd))
   .command(
     "add api",
     "Create a new api in Skaffolder project\n\n---- Generator ----\n"

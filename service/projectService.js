@@ -27,7 +27,6 @@ exports.getProject = function(cb) {
     );
   } else {
     var project = offlineService.getProject(global.logger)
-    console.log(JSON.stringify(project))
     cb(null, project)
   }
 };
@@ -256,31 +255,35 @@ exports.createPage = function(name, cb) {
   }
 };
 
-exports.createModel = function(name, db, attributes, relations, cb) {
-  var config = configUtils.getConf();
-  let url = name;
+exports.createModel = function (name, db, attributes, relations, cb) {
+  if (!global.OFFLINE) {
+    var config = configUtils.getConf();
+    let url = name;
 
-  request(
-    {
-      url: properties.endpoint + "/model",
-      method: "POST",
-      json: {
-        name: name,
-        left: 6200,
-        top: 5100,
-        _project: config.project,
-        _resource: {
-          _services: [],
-          url: "/" + url
-        },
-        _entity: {
+    request(
+      {
+        url: properties.endpoint + "/model",
+        method: "POST",
+        json: {
+          name: name,
+          left: 6200,
+          top: 5100,
           _project: config.project,
-          _relations: relations,
-          _attrs: attributes,
-          _db: db
+          _resource: {
+            _services: [],
+            url: "/" + url
+          },
+          _entity: {
+            _project: config.project,
+            _relations: relations,
+            _attrs: attributes,
+            _db: db
+          }
         }
-      }
-    },
-    cb
-  );
+      },
+      cb
+    );
+  } else {
+    cb(null, offline.createModel(name, db, attributes, relations));
+  }
 };
