@@ -439,8 +439,40 @@ var generateYaml = function (projectData, logger) {
 	}
 }
 
+var getProject = function (logger) {
+	let yamlProject = getYaml(logger);
+
+	if (typeof yamlProject == "undefined") { process.exit(0) }
+
+	let skProject = {};
+	let components = yamlProject.components
+
+	var getArrayOfType = function (type) {
+		if (components && components[`x-skaffolder-${type}`]) {
+			return components[`x-skaffolder-${type}`].map((item) => { return item["x-skaffolder-id"] || getDummyId(item.name, type) }).sort();
+		}
+
+		return [];
+	}
+
+	// project property
+	let project = {}
+	project._id = yamlProject.info["x-skaffolder-id-project"];
+	project._owner = "" 				// not in yaml
+	project.name = yamlProject.info.title
+	project._members = [] 				// not in yaml
+	project._projects = []				// not in yaml
+	project._pages = getArrayOfType("page")
+	project._dbs = getArrayOfType("db")
+
+	skProject.project = project
+
+	return skProject;
+}
+
 exports.getYaml = getYaml;
 exports.generateYaml = generateYaml
 exports.getDummyId = getDummyId
 
 exports.getProjectData = getProjectData
+exports.getProject = getProject

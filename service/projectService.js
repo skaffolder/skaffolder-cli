@@ -16,14 +16,19 @@ exports.exportProject = function(params, cb) {
 };
 
 exports.getProject = function(cb) {
-  var config = configUtils.getConf();
-  request(
-    {
-      url: properties.endpoint + "/project/" + config.project,
-      method: "GET"
-    },
-    cb
-  );
+  if (!global.OFFLINE) {
+    var config = configUtils.getConf();
+    request(
+      {
+        url: properties.endpoint + "/project/" + config.project,
+        method: "GET"
+      },
+      cb
+    );
+  } else {
+    var project = offlineService.getProject(global.logger)
+    cb(null, project)
+  }
 };
 
 exports.getProjectData = function (cb) {
