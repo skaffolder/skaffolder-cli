@@ -26,6 +26,8 @@ var getYaml = function (logger) {
 
 var getDummyId = (name, type) => { return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "") }
 
+var cloneObject = (obj) => (obj ? JSON.parse(JSON.stringify(obj)) : obj)
+
 var translateYamlProject = function (yamlProject) {
 	if (typeof yamlProject == "undefined") { return {} }
 
@@ -54,8 +56,6 @@ var translateYamlProject = function (yamlProject) {
 
 		return [];
 	}
-
-	var cloneObject = (obj) => (obj ? JSON.parse(JSON.stringify(obj)) : obj)
 
 	// project property
 	let project = {}
@@ -541,11 +541,36 @@ var getEntityFindByDb = function (db_id, logger) {
 	return []
 }
 
-exports.getYaml = getYaml;
+var getModelsList = function (logger) {
+	let skProject = getProjectData(logger)
+
+	if (typeof skProject == "undefined") { return [] }
+
+	var modelsList = [];
+
+	if (skProject.resources) {
+		skProject.resources.forEach((db) => {
+			if (db._resources) {
+				modelsList = [...modelsList, ...(db._resources.map((_res) => {
+					return {
+						_id: getDummyId(_res.name, "model"),
+						name: `${_res.name}`,
+						_resource: cloneObject(_res)
+					}
+				}))]
+			}
+		})
+	}
+
+	return modelsList
+}
+
 exports.generateYaml = generateYaml
 exports.getDummyId = getDummyId
+exports.getYaml = getYaml;
 exports.translateYamlProject = translateYamlProject
 
-exports.getProjectData = getProjectData
-exports.getProject = getProject
 exports.getEntityFindByDb = getEntityFindByDb
+exports.getModelsList = getModelsList
+exports.getProject = getProject
+exports.getProjectData = getProjectData

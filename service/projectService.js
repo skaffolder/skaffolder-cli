@@ -75,19 +75,24 @@ exports.importDb = function(fileContent, cb) {
   );
 };
 
-exports.getModelsList = function(cb) {
-  var config = configUtils.getConf();
-  request(
-    {
-      url:
-        properties.endpoint +
-        "/model/findBy_project/" +
-        config.project +
-        "/populate",
-      method: "GET"
-    },
-    cb
-  );
+exports.getModelsList = function (cb) {
+  if (!global.OFFLINE) {
+    var config = configUtils.getConf();
+    request(
+      {
+        url:
+          properties.endpoint +
+          "/model/findBy_project/" +
+          config.project +
+          "/populate",
+        method: "GET"
+      },
+      cb
+    );
+  } else {
+    var modelsList = offlineService.getModelsList(global.logger)
+    cb(null, modelsList)
+  }
 };
 
 exports.getGeneratorList = function(idProj, cb) {
