@@ -62,7 +62,8 @@ prog
     "add api",
     "Create a new api in Skaffolder project\n\n---- Generator ----\n"
   )
-  .action(createApiCmd)
+  .option("--offline", "Work offline", null, false, false)
+  .action(offlineCommandBuilder(createApiCmd))
 
   // generator
   .command(

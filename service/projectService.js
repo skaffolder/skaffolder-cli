@@ -203,14 +203,18 @@ exports.saveGenerator = function(idGen, genFiles, helpers, cb) {
 };
 
 exports.createApi = function(service, cb) {
-  request(
-    {
-      url: properties.endpoint + "/service",
-      method: "POST",
-      json: service
-    },
-    cb
-  );
+  if (!global.OFFLINE) {
+    request(
+      {
+        url: properties.endpoint + "/service",
+        method: "POST",
+        json: service
+      },
+      cb
+    );
+  } else {
+    cb(null, offline.createApi(service));
+  }
 };
 
 exports.getGeneratorFile = function(idGen, cb) {
