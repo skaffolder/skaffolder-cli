@@ -227,14 +227,14 @@ exports.getGeneratorFile = function(idGen, cb) {
   );
 };
 
-exports.createCrud = function(idModel, cb) {
-  request(
-    {
-      url: properties.endpoint + "/model/" + idModel + "/createCrud",
-      method: "GET"
-    },
-    cb
-  );
+exports.createCrud = function (model, cb) {
+    request(
+      {
+        url: properties.endpoint + "/model/" + model._id + "/createCrud",
+        method: "GET"
+      },
+      cb
+    );
 };
 
 exports.createPage = function(name, cb) {
