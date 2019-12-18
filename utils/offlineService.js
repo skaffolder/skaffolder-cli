@@ -236,7 +236,7 @@ var translateYamlProject = function (yamlProject) {
 				}
 
 				var _service = {
-					_id: service['x-skaffolder-id'] || getDummyId(`${service_name}_${service['x-skaffolder-name']}`, "service"),
+					_id: service['x-skaffolder-id'] || getDummyId(`${service['x-skaffolder-name'] || service_name}_${service['x-skaffolder-resource']}`, "service"),
 					_resource: resource_id,
 					name: service['x-skaffolder-name'],
 					url: service['x-skaffolder-url'],

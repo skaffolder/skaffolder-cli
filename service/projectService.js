@@ -228,6 +228,7 @@ exports.getGeneratorFile = function(idGen, cb) {
 };
 
 exports.createCrud = function (model, cb) {
+  if (!global.OFFLINE) {
     request(
       {
         url: properties.endpoint + "/model/" + model._id + "/createCrud",
@@ -235,6 +236,9 @@ exports.createCrud = function (model, cb) {
       },
       cb
     );
+  } else {
+    cb(null, offline.createCrud(model))
+  }
 };
 
 exports.createPage = function(name, cb) {
