@@ -53,3 +53,9 @@ export class PartialFile {
   public tagTo: string;
   public template: string;
 }
+
+export namespace Offline {
+  var pathWorkspace: string;
+
+  export function createPage(name: string): any;
+}

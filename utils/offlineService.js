@@ -5,7 +5,10 @@ var yamlOptions = require('yaml/types.js')
 
 var _getOpenApiPath = (path) => {
 	if (path) {
-		if (path.endsWith("/")) { return `${path}openapi.yaml` }
+		if (!path.endsWith("/openapi.yaml")) {
+			if (path.endsWith("/")) { return `${path}openapi.yaml` }
+			return `${path}/openapi.yaml`
+		}
 	} else {
 		return "./openapi.yaml"
 	}

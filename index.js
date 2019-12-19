@@ -115,3 +115,4 @@ exports.generateFile = generatorUtils.generateFile;
 exports.init = generatorUtils.init;
 exports.getProperties = create.getProperties;
 exports.createPage = offline.createPage;
+exports.Offline = offline;
