@@ -264,7 +264,7 @@ exports.createPage = function(name, cb) {
       cb
     );
   } else {
-    cb(null, offline.createPage(name))
+    cb(null, offline.createPage({"x-skaffolder-name": name }))
   }
 };
 
