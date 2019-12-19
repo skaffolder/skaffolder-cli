@@ -1,12 +1,23 @@
 var chalk = require('chalk');
 var fs = require('fs');
 var yaml = require('yaml');
+var yamlOptions = require('yaml/types.js')
 
-var getYaml = function (logger) {
+var _getOpenApiPath = (path) => {
+	if (path) {
+		if (path.endsWith("/")) { return `${path}openapi.yaml` }
+	} else {
+		return "./openapi.yaml"
+	}
+
+	return path;
+}
+
+var getYaml = function (path, logger) {
 	if (typeof logger == "undefined") { logger = console }
 
 	try {
-		let dataYaml = fs.readFileSync('openapi.yaml', "utf-8");
+		let dataYaml = fs.readFileSync(_getOpenApiPath(path), "utf-8");
 
 		try {
 			fileObj = yaml.parse(dataYaml);
@@ -21,6 +32,26 @@ var getYaml = function (logger) {
 		logger.error(chalk.red("openapi.yaml file not found"));
 		logger.debug(e);
 		process.exit(0);
+	}
+}
+
+var commitYaml = function (yamlProject, path, logger) {
+	if (typeof logger == "undefined") { logger = console }
+
+	try {
+		yamlOptions.nullOptions.nullStr = "";
+		let dataYaml = yaml.stringify(yamlProject)
+
+		try {
+			fs.writeFileSync(_getOpenApiPath(path), dataYaml);
+		} catch (e) {
+			logger.error(chalk.red("openapi.yaml file not found"));
+			logger.debug(e);
+			process.exit(0);
+		}
+	} catch (e) {
+		logger.error(chalk.red("Project not convertible to yaml"));
+		logger.debug(e);
 	}
 }
 
@@ -438,13 +469,13 @@ var generateYaml = function (projectData, logger) {
 }
 
 var getProjectData = function (logger) {
-	let yamlProject = getYaml(logger);
+	let yamlProject = getYaml(null, logger);
 
 	return translateYamlProject(yamlProject)
 }
 
 var getProject = function (logger) {
-	let yamlProject = getYaml(logger);
+	let yamlProject = getYaml(null, logger);
 
 	if (typeof yamlProject == "undefined") { process.exit(0) }
 
@@ -472,7 +503,7 @@ var getProject = function (logger) {
 }
 
 var getEntityFindByDb = function (db_id, logger) {
-	let yamlProject = getYaml(logger);
+	let yamlProject = getYaml(null, logger);
 
 	if (typeof yamlProject == "undefined") { process.exit(0) }
 
@@ -569,6 +600,7 @@ exports.generateYaml = generateYaml
 exports.getDummyId = getDummyId
 exports.getYaml = getYaml;
 exports.translateYamlProject = translateYamlProject
+exports.commitYaml = commitYaml
 
 exports.getEntityFindByDb = getEntityFindByDb
 exports.getModelsList = getModelsList
