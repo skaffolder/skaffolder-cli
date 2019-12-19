@@ -239,5 +239,3 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     console.error(e);
   }
 };
-
-exports.pathWorkspace = pathWorkspace;
