@@ -15,15 +15,17 @@ const publishGeneratorCmd = require("./lib/publishGenerator");
 const generateCmd = require("./lib/generate");
 const getProjectUrlCmd = require("./lib/getProjectUrl");
 const importDbCmd = require("./lib/importDb");
-const generatorBean = require("./generator/GeneratorBean");
-const generatorUtils = require("./generator/GeneratorUtils");
-const projectService = require("./service/projectService");
 const exportProjectCommand = require("./lib/exportProject");
 const offlineCommandBuilder = require("./lib/offline").offlineCommandBuilder;
-const helpers = require("./generator/Helpers");
-const create = require("./utils/generator");
 var cache = require("persistent-cache");
 var globals = cache();
+
+const generatorBean = require("./generator/GeneratorBean");
+const projectService = require("./service/projectService");
+const helpers = require("./generator/Helpers");
+const create = require("./utils/generator");
+const generatorUtils = require("./generator/GeneratorUtils");
+const offline = require("./lib/offline");
 
 prog
   .version("1.1.30")
@@ -112,3 +114,4 @@ exports.getUser = function() {
 exports.generateFile = generatorUtils.generateFile;
 exports.init = generatorUtils.init;
 exports.getProperties = create.getProperties;
+exports.createPage = offline.createPage;

@@ -37,7 +37,7 @@ export function createProjectExtension(workspacePath: string, projectId: string,
   logger: { info: (message: string) => any
 }, frontendId: string, backendId: string, skaffolderObj: any, callback: (files: any) => any): any;
 export function getProperties(content: any, nameFileTemplate: any, pathTemplate: any): any;
-
+export function createPage(name: any): any;
 
 export class GeneratorFile {
   public name: string;
