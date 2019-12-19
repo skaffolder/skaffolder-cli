@@ -1,12 +1,19 @@
 var chalk = require('chalk');
 var fs = require('fs');
 var yaml = require('yaml');
+var utils = require("../generator/GeneratorUtils");
 
 var getYaml = function (logger) {
 	if (typeof logger == "undefined") { logger = console }
 
 	try {
-		let dataYaml = fs.readFileSync('openapi.yaml', "utf-8");
+		var pathFile = "openapi.yaml";
+		
+		if (utils.pathWorkspace) {
+			pathFile = utils.pathWorkspace + "/" + pathFile
+		}
+
+		let dataYaml = fs.readFileSync(pathFile, "utf-8");
 
 		try {
 			fileObj = yaml.parse(dataYaml);
@@ -410,7 +417,6 @@ var translateYamlProject = function (yamlProject) {
 
 var generateYaml = function (projectData, logger) {
 	var generatorBean = require("../generator/GeneratorBean");
-	var utils = require("../generator/GeneratorUtils");
 
 	if (projectData) {
 		var project = projectData.project;
@@ -420,7 +426,9 @@ var generateYaml = function (projectData, logger) {
 		var generatorFiles = generatorBean.getGenFiles(generatorBean.pathTemplate);
 
 		try {
-			utils.init("./", project, modules, resources, dbs);
+			if (!utils.pathWorkspace) {
+				utils.init("./", project, modules, resources, dbs);
+			}
 
 			if (generatorFiles) {
 				var file = generatorFiles.find((val) => { return val.name && val.name == "openapi.yaml" })
