@@ -9,7 +9,6 @@ module.exports = function(options, cb) {
   if (token && !options.public) options.headers.Token = token;
 
   request(options, function(error, response, body) {
-    console.log("token", token);
     if (error) {
       error = {
         message: error.code

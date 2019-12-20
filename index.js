@@ -108,7 +108,6 @@ exports.createProjectExtension = create.createProjectExtension;
 exports.exportProject = projectService.exportProject;
 exports.login = loginCmd;
 exports.getUser = function() {
-  console.log("tokn", globals.getSync("token"));
   return globals.getSync("user");
 };
 exports.generateFile = generatorUtils.generateFile;
