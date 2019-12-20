@@ -32,7 +32,7 @@ export function generateFile(log: any,file: {
   overwrite: boolean,
   template: any
 }, paramLoop: any, opt: any): any;
-export function init(workspacePath: string, project: any, modules: any, resources: any, db: any): any;
+export function init(workspacePath: string, project: any, modules: any, resources: any, db: any, roles: any): any;
 export function createProjectExtension(workspacePath: string, projectId: string, 
   logger: { info: (message: string) => any
 }, frontendId: string, backendId: string, skaffolderObj: any, callback: (files: any) => any): any;

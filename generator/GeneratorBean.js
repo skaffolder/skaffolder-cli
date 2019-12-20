@@ -13,6 +13,7 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
   var modules = files.modules;
   var resources = files.resources;
   var dbs = files.dbs;
+  var roles = files.roles;
   var genFiles = getGenFiles(workspacePrefix + pathTemplate);
   var log = [];
 
@@ -26,7 +27,8 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
       project,
       modules,
       resources,
-      dbs
+      dbs,
+      roles
     );
 
     async.each(

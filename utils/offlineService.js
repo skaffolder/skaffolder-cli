@@ -430,16 +430,28 @@ var translateYamlProject = function (yamlProject) {
 		})
 	})
 	modules.sort((a, b) => { if ( a.name > b.name ) return 1; if (a.name < b.name) return -1; return 0;})
-
 	skProject.modules = modules;
 
-	// DEBUG: 
-	// console.log(JSON.stringify(skProject))
+	// roles propery
+	let roles = components["x-skaffolder-roles"]
+	
+	if (roles) {
+		skProject.roles = roles.map((role) => {
+			return {
+				_id: role["x-skaffolder-id"],
+				name: role["x-skaffolder-name"],
+				description: role["x-skaffolder-name"],
+				_project: skProject.project._id
+			}
+		});
+	}
+
 	return {
 		project: skProject.project,
 		modules: skProject.modules,
 		resources: skProject.resources,
-		dbs: skProject.dbs
+		dbs: skProject.dbs,
+		roles: skProject.roles
 	};
 }
 
@@ -452,10 +464,11 @@ var generateYaml = function (projectData, logger) {
 		var modules = projectData.modules;
 		var resources = projectData.resources;
 		var dbs = projectData.dbs;
+		var roles = projectData.roles;
 		var generatorFiles = generatorBean.getGenFiles(generatorBean.pathTemplate);
 
 		try {
-			utils.init("./", project, modules, resources, dbs);
+			utils.init("./", project, modules, resources, dbs, roles);
 
 			if (generatorFiles) {
 				var file = generatorFiles.find((val) => { return val.name && val.name == "openapi.yaml" })

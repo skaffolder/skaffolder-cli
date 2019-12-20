@@ -47,12 +47,13 @@ var comment = function(file, extension) {
 };
 
 exports.
-init = function(pathWorkspace2, project, modules, resources, dbs) {
+init = function(pathWorkspace2, project, modules, resources, dbs, roles) {
   paramsGenerator = {
     project: project,
     modules: modules,
     resources: resources,
-    dbs: dbs
+    dbs: dbs, 
+    roles: roles
   };
 
   pathWorkspace = pathWorkspace2;
