@@ -185,6 +185,7 @@ var translateYamlProject = function (yamlProject) {
 				}
 
 				var _rel = {
+					_id: rel["x-skaffolder-id"] || getDummyId(`${model_name}_${rel_name}`, "relation"),
 					type: rel["x-skaffolder-type"],
 					required: rel["x-skaffolder-required"],
 					name: rel_name,
