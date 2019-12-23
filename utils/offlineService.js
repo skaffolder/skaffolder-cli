@@ -103,6 +103,34 @@ var translateYamlProject = function (yamlProject) {
 
 	skProject.project = project
 
+	var getRolesArray = function (roles) {
+		if (roles) {
+			return roles.map((role_id) => {
+				return cloneObject(role_id2role[role_id])
+			})
+		}
+
+		return roles;
+	}
+
+	// roles propery
+	let roles = components["x-skaffolder-roles"]
+	var role_id2role = {}
+
+	if (roles) {
+		skProject.roles = roles.map((role) => {
+			var role = {
+				_id: role["x-skaffolder-id"] || getDummyId(role["x-skaffolder-name"], 'role'),
+				description: role["x-skaffolder-name"],
+				name: role["x-skaffolder-name"],
+				_project: skProject.project._id
+			}
+
+			role_id2role[role._id] = role;
+			return role;
+		});
+	}
+
 	//dbs property
 	let dbs = getDBsArray()
 	dbs.forEach((db) => {
@@ -280,7 +308,7 @@ var translateYamlProject = function (yamlProject) {
 					returnType: service['x-skaffolder-returnType'] || "",
 					crudType: service['x-skaffolder-crudType'] || undefined,
 					crudAction: service['x-skaffolder-crudAction'],
-					_roles: service['x-skaffolder-roles'] ? service['x-skaffolder-roles'].map((item) => { return { name: item, description: item } }) : service['x-skaffolder-roles'],
+					_roles: getRolesArray(service['x-skaffolder-roles']),
 					returnDesc: service['x-skaffolder-returnDesc'] || undefined,
 					_params: []
 				}
@@ -376,7 +404,7 @@ var translateYamlProject = function (yamlProject) {
 			_module.template = page["x-skaffolder-template"]
 			_module.name = page["x-skaffolder-name"]
 			_module._services = []
-			_module._roles = page["x-skaffolder-roles"]
+			_module._roles = getRolesArray(page["x-skaffolder-roles"])
 			_module._nesteds = page["x-skaffolder-nesteds"] || []
 			_module._links = page["x-skaffolder-links"] || []
 			_module._resources = []
@@ -422,7 +450,13 @@ var translateYamlProject = function (yamlProject) {
 				delete subpage._resources;
 
 				if (subpage) {
-					subpage._services = subpage._services.map((item) => { return item._id })
+					if (subpage._services) {
+						subpage._services = subpage._services.map((item) => { return item._id })
+					}
+
+					if (subpage._roles) {
+ 						subpage._roles = subpage._roles.map((item) => { return item._id })
+					}
 				}
 
 				return subpage
@@ -431,20 +465,6 @@ var translateYamlProject = function (yamlProject) {
 	})
 	modules.sort((a, b) => { if ( a.name > b.name ) return 1; if (a.name < b.name) return -1; return 0;})
 	skProject.modules = modules;
-
-	// roles propery
-	let roles = components["x-skaffolder-roles"]
-	
-	if (roles) {
-		skProject.roles = roles.map((role) => {
-			return {
-				_id: role["x-skaffolder-id"],
-				name: role["x-skaffolder-name"],
-				description: role["x-skaffolder-name"],
-				_project: skProject.project._id
-			}
-		});
-	}
 
 	return {
 		project: skProject.project,
