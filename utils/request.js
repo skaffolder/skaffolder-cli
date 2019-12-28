@@ -1,10 +1,11 @@
 var request = require("request");
 var cache = require("persistent-cache");
 var globals = cache();
-var token = globals.getSync("token");
 var chalk = require("chalk");
 
 module.exports = function(options, cb) {
+  var token = globals.getSync("token");
+
   if (!options.headers) options.headers = {};
   if (token && !options.public) options.headers.Token = token;
 
@@ -16,17 +17,11 @@ module.exports = function(options, cb) {
       console.error(chalk.red(error.message));
       process.exit(0);
     } else if (
-      (body &&
-        typeof body == "String" &&
-        body.toLowerCase() == "not authorized") ||
-      ((body &&
-        body.message &&
-        body.message.toLowerCase() == "not authorized") ||
-        response.statusCode == 502)
+      (body && typeof body == "String" && body.toLowerCase() == "not authorized") ||
+      (body && body.message && body.message.toLowerCase() == "not authorized") || response.statusCode == 502
     ) {
       error = {
-        message:
-          "Not Authorized, try to change user the command: 'sk login' or check the command you ran"
+        message: "Not Authorized, try to change user the command: 'sk login' or check the command you ran"
       };
       console.error(chalk.red(error.message));
       process.exit(0);
@@ -47,12 +42,7 @@ module.exports = function(options, cb) {
         message: "Nor permitted: " + body.message
       };
       console.error(chalk.red(error.message));
-      console.error(
-        chalk.blue(
-          "Please visit " +
-            chalk.yellow("https://app.skaffolder.com/#!/upgrade")
-        )
-      );
+      console.error(chalk.blue("Please visit " + chalk.yellow("https://app.skaffolder.com/#!/upgrade")));
       process.exit(0);
     } else if (response.statusCode == 404) {
       error = {
