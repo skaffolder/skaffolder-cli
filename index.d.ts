@@ -20,7 +20,7 @@ export function exportProject(
     generator: string;
     skObject: any;
   },
-  cb: any
+  cb: (err: any, logs: any, projectId: string) => any
 ): void;
 export function generate(
   workspacePath: string,
