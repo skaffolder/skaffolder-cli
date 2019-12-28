@@ -6,6 +6,7 @@ export function login(args: any, options: any, logger: { info: (message: string)
 export function logout(args: any, options: any, logger: { info: (message: string) => any }): any;
 export function registerHelpers(Handlebar: any): void;
 export function setEnv(endpoint: string): void;
+export function getEnv(): string;
 
 // Getters
 export function getGenFiles(path: string): GeneratorFile[];
