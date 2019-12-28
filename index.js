@@ -15,6 +15,7 @@ const publishGeneratorCmd = require("./lib/publishGenerator");
 const generateCmd = require("./lib/generate");
 const getProjectUrlCmd = require("./lib/getProjectUrl");
 const importDbCmd = require("./lib/importDb");
+const setEnvCmd = require("./lib/setEnv");
 const exportProjectCommand = require("./lib/exportProject");
 const offlineCommandBuilder = require("./lib/offline").offlineCommandBuilder;
 var cache = require("persistent-cache");
@@ -42,10 +43,7 @@ prog
   .argument("[id project]", "Id of the project to open", null, "")
   .argument("[id generator]", "Id of the generator to open", null, "")
   .action(openCmd)
-  .command(
-    "generate",
-    "Generate Skaffolder Template\n\n---- Manage Project ----\n"
-  )
+  .command("generate", "Generate Skaffolder Template\n\n---- Manage Project ----\n")
   .option("--offline", "Work offline", null, false, false)
   .action(offlineCommandBuilder(generateCmd))
   // .action(generateCmd)
@@ -60,30 +58,18 @@ prog
   .argument("[name]", "Name of the model", null, "")
   .option("--offline", "Work offline", null, false, false)
   .action(offlineCommandBuilder(createModelCmd))
-  .command(
-    "add api",
-    "Create a new api in Skaffolder project\n\n---- Generator ----\n"
-  )
+  .command("add api", "Create a new api in Skaffolder project\n\n---- Generator ----\n")
   .option("--offline", "Work offline", null, false, false)
   .action(offlineCommandBuilder(createApiCmd))
 
   // generator
-  .command(
-    "generator load",
-    "Load generator files from Skaffolder platform to local folder"
-  )
+  .command("generator load", "Load generator files from Skaffolder platform to local folder")
   .action(reloadGeneratorCmd)
-  .command(
-    "generator save",
-    "Save generator files from local folder to Skaffolder platform"
-  )
+  .command("generator save", "Save generator files from local folder to Skaffolder platform")
   .action(saveGeneratorCmd)
   .command("generator import", "Import generator files from current folder")
   .action(importGeneratorCmd)
-  .command(
-    "generator publish",
-    "Share your local generator files with Skaffolder community\n\n---- Utils ----\n"
-  )
+  .command("generator publish", "Share your local generator files with Skaffolder community\n\n---- Utils ----\n")
   .action(publishGeneratorCmd)
 
   // utils
@@ -94,7 +80,7 @@ prog
   .argument("<file>", "XML file to import", null, null)
   .action(importDbCmd)
   .command("export", "Export project to Skaffolder platform")
-  .action(exportProjectCommand)
+  .action(exportProjectCommand);
 //.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
 prog.parse(process.argv);
@@ -107,6 +93,7 @@ exports.registerHelpers = helpers.registerHelpers;
 exports.createProjectExtension = create.createProjectExtension;
 exports.exportProject = projectService.exportProject;
 exports.login = loginCmd;
+exports.logout = logoutCmd;
 exports.getUser = function() {
   return globals.getSync("user");
 };
@@ -115,3 +102,5 @@ exports.init = generatorUtils.init;
 exports.getProperties = create.getProperties;
 exports.createPage = offline.createPage;
 exports.Offline = offline;
+exports.setEnv = setEnvCmd;
+exports.getProjectUrlCmd = getProjectUrlCmd;

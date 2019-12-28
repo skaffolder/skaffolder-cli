@@ -3,7 +3,9 @@ export as namespace SkaffolderCli;
 // Utils
 export function getUser(): string | undefined;
 export function login(args: any, options: any, logger: { info: (message: string) => any }, cb: any): any;
+export function logout(args: any, options: any, logger: { info: (message: string) => any }): any;
 export function registerHelpers(Handlebar: any): void;
+export function setEnv(endpoint: string): void;
 
 // Getters
 export function getGenFiles(path: string): GeneratorFile[];
