@@ -1,5 +1,5 @@
 var projectService = require("../service/projectService");
-var config = require("./config");
+var generatorBean = require("../generator/GeneratorBean");
 var fs = require("fs");
 
 var exportProject = function(params, cb) {
@@ -24,9 +24,7 @@ var exportProject = function(params, cb) {
     }
 
     // Update openapi
-
-    // Execute callback
-    cb(err, result.logs, result.projectId);
+    generatorBean.generateSingleFile(workspacePath, "openapi.yaml", result.data);
   });
 };
 
