@@ -68,7 +68,26 @@ export class PartialFile {
 
 export namespace Offline {
   var pathWorkspace: string;
+
+  /**
+   * Create or update a page in the openapi.yaml file.
+   * 
+   * @param page 
+   */
   export function createPage(page: object): any;
+
+  /**
+   * Create or update a model in the openapi.yaml file.
+   * 
+   * @param model_name the name of the model.
+   * @param model 
+   */
   export function createModel(model_name: string, model: any): any;
+
+  /**
+   * Remove a page.
+   * 
+   * @param page_id 
+   */
   export function removePage(page_id: string): boolean;
 }
