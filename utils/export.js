@@ -25,6 +25,12 @@ var exportProject = function(params, cb) {
 
     // Update openapi
     generatorBean.generateSingleFile(workspacePath, "openapi.yaml", result.data);
+
+    // Execute callback
+    if (!result.logs || result.logs.length == 0) {
+      result.logs = ["<div class='no-result'>Nothing changed</div>"];
+    }
+    cb(err, result.logs, result.projectId);
   });
 };
 

@@ -7,6 +7,7 @@ export function logout(args: any, options: any, logger: { info: (message: string
 export function registerHelpers(Handlebar: any): void;
 export function setEnv(endpoint: string): void;
 export function getEnv(): string;
+export function getProject(): string;
 
 // Getters
 export function getGenFiles(path: string): GeneratorFile[];
