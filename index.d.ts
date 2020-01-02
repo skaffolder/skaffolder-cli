@@ -69,5 +69,6 @@ export class PartialFile {
 export namespace Offline {
   var pathWorkspace: string;
   export function createPage(page: object): any;
+  export function createModel(model_name: string, model: any): any;
   export function removePage(page_id: string): boolean;
 }

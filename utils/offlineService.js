@@ -633,11 +633,12 @@ var getModelsList = function (logger) {
 	return modelsList
 }
 
+exports.cloneObject = cloneObject
+exports.commitYaml = commitYaml
 exports.generateYaml = generateYaml
 exports.getDummyId = getDummyId
 exports.getYaml = getYaml;
 exports.translateYamlProject = translateYamlProject
-exports.commitYaml = commitYaml
 
 exports.getEntityFindByDb = getEntityFindByDb
 exports.getModelsList = getModelsList
