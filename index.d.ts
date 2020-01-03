@@ -72,23 +72,30 @@ export namespace Offline {
 
   /**
    * Create or update a page in the openapi.yaml file.
-   * 
-   * @param page 
+   *
+   * @param page
    */
   export function createPage(page: object): any;
 
   /**
    * Create or update a model in the openapi.yaml file.
-   * 
+   *
    * @param model_name the name of the model.
-   * @param model 
+   * @param model
    */
   export function createModel(model_name: string, model: any): any;
 
   /**
+   * Create or update a service in the openapi.yaml file.
+   *
+   * @param api
+   */
+  export function createService(service: any): any;
+
+  /**
    * Remove a page.
-   * 
-   * @param page_id 
+   *
+   * @param page_id
    */
   export function removePage(page_id: string): boolean;
 }
