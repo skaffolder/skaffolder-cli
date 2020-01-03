@@ -235,6 +235,8 @@ var generateFile = function(file, log, utils, project, modules, resources, dbs, 
 var getGenFiles = function(pathTemplate) {
   var klawSync = require("klaw-sync");
 
+  if (!fs.existsSync(pathTemplate)) return null;
+
   //console.log("-----" + pathTemplate);
   return klawSync(pathTemplate, {
     nodir: true
