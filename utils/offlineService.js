@@ -2,6 +2,7 @@ var chalk = require("chalk");
 var fs = require("fs");
 var yaml = require("yaml");
 var yamlOptions = require("yaml/types.js");
+var arraySort = require("array-sort");
 
 var _getOpenApiPath = path => {
   if (path) {
@@ -406,9 +407,7 @@ var translateYamlProject = function(yamlProject) {
       }
 
       let _services = res_id2services[res._id];
-
-      // _services.sort((a, b) => a.name > b.name);
-
+      arraySort(_services, "name");
       res._services = _services;
     });
 
