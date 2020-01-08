@@ -223,7 +223,11 @@ var translateYamlProject = function (yamlProject) {
 				var _model1 = _entity.find((item) => { return item._id == (model["x-skaffolder-id-entity"] || getDummyId(item.name, "entity")) })
 				_model1._relations.push(_rel)
 
-				var _model2 = _entity.find((item) => { return item._id == (rel["x-skaffolder-ent2"] || getDummyId(item.name, "entity")) })
+				var _model2 = _entity.find((item) => { return item._id == (rel["x-skaffolder-ent2"]); })
+				if (!_model2) {
+					_model2 = _entity.find((item) => { return item._id == getDummyId(rel["x-skaffolder-ent2"], "entity") });
+				}
+
 				_model2._relations.push(Object.assign({}, _rel))
 			}
 		}

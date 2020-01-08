@@ -297,6 +297,6 @@ exports.createModel = function (name, db, attributes, relations, cb) {
       cb
     );
   } else {
-    cb(null, offline.createModel(name, db, attributes, relations));
+    cb(null, offline.createModelSkaffolder(name, db, attributes, relations));
   }
 };
