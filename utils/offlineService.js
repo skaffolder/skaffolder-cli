@@ -405,11 +405,9 @@ var translateYamlProject = function(yamlProject) {
         res._relations = [];
       }
 
-      let _services = [];
+      let _services = res_id2services[res._id];
 
-      if ((_services = res_id2services[res._id])) {
-        _services.sort((a, b) => a.name > b.name);
-      }
+      // _services.sort((a, b) => a.name > b.name);
 
       res._services = _services;
     });
