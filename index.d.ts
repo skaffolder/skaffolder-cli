@@ -50,6 +50,7 @@ export function createProjectExtension(
   callback: (files: any) => any
 ): any;
 export function createPage(name: any): any;
+export function getProjectData(logger: { info: (message: string) => any }, path: string): any;
 
 export class GeneratorFile {
   public name: string;

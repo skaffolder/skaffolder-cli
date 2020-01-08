@@ -30,6 +30,7 @@ const helpers = require("./generator/Helpers");
 const create = require("./utils/generator");
 const generatorUtils = require("./generator/GeneratorUtils");
 const offline = require("./lib/offline");
+const offlineService = require("./utils/offlineService");
 
 prog
   .version("1.1.30")
@@ -109,3 +110,5 @@ exports.setEnv = setEnvCmd;
 exports.getEnv = getEnvCmd;
 exports.getProjectUrlCmd = getProjectUrlCmd;
 exports.getProject = config.getProject;
+
+exports.getProjectData = offlineService.getProjectData;

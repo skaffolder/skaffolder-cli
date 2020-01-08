@@ -505,8 +505,8 @@ var generateYaml = function (projectData, logger) {
 	}
 }
 
-var getProjectData = function (logger) {
-	let yamlProject = getYaml(null, logger);
+var getProjectData = function (logger, path) {
+	let yamlProject = getYaml(path, logger);
 
 	return translateYamlProject(yamlProject)
 }
