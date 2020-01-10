@@ -91,7 +91,7 @@ export namespace Offline {
    *
    * @param api
    */
-  export function createService(service: any): any;
+  export function createService(service: any, service_method: string, resource: any): any;
 
   /**
    * Remove a page.
