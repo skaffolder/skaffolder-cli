@@ -340,7 +340,7 @@ var translateYamlProject = function(yamlProject) {
           url: service["x-skaffolder-url"],
           method: service_name.toUpperCase(),
           description: service["x-skaffolder-description"] || service["summary"],
-          returnType: service["x-skaffolder-returnType"] || "",
+          returnType: service["x-skaffolder-returnType"] || undefined,
           crudType: service["x-skaffolder-crudType"] || undefined,
           crudAction: service["x-skaffolder-crudAction"],
           _roles: getRolesArray(service["x-skaffolder-roles"]),
