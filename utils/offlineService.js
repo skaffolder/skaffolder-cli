@@ -276,6 +276,9 @@ var translateYamlProject = function(yamlProject) {
     var paths = yamlProject.paths;
     var resource_name2id = {};
 
+    // resources services
+    var res_id2services = {};
+
     var findResEntity = function(id_db, id_entity) {
       var db = skProject.dbs.find(db_item => {
         return id_db == db_item._id;
@@ -315,10 +318,11 @@ var translateYamlProject = function(yamlProject) {
       res_id2resource[_resource._id] = cloneObject(_resource);
 
       _resources.push(_resource);
-    }
 
-    // resources services
-    var res_id2services = {};
+      if (!res_id2services[_resource._id]) {
+        res_id2services[_resource._id] = [];
+      }
+    }
 
     for (let path_name in paths) {
       for (let service_name in paths[path_name]) {
@@ -358,10 +362,6 @@ var translateYamlProject = function(yamlProject) {
             type: serviceParam["x-skaffolder-type"] || serviceParam.schema.type,
             description: serviceParam.description
           });
-        }
-
-        if (!res_id2services[resource_id]) {
-          res_id2services[resource_id] = [];
         }
 
         res_id2services[resource_id].push(_service);
