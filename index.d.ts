@@ -106,4 +106,11 @@ export namespace Offline {
    * @param service_id
    */
   export function removeService(service_id: string): boolean;
+
+  /**
+   * Remove a model.
+   *
+   * @param model_id
+   */
+  export function removeModel(resource_id: string, removePages: boolean): boolean;
 }
