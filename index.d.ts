@@ -99,4 +99,11 @@ export namespace Offline {
    * @param page_id
    */
   export function removePage(page_id: string): boolean;
+
+  /**
+   * Remove a service.
+   *
+   * @param service_id
+   */
+  export function removeService(service_id: string): boolean;
 }
