@@ -112,3 +112,4 @@ exports.getProjectUrlCmd = getProjectUrlCmd;
 exports.getProject = config.getProject;
 
 exports.getProjectData = offlineService.getProjectData;
+exports.translateYamlProject = offlineService.translateYamlProject;

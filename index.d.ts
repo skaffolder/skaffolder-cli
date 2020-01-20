@@ -51,6 +51,7 @@ export function createProjectExtension(
 ): any;
 export function createPage(name: any): any;
 export function getProjectData(logger: { info: (message: string) => any }, path: string): any;
+export function translateYamlProject(yamlObj: any): any;
 
 export class GeneratorFile {
   public name: string;
