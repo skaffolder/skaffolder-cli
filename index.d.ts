@@ -87,6 +87,12 @@ export namespace Offline {
   export function createModel(model_name: string, model: any): any;
 
   /**
+   * Create CRUD in the openapi.yaml
+   * @param model 
+   */
+  export function createCrud(model: any) : void;
+
+  /**
    * Create or update a service in the openapi.yaml file.
    *
    * @param api
