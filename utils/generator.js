@@ -6,6 +6,8 @@ var chalk = require("chalk");
 var path = require("path");
 var klawSync = require("klaw-sync");
 var prependFile = require("prepend-file");
+var generate = require("../lib/generate");
+var properties = require("../properties");
 
 // Convert folder file hbs to generator files db
 var getGenFiles = function(pathTemplate) {
@@ -20,21 +22,12 @@ var getGenFiles = function(pathTemplate) {
       // Remove extension
       if (nameFileTemplate.substr(-4) == ".hbs") {
         let content = fs.readFileSync(file.path);
-        nameFileTemplate = nameFileTemplate.substr(
-          0,
-          nameFileTemplate.length - 4
-        );
+        nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 4);
         content = content.toString();
 
         // CHECK LIST EDIT FILE
-        if (
-          nameFileTemplate.substr(-8) == "_SK_EDIT" ||
-          nameFileTemplate.substr(-8) == "_SK_LIST"
-        ) {
-          nameFileTemplate = nameFileTemplate.substr(
-            0,
-            nameFileTemplate.length - 8
-          );
+        if (nameFileTemplate.substr(-8) == "_SK_EDIT" || nameFileTemplate.substr(-8) == "_SK_LIST") {
+          nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 8);
           return undefined;
         }
 
@@ -83,10 +76,7 @@ var getProperties = (content, nameFileTemplate, pathTemplate) => {
     };
   }
 
-  let properties = content.substr(
-    startPropr + start.length,
-    endPropr - start.length
-  );
+  let properties = content.substr(startPropr + start.length, endPropr - start.length);
   properties = JSON.parse(properties);
 
   // search list edit template
@@ -116,11 +106,7 @@ exports.importGenerator = function() {
   klawSync(process.cwd(), {
     filter: function(item) {
       const basename = path.basename(item.path);
-      let filter =
-        basename[0] !== "." &&
-        basename !== "dist" &&
-        basename !== "bin" &&
-        basename !== "node_modules";
+      let filter = basename[0] !== "." && basename !== "dist" && basename !== "bin" && basename !== "node_modules";
       return filter;
     }
   }).map(file => {
@@ -129,24 +115,13 @@ exports.importGenerator = function() {
 
       if (isBinaryFile.sync(file.path)) {
         // is binary file
-        let destPath = path.normalize(
-          templateFolder + "/" + path.relative(process.cwd(), file.path)
-        );
-        mkdirp.sync(
-          path.normalize(destPath.substr(0, destPath.lastIndexOf(path.sep)))
-        );
+        let destPath = path.normalize(templateFolder + "/" + path.relative(process.cwd(), file.path));
+        mkdirp.sync(path.normalize(destPath.substr(0, destPath.lastIndexOf(path.sep))));
         fs.copyFileSync(file.path, destPath);
       } else {
         // is text file
-        let destPath = path.normalize(
-          templateFolder +
-            "/" +
-            path.relative(process.cwd(), file.path) +
-            ".hbs"
-        );
-        mkdirp.sync(
-          path.normalize(destPath.substr(0, destPath.lastIndexOf(path.sep)))
-        );
+        let destPath = path.normalize(templateFolder + "/" + path.relative(process.cwd(), file.path) + ".hbs");
+        mkdirp.sync(path.normalize(destPath.substr(0, destPath.lastIndexOf(path.sep))));
         fs.copyFileSync(file.path, destPath);
         let header = `**** PROPERTIES SKAFFOLDER ****
 {
@@ -166,33 +141,15 @@ exports.loadGenerator = function(idProj, idGen, cb) {
   projectService.getGeneratorFile(idGen, (err, files) => {
     try {
       files = JSON.parse(files);
-    } catch (e) {}
-
-    files.filter(file => {
-      let path = generatorBean.pathTemplate + file.name;
-      path = path.replace(/{{#([^}]+)}}{{\/([^}]+)}}/g, "{{$1}}");
-      mkdirp.sync(path.substr(0, path.lastIndexOf("/")));
-
-      // Binary files
-      if (file.templateBinary) {
-        fs.writeFileSync(path, new Buffer(file.templateBinary), "binary");
-      } else {
-        // If template list or edit
-        if (file.templateList) {
-          fs.writeFileSync(path + "_SK_LIST.hbs", file.templateList);
-          file.templateList = undefined;
-        }
-
-        if (file.templateEdit) {
-          fs.writeFileSync(path + "_SK_EDIT.hbs", file.templateEdit);
-          file.templateEdit = undefined;
-        }
-
-        fs.writeFileSync(path + ".hbs", getFileContent(file));
-      }
-    });
-
-    cb();
+    } catch (e) {
+      console.log(e);
+    }
+    files = writeGeneratorFiles("", files);
+    if (cb) {
+      cb(projectService.getGeneratorFile);
+    } else {
+      process.exit(0);
+    }
   });
 };
 
@@ -206,11 +163,69 @@ let getFileContent = file => {
   file._generator = undefined;
   file.name = undefined;
   file.ignore = undefined;
-  file._partials.filter(part => (part._id = undefined));
+  if (file._partials) file._partials.filter(part => (part._id = undefined));
 
   var content = start + JSON.stringify(file, null, 4) + end + template;
 
   return content;
 };
 
+function writeGeneratorFiles(workspacePath, files) {
+  files.filter(file => {
+    let path = generatorBean.pathTemplate + file.name;
+    path = path.replace(/{{#([^}]+)}}{{\/([^}]+)}}/g, "{{$1}}");
+    mkdirp.sync(workspacePath + path.substr(0, path.lastIndexOf("/")));
+    if (file.templateList) {
+      fs.writeFileSync(workspacePath + path + "_SK_LIST.hbs", file.templateList);
+      file.templateList = undefined;
+    }
+    if (file.templateEdit) {
+      fs.writeFileSync(workspacePath + path + "_SK_EDIT.hbs", file.templateEdit);
+      file.templateEdit = undefined;
+    }
+    if (file.templateBinary) {
+      fs.writeFileSync(workspacePath + path, getFileContent(file));
+    } else {
+      fs.writeFileSync(workspacePath + path + ".hbs", getFileContent(file));
+    }
+  });
+  return files;
+}
+
+function createProjectExtension(workspacePath, projectId, logger, frontendId, backendId, skObj, cb) {
+  try {
+    fs.removeSync(workspacePath + "./.skaffolder");
+    mkdirp.sync(workspacePath + "./.skaffolder/template");
+  } catch (e) {
+    console.error(e);
+  }
+  fs.writeFileSync(
+    workspacePath + "./.skaffolder/config.json",
+    JSON.stringify(
+      {
+        project: projectId
+      },
+      null,
+      4
+    )
+  );
+  logger.info(chalk.green("✔   Project created!"));
+  logger.info(
+    chalk.blue("You can edit your project structure at ") +
+      chalk.yellow(properties.endpoint + "/#!/projects/" + projectId + "/models")
+  );
+
+  try {
+    // CREATE TEMPLATE
+    projectService.getTemplateFiles(frontendId.context, backendId.context, function(err, generatorFiles) {
+      writeGeneratorFiles(workspacePath, generatorFiles);
+      cb(skObj);
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 exports.getGenFiles = getGenFiles;
+exports.createProjectExtension = createProjectExtension;
+exports.getProperties = getProperties;

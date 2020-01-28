@@ -13,6 +13,7 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
   var modules = files.modules;
   var resources = files.resources;
   var dbs = files.dbs;
+  var roles = files.roles;
   var genFiles = getGenFiles(workspacePrefix + pathTemplate);
   var log = [];
 
@@ -21,18 +22,14 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
     log.push("<h1>START GENERATE</h1>");
 
     var utils = require("./GeneratorUtils.js");
-    utils.init(
-      workspacePrefix + pathWorkspace,
-      project,
-      modules,
-      resources,
-      dbs
-    );
+    utils.init(workspacePrefix + pathWorkspace, project, modules, resources, dbs, roles);
 
     async.each(
       genFiles,
       function(file, cbFile) {
-        // log.push("Elaborate file " + file.name);
+        log.push(
+          "<div class='file-result elaborated'><label>Elaborate file</label><div class='file-name'>" + file.name + "</div></div>"
+        );
         // logger.info(chalk.green("Elaborate file "), file.name);
 
         generateFile(file, log, utils, project, modules, resources, dbs);
@@ -50,16 +47,23 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
   }
 };
 
-var generateFile = function(
-  file,
-  log,
-  utils,
-  project,
-  modules,
-  resources,
-  dbs,
-  opt
-) {
+var generateSingleFile = function(workspacePrefix, generateFilePath, data) {
+  let log = [];
+
+  // template file
+  let templatePath = workspacePrefix + ".skaffolder/template";
+  let fileTemplatePath = templatePath + "/" + generateFilePath + ".hbs";
+  let fileTempalteObj = parseTemplateFile(templatePath, fileTemplatePath);
+
+  // Utils
+  var utils = require("./GeneratorUtils.js");
+  utils.init(workspacePrefix + pathWorkspace, data.project, data.modules, data.resources, data.dbs, data.roles);
+
+  // Generate file
+  generateFile(fileTempalteObj, log, utils, data.project, data.modules, data.resources, data.dbs);
+};
+
+var generateFile = function(file, log, utils, project, modules, resources, dbs, opt) {
   if (!file.forEachObj || file.forEachObj == "oneTime") {
     return utils.generateFile(log, file, {}, opt);
   } else if (file.forEachObj == "db") {
@@ -149,9 +153,7 @@ var generateFile = function(
           }
 
           if (crudResource == "") {
-            log.push(
-              "Resource CRUD not found: " + mod._template_resource.toString()
-            );
+            log.push("Resource CRUD not found: " + mod._template_resource.toString());
           }
         }
 
@@ -162,8 +164,7 @@ var generateFile = function(
             module.template == "List_Crud" &&
             mod._template_resource &&
             module._template_resource &&
-            module._template_resource.toString() ==
-              mod._template_resource.toString()
+            module._template_resource.toString() == mod._template_resource.toString()
           ) {
             moduleLink = modules[modId];
           }
@@ -234,47 +235,14 @@ var generateFile = function(
 var getGenFiles = function(pathTemplate) {
   var klawSync = require("klaw-sync");
 
+  if (!fs.existsSync(pathTemplate)) return null;
+
   //console.log("-----" + pathTemplate);
   return klawSync(pathTemplate, {
     nodir: true
   })
     .map(file => {
-      let content = fs.readFileSync(file.path, "utf8");
-      let nameFileTemplate = path.relative(pathTemplate, file.path);
-
-      // Remove extension
-      if (nameFileTemplate.substr(-4) == ".hbs") {
-        nameFileTemplate = nameFileTemplate.substr(
-          0,
-          nameFileTemplate.length - 4
-        );
-
-        // CHECK LIST EDIT FILE
-        if (
-          nameFileTemplate.substr(-8) == "_SK_EDIT" ||
-          nameFileTemplate.substr(-8) == "_SK_LIST"
-        ) {
-          nameFileTemplate = nameFileTemplate.substr(
-            0,
-            nameFileTemplate.length - 8
-          );
-          return null;
-        }
-
-        // get properties
-        let genFile = getProperties(content, nameFileTemplate, pathTemplate);
-        genFile.name = nameFileTemplate;
-
-        return genFile;
-      } else {
-        // Binary file
-        let content = fs.readFileSync(file.path, "binary");
-
-        return {
-          templateBinary: content,
-          name: nameFileTemplate
-        };
-      }
+      return parseTemplateFile(pathTemplate, file.path);
     })
     .filter(file => file);
 };
@@ -287,21 +255,14 @@ var getProperties = (content, nameFileTemplate, pathTemplate) => {
   let endPropr = content.indexOf(end);
 
   if (startPropr == -1 || endPropr == -1) {
-    console.warn(
-      chalk.yellow("WARN:") +
-        " Properties Skaffoler not found in file " +
-        nameFileTemplate
-    );
+    console.warn(chalk.yellow("WARN:") + " Properties Skaffoler not found in file " + nameFileTemplate);
     return {
       template: content,
       forEachObj: "oneTime"
     };
   }
 
-  let properties = content.substr(
-    startPropr + start.length,
-    endPropr - start.length
-  );
+  let properties = content.substr(startPropr + start.length, endPropr - start.length);
 
   // backticks
   res = properties.search(/`(.|\r\n|\r|\n)*`/g);
@@ -333,15 +294,40 @@ var getProperties = (content, nameFileTemplate, pathTemplate) => {
   // set template
   properties.template = content.substr(endPropr + end.length);
 
-  if (properties.template.charAt(0) == "\r")
-    properties.template = properties.template.substr(1);
+  if (properties.template.charAt(0) == "\r") properties.template = properties.template.substr(1);
 
-  if (properties.template.charAt(0) == "\n")
-    properties.template = properties.template.substr(1);
+  if (properties.template.charAt(0) == "\n") properties.template = properties.template.substr(1);
 
   if (!properties.forEachObj) properties.forEachObj = "oneTime";
 
   return properties;
 };
 
+function parseTemplateFile(pathTemplate, filePath) {
+  let content = fs.readFileSync(filePath, "utf8");
+  let nameFileTemplate = path.relative(pathTemplate, filePath);
+  // Remove extension
+  if (nameFileTemplate.substr(-4) == ".hbs") {
+    nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 4);
+    // CHECK LIST EDIT FILE
+    if (nameFileTemplate.substr(-8) == "_SK_EDIT" || nameFileTemplate.substr(-8) == "_SK_LIST") {
+      nameFileTemplate = nameFileTemplate.substr(0, nameFileTemplate.length - 8);
+      return null;
+    }
+    // get properties
+    let genFile = getProperties(content, nameFileTemplate, pathTemplate);
+    genFile.name = nameFileTemplate;
+    return genFile;
+  } else {
+    // Binary file
+    let content = fs.readFileSync(filePath, "binary");
+    return {
+      templateBinary: content,
+      name: nameFileTemplate
+    };
+  }
+}
+
 exports.getGenFiles = getGenFiles;
+exports.generateFile = generateFile;
+exports.generateSingleFile = generateSingleFile;
