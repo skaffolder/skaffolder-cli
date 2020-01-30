@@ -6,22 +6,6 @@ module.exports = function (grunt) {
             'build',
             'cache'
         ],
-        obfuscator: {
-            options: {
-                // global options for the obfuscator
-            },
-            task1: {
-                options: {
-                    // options for each sub task
-                },
-                files: {
-                    './': [
-                        './generator/GeneratorBean.js',
-                        './generator/GeneratorUtils.js',
-                    ]
-                }
-            }
-        },
         publish: {
             main: {
                 options: {
@@ -32,8 +16,6 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-obfuscator');
 
-    grunt.registerTask('deploy', ['clean', 'obfuscator']);
-
+    grunt.registerTask('deploy', ['clean']);
 }
