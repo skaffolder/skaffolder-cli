@@ -33,7 +33,7 @@ const offline = require("./lib/offline");
 const offlineService = require("./utils/offlineService");
 
 prog
-  .version("2.0")
+  .version("2.0.0")
 
   // start
   .command("login", "Log in into Skaffolder")
