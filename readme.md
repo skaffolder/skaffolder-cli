@@ -125,7 +125,7 @@ Put in your Skaffolder project folder your boilerplate files and run
 
 With this command all files in Skaffolder project folder will be imported in `.skaffolder/template` with Handlebars sintax and default Skaffolder properties.
 
-###Skaffolder Properties
+### Skaffolder Properties
 
 Each template file in `.skaffolder/template` folder has `.hbs` extension and first lines of file can be (optional) Skaffolder properties.
 This section is delimitated by `**** PROPERTIES SKAFFOLDER ****` token and contains JSON formatted properties.
@@ -191,7 +191,7 @@ This section is delimitated by `**** PROPERTIES SKAFFOLDER ****` token and conta
     </tr>
 </table>
 
-####Example:
+#### Example:
 
 You can create the file `.skaffolder/template/{{capitalize entity.name}}Dao.java.hbs` with this content and run `sk generate`
 
@@ -233,7 +233,7 @@ public class {{capitalize entity.name}} {
 **/
 ```
 
-###Add a custom Handlebars Helper
+### Add a custom Handlebars Helper
 
 Handlebars Helpers are custom function that you can execute on your template.
 
@@ -261,7 +261,7 @@ my HBS file test Hello World
 
 ```
 
-###Import Schema from existing Database
+### Import Schema from existing Database
 
 You can import you Db schema in Skaffolder from a XML file.
 The XML file is produced by <a href="http://schemaspy.sourceforge.net" target="_blank"> SchemaSpy</a> you can find an <a href="https://skaffolder.com/docs/schema_example.xml" target="_blank">example file here</a>.
@@ -277,3 +277,13 @@ Now you have data models on Skaffolder platform.
 # More documentation
 
 > You can find <a href="https://skaffolder.com/#/documentation" target="_blank">additional documentation here</a>
+
+# Contribute
+
+This is an open-source project
+
+> GitHub Repository
+> [https://github.com/skaffolder/skaffolder-cli](https://github.com/skaffolder/skaffolder-cli)
+
+> Npm package
+> [https://www.npmjs.com/package/skaffolder-cli](https://www.npmjs.com/package/skaffolder-cli)
