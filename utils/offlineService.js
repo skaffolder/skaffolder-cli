@@ -335,6 +335,8 @@ var translateYamlProject = function(yamlProject) {
           resource_id = resource_name2id[service["x-skaffolder-resource"].toLowerCase()];
         }
 
+        if (!res_id2services[resource_id]) { continue; }
+
         var _service = {
           _id:
             service["x-skaffolder-id"] ||
