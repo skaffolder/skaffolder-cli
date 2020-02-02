@@ -253,7 +253,7 @@ var translateYamlProject = function(yamlProject) {
           });
         }
 
-        _model2._relations.push(Object.assign({ external: true }, _rel));
+        // _model2._relations.push(Object.assign({ external: true }, _rel));
       }
     }
 
