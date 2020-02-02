@@ -4,7 +4,11 @@ var cache = require("persistent-cache");
 var globals = cache();
 
 exports.isSkaffolderFolder = function() {
-  if (config.getConf().project !== undefined && config.getConf().project != "") return true;
+  if (!global.OFFLINE) {
+    if (config.getConf().project !== undefined && config.getConf().project != "") return true;
+  } else {
+    if (config.getConf() !== undefined) return true;
+  }
 
   console.error(chalk.red("You need to run this command from a Skaffolder project folder"));
   console.error(chalk.red("Run " + chalk.green("'sk new'") + " to create a new project"));
