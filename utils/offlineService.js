@@ -254,7 +254,7 @@ var translateYamlProject = function(yamlProject) {
         }
 
         // if it is not a self relation
-        if (_rel._ent2 != _rel._ent1)
+        if (_rel._ent2._id != _rel._ent1._id)
           _model2._relations.push(Object.assign({}, _rel));
       }
     }
