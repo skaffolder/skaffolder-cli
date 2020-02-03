@@ -1,0 +1,864 @@
+openapi: 3.0.0
+info:
+  x-skaffolder-id-project: 
+  title: test-project
+  description: You can obtain JWT token from login API
+  version: 0.1
+servers:
+  - url: http://localhost:3000/api
+    description: Local server for testing
+paths:
+  /login:
+    post:
+      x-skaffolder-ignore: true
+      summary: Login API
+      security: []
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              example:
+                username: admin
+                password: 62f264d7ad826f02a8af714c0a54b197935b717656b80461686d450f7b3abde4c553541515de2052b9af70f710f0cd8a1a2d3f4d60aa72608d71a63a9a93c0f5
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /verifyToken:
+    post:
+      x-skaffolder-ignore: true
+      summary: Verify token API
+      security: []
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /changePassword:
+    post:
+      x-skaffolder-ignore: true
+      summary: Change password API
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                passwordNew:
+                  type: string
+                passwordOld:
+                  type: string
+      responses:
+        "200":
+          description: OK
+  "/Users/{id}/changePassword":
+    post:
+      x-skaffolder-id: _changepassword_user_service_id
+      x-skaffolder-name: changePassword
+      x-skaffolder-id-resource: _user_resource_id
+      x-skaffolder-resource: User
+      x-skaffolder-crudAction: 
+      x-skaffolder-crudType: 
+      x-skaffolder-description: Change password of user from admin
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: Object
+      x-skaffolder-url: /{id}/changePassword
+      x-skaffolder-roles: []
+      summary: Change password of user from admin
+      tags:
+        - User
+      responses:
+        "200":
+          description: OK
+  /Users/:
+    post:
+      x-skaffolder-id: _create_user_service_id
+      x-skaffolder-name: create
+      x-skaffolder-id-resource: _user_resource_id
+      x-skaffolder-resource: User
+      x-skaffolder-crudAction: create
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION create
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /
+      x-skaffolder-roles: []
+      summary: CRUD ACTION create
+      tags:
+        - User
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                mail:
+                  type: string
+                name:
+                  type: string
+                surname:
+                  type: string
+                roles:
+                  type: string
+    get:
+      x-skaffolder-id: _list_user_service_id
+      x-skaffolder-name: list
+      x-skaffolder-id-resource: _user_resource_id
+      x-skaffolder-resource: User
+      x-skaffolder-crudAction: list
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION list
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /
+      x-skaffolder-roles: []
+      summary: CRUD ACTION list
+      tags:
+        - User
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+  "/Users/{id}":
+    delete:
+      x-skaffolder-id: _delete_user_service_id
+      x-skaffolder-name: delete
+      x-skaffolder-id-resource: _user_resource_id
+      x-skaffolder-resource: User
+      x-skaffolder-crudAction: delete
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION delete
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION delete
+      tags:
+        - User
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    get:
+      x-skaffolder-id: _get_user_service_id
+      x-skaffolder-name: get
+      x-skaffolder-id-resource: _user_resource_id
+      x-skaffolder-resource: User
+      x-skaffolder-crudAction: get
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION get
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION get
+      tags:
+        - User
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id resource
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    post:
+      x-skaffolder-id: _update_user_service_id
+      x-skaffolder-name: update
+      x-skaffolder-id-resource: _user_resource_id
+      x-skaffolder-resource: User
+      x-skaffolder-crudAction: update
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION update
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION update
+      tags:
+        - User
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+  /model_1/:
+    post:
+      x-skaffolder-id: _create_model_1_service_id
+      x-skaffolder-name: create
+      x-skaffolder-id-resource: _model_1_resource_id
+      x-skaffolder-resource: model_1
+      x-skaffolder-crudAction: create
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION create
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /
+      x-skaffolder-roles: []
+      summary: CRUD ACTION create
+      tags:
+        - model_1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/model_1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attr_bool:
+                  type: boolean
+                attr_date:
+                  type: integer
+                attr_enum:
+                  type: string
+                attr_name:
+                  type: string
+                attr_number:
+                  type: number
+    get:
+      x-skaffolder-id: _list_model_1_service_id
+      x-skaffolder-name: list
+      x-skaffolder-id-resource: _model_1_resource_id
+      x-skaffolder-resource: model_1
+      x-skaffolder-crudAction: list
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION list
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: ARRAY OF model_1
+      x-skaffolder-url: /
+      x-skaffolder-roles: []
+      summary: CRUD ACTION list
+      tags:
+        - model_1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/model_1"
+  "/model_1/{id}":
+    delete:
+      x-skaffolder-id: _delete_model_1_service_id
+      x-skaffolder-name: delete
+      x-skaffolder-id-resource: _model_1_resource_id
+      x-skaffolder-resource: model_1
+      x-skaffolder-crudAction: delete
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION delete
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION delete
+      tags:
+        - model_1
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id model_1
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    get:
+      x-skaffolder-id: _get_model_1_service_id
+      x-skaffolder-name: get
+      x-skaffolder-id-resource: _model_1_resource_id
+      x-skaffolder-resource: model_1
+      x-skaffolder-crudAction: get
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION get
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION get
+      tags:
+        - model_1
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id model_1
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/model_1"
+    post:
+      x-skaffolder-id: _update_model_1_service_id
+      x-skaffolder-name: update
+      x-skaffolder-id-resource: _model_1_resource_id
+      x-skaffolder-resource: model_1
+      x-skaffolder-crudAction: update
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION update
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION update
+      tags:
+        - model_1
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id model_1
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/model_1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/model_1"
+  /model_2/:
+    post:
+      x-skaffolder-id: _create_model_2_service_id
+      x-skaffolder-name: create
+      x-skaffolder-id-resource: _model_2_resource_id
+      x-skaffolder-resource: model_2
+      x-skaffolder-crudAction: create
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION create
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /
+      x-skaffolder-roles: []
+      summary: CRUD ACTION create
+      tags:
+        - model_2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/model_2"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attr_model_2:
+                  type: string
+    get:
+      x-skaffolder-id: _list_model_2_service_id
+      x-skaffolder-name: list
+      x-skaffolder-id-resource: _model_2_resource_id
+      x-skaffolder-resource: model_2
+      x-skaffolder-crudAction: list
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION LIST
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /
+      x-skaffolder-roles: []
+      summary: CRUD ACTION LIST
+      tags:
+        - model_2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/model_2"
+  "/model_2/{id}":
+    delete:
+      x-skaffolder-id: _delete_model_2_service_id
+      x-skaffolder-name: delete
+      x-skaffolder-id-resource: _model_2_resource_id
+      x-skaffolder-resource: model_2
+      x-skaffolder-crudAction: delete
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION delete
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION delete
+      tags:
+        - model_2
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id model_2
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    get:
+      x-skaffolder-id: _get_model_2_service_id
+      x-skaffolder-name: get
+      x-skaffolder-id-resource: _model_2_resource_id
+      x-skaffolder-resource: model_2
+      x-skaffolder-crudAction: get
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION get
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION get
+      tags:
+        - model_2
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id model_2
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/model_2"
+    post:
+      x-skaffolder-id: _update_model_2_service_id
+      x-skaffolder-name: update
+      x-skaffolder-id-resource: _model_2_resource_id
+      x-skaffolder-resource: model_2
+      x-skaffolder-crudAction: update
+      x-skaffolder-crudType: 
+      x-skaffolder-description: CRUD ACTION update
+      x-skaffolder-returnDesc: 
+      x-skaffolder-returnType: 
+      x-skaffolder-url: /{id}
+      x-skaffolder-roles: []
+      summary: CRUD ACTION update
+      tags:
+        - model_2
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          in: path
+          description: Id model_2
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/model_2"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/model_2"
+  "/model_3/{id}":
+    get:
+      x-skaffolder-id: _get_model_3_service_id
+      x-skaffolder-id-resource: _model_3_resource_id
+      x-skaffolder-name: get
+      x-skaffolder-crudAction: get
+      x-skaffolder-url: /{id}
+      x-skaffolder-description: CRUD ACTION get
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          description: Id model_3
+    post:
+      x-skaffolder-id: _update_model_3_service_id
+      x-skaffolder-id-resource: _model_3_resource_id
+      x-skaffolder-name: update
+      x-skaffolder-crudAction: update
+      x-skaffolder-url: /{id}
+      x-skaffolder-description: CRUD ACTION update
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          description: Id model_3
+    delete:
+      x-skaffolder-id: _delete_model_3_service_id
+      x-skaffolder-id-resource: _model_3_resource_id
+      x-skaffolder-name: delete
+      x-skaffolder-crudAction: delete
+      x-skaffolder-url: /{id}
+      x-skaffolder-description: CRUD ACTION delete
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: id
+          x-skaffolder-type: ObjectId
+          description: Id model_3
+  /model_3/:
+    get:
+      x-skaffolder-id: _list_model_3_service_id
+      x-skaffolder-id-resource: _model_3_resource_id
+      x-skaffolder-name: list
+      x-skaffolder-crudAction: list
+      x-skaffolder-url: /
+      x-skaffolder-description: CRUD ACTION list
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ARRAY OF model_3
+    post:
+      x-skaffolder-id: _create_model_3_service_id
+      x-skaffolder-id-resource: _model_3_resource_id
+      x-skaffolder-name: create
+      x-skaffolder-crudAction: create
+      x-skaffolder-url: /
+      x-skaffolder-description: CRUD ACTION create
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      x-skaffolder-id: _user_resource_id
+      x-skaffolder-id-db: _test-project_db_db_id
+      x-skaffolder-id-entity: _user_entity_id
+      x-skaffolder-url: /Users
+      properties:
+        _id:
+          type: string
+          x-skaffolder-required: true
+        username:
+          type: string
+          x-skaffolder-id-attr: _user_username_attr_id
+          x-skaffolder-type: String
+          x-skaffolder-required: true
+        password:
+          type: string
+          x-skaffolder-id-attr: _user_password_attr_id
+          x-skaffolder-type: String
+          x-skaffolder-required: true
+        mail:
+          type: string
+          x-skaffolder-id-attr: _user_mail_attr_id
+          x-skaffolder-type: String
+        name:
+          type: string
+          x-skaffolder-id-attr: _user_name_attr_id
+          x-skaffolder-type: String
+        surname:
+          type: string
+          x-skaffolder-id-attr: _user_surname_attr_id
+          x-skaffolder-type: String
+        roles:
+          type: string
+          x-skaffolder-id-attr: _user_roles_attr_id
+          x-skaffolder-type: String
+      x-skaffolder-relations: 
+      required:
+        - _id
+        - username
+        - password
+    model_1:
+      x-skaffolder-id: _model_1_resource_id
+      x-skaffolder-id-db: _test-project_db_db_id
+      x-skaffolder-id-entity: _model_1_entity_id
+      x-skaffolder-url: /model_1
+      properties:
+        _id:
+          type: string
+          x-skaffolder-required: true
+        attr_bool:
+          type: boolean
+          x-skaffolder-id-attr: _model_1_attr_bool_attr_id
+          x-skaffolder-type: Boolean
+        attr_date:
+          type: integer
+          x-skaffolder-id-attr: _model_1_attr_date_attr_id
+          x-skaffolder-type: Date
+        attr_enum:
+          type: string
+          x-skaffolder-id-attr: _model_1_attr_enum_attr_id
+          x-skaffolder-type: String
+          x-skaffolder-enumeration:
+            - enum1
+            - enum2
+        attr_name:
+          type: string
+          x-skaffolder-id-attr: _model_1_attr_name_attr_id
+          x-skaffolder-type: String
+          x-skaffolder-required: true
+          x-skaffolder-unique: true
+        attr_number:
+          type: number
+          x-skaffolder-id-attr: _model_1_attr_number_attr_id
+          x-skaffolder-type: Number
+      x-skaffolder-relations:
+        rel_1_m:
+          x-skaffolder-id: _model_1_rel_1_m_relation_id
+          x-skaffolder-type: 1:m
+          x-skaffolder-ent1: _model_1_entity_id
+          x-skaffolder-ent2: _model_2_entity_id
+        rel_m_m:
+          x-skaffolder-id: _model_1_rel_m_m_relation_id
+          x-skaffolder-type: m:m
+          x-skaffolder-ent1: _model_1_entity_id
+          x-skaffolder-ent2: _model_2_entity_id
+        rel_self:
+          x-skaffolder-id: _model_1_rel_self_relation_id
+          x-skaffolder-type: 1:m
+          x-skaffolder-ent1: _model_1_entity_id
+          x-skaffolder-ent2: _model_1_entity_id
+      required:
+        - _id
+        - attr_name
+    model_2:
+      x-skaffolder-id: _model_2_resource_id
+      x-skaffolder-id-db: _test-project_db_db_id
+      x-skaffolder-id-entity: _model_2_entity_id
+      x-skaffolder-url: /model_2
+      properties:
+        _id:
+          type: string
+          x-skaffolder-required: true
+        attr_model_2:
+          type: string
+          x-skaffolder-id-attr: _model_2_attr_model_2_attr_id
+          x-skaffolder-type: String
+      x-skaffolder-relations:
+        rel_ext_1_m:
+          x-skaffolder-id: _model_2_rel_ext_1_m_relation_id
+          x-skaffolder-type: 1:m
+          x-skaffolder-ent1: _model_2_entity_id
+          x-skaffolder-ent2: _model_1_entity_id
+        rel_ext_m_m:
+          x-skaffolder-id: _model_2_rel_ext_m_m_relation_id
+          x-skaffolder-type: m:m
+          x-skaffolder-ent1: _model_2_entity_id
+          x-skaffolder-ent2: _model_1_entity_id
+      required:
+        - _id
+    model_3:
+      x-skaffolder-id: _model_3_resource_id
+      x-skaffolder-id-db: _test-project_db_db_id
+      x-skaffolder-id-entity: _model_3_entity_id
+      x-skaffolder-url: /model_3
+      properties:
+        _id:
+          type: string
+          x-skaffolder-required: true
+        name:
+          type: string
+          x-skaffolder-id-attr: _model_3_name_attr_id
+          x-skaffolder-type: String
+      x-skaffolder-relations:
+        rel_ext_1_m:
+          x-skaffolder-id: _model_3_rel_ext_1_m_relation_id
+          x-skaffolder-type: 1:m
+          x-skaffolder-ent1: _model_3_entity_id
+          x-skaffolder-ent2: _model_1_entity_id
+        rel_ext_m_m:
+          x-skaffolder-id: _model_3_rel_ext_m_m_relation_id
+          x-skaffolder-type: m:m
+          x-skaffolder-ent1: _model_3_entity_id
+          x-skaffolder-ent2: _model_1_entity_id
+      required:
+        - _id
+  x-skaffolder-db:
+    - x-skaffolder-id: _test-project_db_db_id
+      x-skaffolder-name: test-project_db
+  x-skaffolder-page:
+    - x-skaffolder-id: _home_page_id
+      x-skaffolder-name: Home
+      x-skaffolder-url: /home
+      x-skaffolder-template: 
+      x-skaffolder-resource: 
+      x-skaffolder-services: 
+      x-skaffolder-nesteds: 
+      x-skaffolder-links:
+        - _model_1list_page_id
+        - _model_2list_page_id
+        - _model_3list_page_id
+    - x-skaffolder-id: _model_1edit_page_id
+      x-skaffolder-name: model_1Edit
+      x-skaffolder-url: /model_1s/{id}
+      x-skaffolder-template: Edit_Crud
+      x-skaffolder-resource: _model_1_resource_id
+      x-skaffolder-services:
+        - _list_model_2_service_id
+        - _list_model_2_service_id
+        - _get_model_1_service_id
+        - _update_model_1_service_id
+        - _create_model_1_service_id
+      x-skaffolder-nesteds: 
+      x-skaffolder-links: 
+      x-skaffolder-roles: []
+    - x-skaffolder-id: _model_1list_page_id
+      x-skaffolder-name: model_1List
+      x-skaffolder-url: /model_1s
+      x-skaffolder-template: List_Crud
+      x-skaffolder-resource: _model_1_resource_id
+      x-skaffolder-services:
+        - _list_model_1_service_id
+        - _delete_model_1_service_id
+      x-skaffolder-nesteds: 
+      x-skaffolder-links:
+        - _model_1edit_page_id
+      x-skaffolder-roles: []
+    - x-skaffolder-id: _model_2edit_page_id
+      x-skaffolder-name: model_2Edit
+      x-skaffolder-url: /model_2s/{id}
+      x-skaffolder-template: Edit_Crud
+      x-skaffolder-resource: _model_2_resource_id
+      x-skaffolder-services:
+        - _get_model_2_service_id
+        - _update_model_2_service_id
+        - _create_model_2_service_id
+      x-skaffolder-nesteds: 
+      x-skaffolder-links: 
+      x-skaffolder-roles: []
+    - x-skaffolder-id: _model_2list_page_id
+      x-skaffolder-name: model_2List
+      x-skaffolder-url: /model_2s
+      x-skaffolder-template: List_Crud
+      x-skaffolder-resource: _model_2_resource_id
+      x-skaffolder-services:
+        - _list_model_2_service_id
+        - _delete_model_2_service_id
+      x-skaffolder-nesteds: 
+      x-skaffolder-links:
+        - _model_2edit_page_id
+      x-skaffolder-roles: []
+    - x-skaffolder-id: _model_3edit_page_id
+      x-skaffolder-url: /model_3s/{id}
+      x-skaffolder-name: model_3Edit
+      x-skaffolder-template: Edit_Crud
+      x-skaffolder-resource: _model_3_resource_id
+      x-skaffolder-roles: []
+      x-skaffolder-services:
+        - _list_model_1_service_id
+        - _list_model_1_service_id
+        - _get_model_3_service_id
+        - _update_model_3_service_id
+        - _create_model_3_service_id
+    - x-skaffolder-id: _model_3list_page_id
+      x-skaffolder-url: /model_3s
+      x-skaffolder-name: model_3List
+      x-skaffolder-template: List_Crud
+      x-skaffolder-resource: _model_3_resource_id
+      x-skaffolder-roles: []
+      x-skaffolder-services:
+        - _list_model_3_service_id
+        - _delete_model_3_service_id
+      x-skaffolder-links:
+        - _model_3edit_page_id
+  x-skaffolder-roles: 
