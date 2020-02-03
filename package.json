@@ -77,8 +77,5 @@
     "yaml": "^1.6.0"
   },
   "license": "GPLv3",
-  "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-contrib-clean": "^1.1.0"
-  }
+  "devDependencies": {}
 }
