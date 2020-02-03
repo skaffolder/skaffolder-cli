@@ -14,6 +14,7 @@ const importGeneratorCmd = require("./lib/importGenerator");
 const publishGeneratorCmd = require("./lib/publishGenerator");
 const generateCmd = require("./lib/generate");
 const getProjectUrlCmd = require("./lib/getProjectUrl");
+const setEndpointCmd = require("./lib/setEndpoint");
 const importDbCmd = require("./lib/importDb");
 const setEnvCmd = require("./lib/setEnv");
 const getEnvCmd = require("./lib/getEnv");
@@ -33,7 +34,7 @@ const offline = require("./lib/offline");
 const offlineService = require("./utils/offlineService");
 
 prog
-  .version("2.0")
+  .version("2.0.1")
 
   // start
   .command("login", "Log in into Skaffolder")
@@ -77,7 +78,10 @@ prog
   .action(publishGeneratorCmd)
 
   // utils
-  .command("get project url", "Get Skaffolder project URL") // sk get project url endpoint:http://localhost:3001
+  .command("set endpoint", "Set Skaffolder endpoint on-premise")
+  .argument("[endpoint]", "", null, null)
+  .action(setEndpointCmd)
+  .command("get project url", "Get Skaffolder project URL")
   .argument("[opt]", "", null, null)
   .action(getProjectUrlCmd)
   .command("import db", "Import database entities from Schema Spy XML")

@@ -253,7 +253,9 @@ var translateYamlProject = function(yamlProject) {
           });
         }
 
-        _model2._relations.push(Object.assign({}, _rel));
+        // if it is not a self relation
+        if (_rel._ent2 != _rel._ent1)
+          _model2._relations.push(Object.assign({}, _rel));
       }
     }
 
