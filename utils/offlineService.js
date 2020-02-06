@@ -254,8 +254,7 @@ var translateYamlProject = function(yamlProject) {
         }
 
         // if it is not a self relation
-        if (_rel._ent2._id != _rel._ent1._id)
-          _model2._relations.push(Object.assign({}, _rel));
+        if (_rel._ent2._id != _rel._ent1._id) _model2._relations.push(Object.assign({}, _rel));
       }
     }
 
@@ -337,7 +336,9 @@ var translateYamlProject = function(yamlProject) {
           resource_id = resource_name2id[service["x-skaffolder-resource"].toLowerCase()];
         }
 
-        if (!res_id2services[resource_id]) { continue; }
+        if (!res_id2services[resource_id]) {
+          continue;
+        }
 
         var _service = {
           _id:
@@ -450,30 +451,35 @@ var translateYamlProject = function(yamlProject) {
       if (page_services) {
         page_services.forEach(serv_id => {
           var _service = cloneObject(serv_id2service[serv_id]);
-          var resource = res_id2resource[_service._resource];
 
-          if (resource) {
-            _service._resource = {
-              _id: resource._id,
-              url: resource.url,
-              name: resource.name,
-              _project: resource._project,
-              _db: resource._db,
-              _entity: resource._entity._id,
-              __v: resource.__v,
-              _roles: resource._roles
-            };
+          if (_service) {
+            var resource = res_id2resource[_service._resource];
+
+            if (resource) {
+              _service._resource = {
+                _id: resource._id,
+                url: resource.url,
+                name: resource.name,
+                _project: resource._project,
+                _db: resource._db,
+                _entity: resource._entity._id,
+                __v: resource.__v,
+                _roles: resource._roles
+              };
+            }
+
+            if (
+              !_module._resources.some(item => {
+                return item._id == _service._resource._id;
+              })
+            ) {
+              _module._resources.push(Object.assign({}, _service._resource));
+            }
+
+            _module._services.push(_service);
+          } else {
+            console.error("Service " + serv_id + " not found");
           }
-
-          if (
-            !_module._resources.some(item => {
-              return item._id == _service._resource._id;
-            })
-          ) {
-            _module._resources.push(Object.assign({}, _service._resource));
-          }
-
-          _module._services.push(_service);
         });
       }
 
