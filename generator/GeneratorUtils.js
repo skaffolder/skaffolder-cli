@@ -112,8 +112,12 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     if (pathWorkspace) {
       var pathFile = path.normalize(pathWorkspace + fileNameDest);
 
-      if ((file.ignore && fs.existsSync(pathFile)) || !fs.lstatSync(pathFile).isFile()) {
+      if (file.ignore && fs.existsSync(pathFile)) {
         //console.info(chalk.gray("File ignored: ") + file.name);
+        return;
+      }
+
+      if (fs.existsSync(pathFile) && !fs.lstatSync(pathFile).isFile()) {
         return;
       }
 
