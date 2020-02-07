@@ -619,6 +619,90 @@ paths:
       x-skaffolder-description: CRUD ACTION create
       x-skaffolder-roles: []
       x-skaffolder-returnType: ""
+  "/model_2/findByrel_ext_1_m/{key}":
+    get:
+      x-skaffolder-id: _findbyrel_ext_1_m_model_2_service_id
+      x-skaffolder-id-resource: _model_2_resource_id
+      x-skaffolder-name: findByrel_ext_1_m
+      x-skaffolder-crudAction: findByrel_ext_1_m
+      x-skaffolder-url: /findByrel_ext_1_m/{key}
+      x-skaffolder-description: CRUD ACTION findByrel_ext_1_m
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: key
+          x-skaffolder-type: ObjectId
+          description: Id of model to search for
+  "/model_2/findByrel_ext_m_m/{key}":
+    get:
+      x-skaffolder-id: _findbyrel_ext_m_m_model_2_service_id
+      x-skaffolder-id-resource: _model_2_resource_id
+      x-skaffolder-name: findByrel_ext_m_m
+      x-skaffolder-crudAction: findByrel_ext_m_m
+      x-skaffolder-url: /findByrel_ext_m_m/{key}
+      x-skaffolder-description: CRUD ACTION findByrel_ext_m_m
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: key
+          x-skaffolder-type: ObjectId
+          description: Id of model to search for
+  "/model_3/findByrel_ext_1_m/{key}":
+    get:
+      x-skaffolder-id: _findbyrel_ext_1_m_model_3_service_id
+      x-skaffolder-id-resource: _model_3_resource_id
+      x-skaffolder-name: findByrel_ext_1_m
+      x-skaffolder-crudAction: findByrel_ext_1_m
+      x-skaffolder-url: /findByrel_ext_1_m/{key}
+      x-skaffolder-description: CRUD ACTION findByrel_ext_1_m
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: key
+          x-skaffolder-type: ObjectId
+          description: Id of model to search for
+  "/model_3/findByrel_ext_m_m/{key}":
+    get:
+      x-skaffolder-id: _findbyrel_ext_m_m_model_3_service_id
+      x-skaffolder-id-resource: _model_3_resource_id
+      x-skaffolder-name: findByrel_ext_m_m
+      x-skaffolder-crudAction: findByrel_ext_m_m
+      x-skaffolder-url: /findByrel_ext_m_m/{key}
+      x-skaffolder-description: CRUD ACTION findByrel_ext_m_m
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: key
+          x-skaffolder-type: ObjectId
+          description: Id of model to search for
+  "/model_1/findByrel_1_m/{key}":
+    get:
+      x-skaffolder-id: _findbyrel_1_m_model_1_service_id
+      x-skaffolder-id-resource: _model_1_resource_id
+      x-skaffolder-name: findByrel_1_m
+      x-skaffolder-crudAction: findByrel_1_m
+      x-skaffolder-url: /findByrel_1_m/{key}
+      x-skaffolder-description: CRUD ACTION findByrel_1_m
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: key
+          x-skaffolder-type: ObjectId
+          description: Id of model to search for
+  "/model_1/findByrel_m_m/{key}":
+    get:
+      x-skaffolder-id: _findbyrel_m_m_model_1_service_id
+      x-skaffolder-id-resource: _model_1_resource_id
+      x-skaffolder-name: findByrel_m_m
+      x-skaffolder-crudAction: findByrel_m_m
+      x-skaffolder-url: /findByrel_m_m/{key}
+      x-skaffolder-description: CRUD ACTION findByrel_m_m
+      x-skaffolder-roles: []
+      x-skaffolder-returnType: ""
+      parameters:
+        - name: key
+          x-skaffolder-type: ObjectId
+          description: Id of model to search for
 security:
   - bearerAuth: []
 components:
@@ -799,6 +883,11 @@ components:
         - _get_model_1_service_id
         - _update_model_1_service_id
         - _create_model_1_service_id
+        - _list_model_1_service_id
+        - _findbyrel_ext_1_m_model_2_service_id
+        - _findbyrel_ext_m_m_model_2_service_id
+        - _findbyrel_ext_1_m_model_3_service_id
+        - _findbyrel_ext_m_m_model_3_service_id
       x-skaffolder-nesteds: 
       x-skaffolder-links: 
       x-skaffolder-roles: []
@@ -823,6 +912,9 @@ components:
         - _get_model_2_service_id
         - _update_model_2_service_id
         - _create_model_2_service_id
+        - _findbyrel_1_m_model_1_service_id
+        - _findbyrel_m_m_model_1_service_id
+        - _list_model_1_service_id
       x-skaffolder-nesteds: 
       x-skaffolder-links: 
       x-skaffolder-roles: []
