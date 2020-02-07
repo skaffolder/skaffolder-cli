@@ -15,6 +15,7 @@ const publishGeneratorCmd = require("./lib/publishGenerator");
 const generateCmd = require("./lib/generate");
 const getProjectUrlCmd = require("./lib/getProjectUrl");
 const setEndpointCmd = require("./lib/setEndpoint");
+const getEndpointCmd = require("./lib/getEndpoint");
 const importDbCmd = require("./lib/importDb");
 const setEnvCmd = require("./lib/setEnv");
 const getEnvCmd = require("./lib/getEnv");
@@ -81,8 +82,9 @@ prog
   .command("set endpoint", "Set Skaffolder endpoint on-premise")
   .argument("[endpoint]", "", null, null)
   .action(setEndpointCmd)
+  .command("get endpoint", "Get Skaffolder endpoint")
+  .action(getEndpointCmd)
   .command("get project url", "Get Skaffolder project URL")
-  .argument("[opt]", "", null, null)
   .action(getProjectUrlCmd)
   .command("import db", "Import database entities from Schema Spy XML")
   .argument("<file>", "XML file to import", null, null)
