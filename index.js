@@ -2,6 +2,7 @@
 
 const prog = require("caporal");
 const createCmd = require("./lib/create");
+const createGeneratorCmd = require("./lib/createGenerator");
 const createPageCmd = require("./lib/createPage");
 const createApiCmd = require("./lib/createApi");
 const createModelCmd = require("./lib/createModel");
@@ -45,6 +46,8 @@ prog
 
   .command("new", "Create a new Skaffolder project")
   .action(createCmd)
+  .command("load generator", "Open a new generator")
+  .action(createGeneratorCmd)
   .command("open", "Open a Skaffolder project")
   .argument("[id project]", "Id of the project to open", null, "")
   .argument("[id generator]", "Id of the generator to open", null, "")
@@ -69,11 +72,11 @@ prog
   .action(offlineCommandBuilder(createApiCmd))
 
   // generator
-  .command("generator load", "Load generator files from Skaffolder platform to local folder")
+  .command("generator import", "Load generator files from Skaffolder platform to local folder")
   .action(reloadGeneratorCmd)
-  .command("generator save", "Save generator files from local folder to Skaffolder platform")
+  .command("generator export", "Save generator files from local folder to Skaffolder platform")
   .action(saveGeneratorCmd)
-  .command("generator import", "Import generator files from current folder")
+  .command("generator create", "Import generator files from current projectfolder")
   .action(importGeneratorCmd)
   .command("generator publish", "Share your local generator files with Skaffolder community\n\n---- Utils ----\n")
   .action(publishGeneratorCmd)

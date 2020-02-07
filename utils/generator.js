@@ -153,6 +153,17 @@ exports.loadGenerator = function(idProj, idGen, cb) {
   });
 };
 
+exports.loadTemplateFiles = function(idFrontend, idBackend, cb) {
+  projectService.getTemplateFiles(idFrontend, idBackend, (err, files) => {
+    writeGeneratorFiles("", files);
+    if (cb) {
+      cb();
+    } else {
+      process.exit(0);
+    }
+  });
+};
+
 let getFileContent = file => {
   var start = "**** PROPERTIES SKAFFOLDER ****\r\n";
   var end = "\r\n**** END PROPERTIES SKAFFOLDER ****\r\n";
