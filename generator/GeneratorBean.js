@@ -304,7 +304,7 @@ var getProperties = (content, nameFileTemplate, pathTemplate) => {
 };
 
 function parseTemplateFile(pathTemplate, filePath) {
-  let content = fs.readFileSync(filePath, "utf8");
+  let content = fs.readFileSync(pathTemplate + "/" + filePath, "utf8");
   let nameFileTemplate = path.relative(pathTemplate, filePath);
   // Remove extension
   if (nameFileTemplate.substr(-4) == ".hbs") {
@@ -330,4 +330,5 @@ function parseTemplateFile(pathTemplate, filePath) {
 
 exports.getGenFiles = getGenFiles;
 exports.generateFile = generateFile;
+exports.parseTemplateFile = parseTemplateFile;
 exports.generateSingleFile = generateSingleFile;
