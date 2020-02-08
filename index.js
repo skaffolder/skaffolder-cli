@@ -46,7 +46,8 @@ prog
   .action(logoutCmd)
 
   .command("new", "Create a new Skaffolder project")
-  .action(createCmd)
+  .argument("[name]", "Name of the project to create", null, "")
+  .action(offlineCommandBuilder(createCmd))
   .command("load generator", "Open a new generator")
   .action(createGeneratorCmd)
   .command("open", "Open a Skaffolder project")
