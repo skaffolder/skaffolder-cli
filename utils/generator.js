@@ -221,7 +221,9 @@ function createProjectExtension(workspacePath, projectId, logger, frontendId, ba
   logger.info(chalk.green("✔   Project created!"));
   logger.info(
     chalk.blue("You can edit your project structure at ") +
-      chalk.yellow(properties.endpoint + "/#!/projects/" + projectId + "/models")
+      chalk.yellow(properties.endpoint + "/#!/projects/" + projectId + "/models") +
+      chalk.blue(" or running ") +
+      chalk.yellow("'sk web open'")
   );
 
   try {

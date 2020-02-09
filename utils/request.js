@@ -2,6 +2,7 @@ var request = require("request");
 var cache = require("persistent-cache");
 var globals = cache();
 var chalk = require("chalk");
+const properties = require("../properties");
 
 module.exports = function(options, cb) {
   var token = globals.getSync("token");
@@ -47,7 +48,7 @@ module.exports = function(options, cb) {
         message: "Nor permitted: " + body.message
       };
       console.error(chalk.red(error.message));
-      console.error(chalk.blue("Please visit " + chalk.yellow("https://app.skaffolder.com/#!/upgrade")));
+      console.error(chalk.blue("Please visit " + chalk.yellow(properties.endpoint + "/#!/upgrade")));
       if (cb) cb(error.message);
       else process.exit(0);
     } else if (response.statusCode == 404) {
