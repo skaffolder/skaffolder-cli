@@ -1,8 +1,8 @@
 var properties = require("../properties");
 var request = require("../utils/request");
 var configUtils = require("../utils/config");
-var offline = require("../lib/offline")
-var offlineService = require("../utils/offlineService")
+var offline = require("../lib/offline");
+var offlineService = require("../utils/offlineService");
 
 exports.exportProject = function(params, cb) {
   request(
@@ -26,12 +26,12 @@ exports.getProject = function(cb) {
       cb
     );
   } else {
-    var project = offlineService.getProject(global.logger)
-    cb(null, project)
+    var project = offlineService.getProject(global.logger);
+    cb(null, project);
   }
 };
 
-exports.getProjectData = function (cb) {
+exports.getProjectData = function(cb) {
   if (!global.OFFLINE) {
     var config = configUtils.getConf();
     request(
@@ -43,7 +43,7 @@ exports.getProjectData = function (cb) {
     );
   } else {
     var projectData = offlineService.getProjectData(global.logger);
-    cb(null, projectData)
+    cb(null, projectData);
   }
 };
 
@@ -75,23 +75,19 @@ exports.importDb = function(fileContent, cb) {
   );
 };
 
-exports.getModelsList = function (cb) {
+exports.getModelsList = function(cb) {
   if (!global.OFFLINE) {
     var config = configUtils.getConf();
     request(
       {
-        url:
-          properties.endpoint +
-          "/model/findBy_project/" +
-          config.project +
-          "/populate",
+        url: properties.endpoint + "/model/findBy_project/" + config.project + "/populate",
         method: "GET"
       },
       cb
     );
   } else {
-    var modelsList = offlineService.getModelsList(global.logger)
-    cb(null, modelsList)
+    var modelsList = offlineService.getModelsList(global.logger);
+    cb(null, modelsList);
   }
 };
 
@@ -125,7 +121,7 @@ exports.getTemplate = function(cb) {
   );
 };
 
-exports.getEntityFindByDb = function (db, cb) {
+exports.getEntityFindByDb = function(db, cb) {
   if (!global.OFFLINE) {
     request(
       {
@@ -135,19 +131,15 @@ exports.getEntityFindByDb = function (db, cb) {
       cb
     );
   } else {
-    var entities = offlineService.getEntityFindByDb(db, global.logger)
-    cb(null, entities)
+    var entities = offlineService.getEntityFindByDb(db, global.logger);
+    cb(null, entities);
   }
 };
 
 exports.createFromTemplate = function(idProj, idFrontend, idBackend, cb) {
   request(
     {
-      url:
-        properties.endpoint +
-        "/generator/project/" +
-        idProj +
-        "/createFromTemplate",
+      url: properties.endpoint + "/generator/project/" + idProj + "/createFromTemplate",
       method: "POST",
       json: {
         backend: idBackend,
@@ -162,12 +154,7 @@ exports.createFromTemplate = function(idProj, idFrontend, idBackend, cb) {
 exports.getTemplateFiles = function(frontendId, backendId, cb) {
   request(
     {
-      url:
-        properties.endpoint +
-        "/Generator/getTemplateFiles/" +
-        frontendId +
-        "/" +
-        backendId,
+      url: properties.endpoint + "/Generator/getTemplateFiles/" + frontendId + "/" + backendId,
       method: "GET"
     },
     cb
@@ -227,7 +214,7 @@ exports.getGeneratorFile = function(idGen, cb) {
   );
 };
 
-exports.createCrud = function (model, cb) {
+exports.createCrud = function(model, cb) {
   if (!global.OFFLINE) {
     request(
       {
@@ -237,11 +224,11 @@ exports.createCrud = function (model, cb) {
       cb
     );
   } else {
-    cb(null, offline.createCrud(model))
+    cb(null, offline.createCrud(model));
   }
 };
 
-exports.createPage = function(name, cb) {
+exports.createPage = function(name, url, cb) {
   if (!global.OFFLINE) {
     var config = configUtils.getConf();
     request(
@@ -253,7 +240,7 @@ exports.createPage = function(name, cb) {
           name: name,
           state: "pending",
           top: 5100,
-          url: "/" + name,
+          url: url,
           _links: [],
           _nesteds: [],
           _project: config.project,
@@ -264,14 +251,13 @@ exports.createPage = function(name, cb) {
       cb
     );
   } else {
-    cb(null, offline.createPage({"x-skaffolder-name": name }))
+    cb(null, offline.createPage({ "x-skaffolder-name": name, "x-skaffolder-url": url }));
   }
 };
 
-exports.createModel = function (name, db, attributes, relations, cb) {
+exports.createModel = function(name, db, attributes, relations, url, cb) {
   if (!global.OFFLINE) {
     var config = configUtils.getConf();
-    let url = name;
 
     request(
       {
@@ -284,7 +270,7 @@ exports.createModel = function (name, db, attributes, relations, cb) {
           _project: config.project,
           _resource: {
             _services: [],
-            url: "/" + url
+            url: url
           },
           _entity: {
             _project: config.project,
@@ -297,6 +283,6 @@ exports.createModel = function (name, db, attributes, relations, cb) {
       cb
     );
   } else {
-    cb(null, offline.createModelSkaffolder(name, db, attributes, relations));
+    cb(null, offline.createModelSkaffolder(name, db, attributes, relations, url));
   }
 };
