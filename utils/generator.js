@@ -141,9 +141,7 @@ exports.loadGenerator = function(idProj, idGen, cb) {
   projectService.getGeneratorFile(idGen, (err, files) => {
     try {
       files = JSON.parse(files);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
     files = writeGeneratorFiles("", files);
     if (cb) {
       cb(projectService.getGeneratorFile);
