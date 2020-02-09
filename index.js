@@ -38,6 +38,7 @@ const offlineService = require("./utils/offlineService");
 
 prog
   .version("2.0.1")
+  .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
 
   // start
   .command("login", "Log in into Skaffolder")
@@ -46,7 +47,9 @@ prog
   .action(logoutCmd)
 
   .command("new", "Create a new Skaffolder project")
-  .action(createCmd)
+  .argument("[name]", "Name of the project to create", null, "")
+  .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
+  .action(offlineCommandBuilder(createCmd))
   .command("load generator", "Open a new generator")
   .action(createGeneratorCmd)
   .command("open", "Open a Skaffolder project")
@@ -54,22 +57,22 @@ prog
   .argument("[id generator]", "Id of the generator to open", null, "")
   .action(openCmd)
   .command("generate", "Generate Skaffolder Template\n\n---- Manage Project ----\n")
-  .option("--offline", "Work offline", null, false, false)
+  .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(generateCmd))
   // .action(generateCmd)
 
   // manage
   .command("add page", "Create a new page in Skaffolder project")
   .argument("[name]", "Name of the page", null, "")
-  .option("--offline", "Work offline", null, false, false)
+  .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(createPageCmd))
   // .action(createPageCmd)
   .command("add model", "Create a new model in Skaffolder project")
   .argument("[name]", "Name of the model", null, "")
-  .option("--offline", "Work offline", null, false, false)
+  .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(createModelCmd))
   .command("add api", "Create a new api in Skaffolder project\n\n---- Generator ----\n")
-  .option("--offline", "Work offline", null, false, false)
+  .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(createApiCmd))
 
   // generator

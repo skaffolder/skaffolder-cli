@@ -105,24 +105,17 @@ exports.registerHelpers = function(Handlebars) {
     else {
       if (array.length == index + 2) {
         arrayTmp = array.slice(index);
-        if (arrayTmp.slice(-1)[0].name == "username")
-          return options.inverse(this);
+        if (arrayTmp.slice(-1)[0].name == "username") return options.inverse(this);
       } else return options.fn(this);
     }
   });
 
-  Handlebars.registerHelper("isNotLastRelations", function(
-    array,
-    resource,
-    index,
-    options
-  ) {
+  Handlebars.registerHelper("isNotLastRelations", function(array, resource, index, options) {
     if (array.length == index + 1) {
       return options.inverse(this);
     } else {
       for (let i = index + 1; i < array.length; i++) {
-        if (array[i]._ent1._id.toString() != resource._id.toString())
-          return options.fn(this);
+        if (array[i]._ent1._id.toString() != resource._id.toString()) return options.fn(this);
         return options.inverse(this);
       }
     }
@@ -130,16 +123,11 @@ exports.registerHelpers = function(Handlebars) {
     //else
     //return options.fn(this);
   });
-  Handlebars.registerHelper("checkRelation", function(
-    array,
-    resource,
-    options
-  ) {
+  Handlebars.registerHelper("checkRelation", function(array, resource, options) {
     if (array.length == 0) return options.inverse(this);
     if (array)
       for (let item in array) {
-        if (array[item]._ent1._id.toString() == resource._id.toString())
-          return options.fn(this);
+        if (array[item]._ent1._id.toString() == resource._id.toString()) return options.fn(this);
       }
   });
 
@@ -153,11 +141,7 @@ exports.registerHelpers = function(Handlebars) {
 
     if (relations)
       for (let item in relations) {
-        if (
-          relations[item]._ent1._id.toString() ==
-            resource._entity._id.toString() &&
-          relations[item].type == "1:m"
-        ) {
+        if (relations[item]._ent1._id.toString() == resource._entity._id.toString() && relations[item].type == "1:m") {
           if (options.fn) return options.fn(this);
           else return true;
         }
@@ -174,27 +158,18 @@ exports.registerHelpers = function(Handlebars) {
 
     if (relations)
       for (let item in relations) {
-        if (
-          relations[item]._ent1._id.toString() ==
-            resource._entity._id.toString() &&
-          relations[item].type == "m:m"
-        ) {
+        if (relations[item]._ent1._id.toString() == resource._entity._id.toString() && relations[item].type == "m:m") {
           if (options.fn) return options.fn(this);
           else return true;
         }
       }
   });
 
-  Handlebars.registerHelper("checkExternalRelation", function(
-    array,
-    resource,
-    options
-  ) {
+  Handlebars.registerHelper("checkExternalRelation", function(array, resource, options) {
     if (array.length == 0) return options.inverse(this);
     if (array)
       for (let item in array) {
-        if (array[item]._ent1._id.toString() != resource._id.toString())
-          return options.fn(this);
+        if (array[item]._ent1._id.toString() != resource._id.toString()) return options.fn(this);
       }
   });
 
@@ -224,48 +199,25 @@ exports.registerHelpers = function(Handlebars) {
 
   Handlebars.registerHelper("isInUrl", function(param, url, options) {
     var urlParams = url.match(/{\w+}/g);
-    if (urlParams && urlParams.indexOf("{" + param + "}") != -1)
-      return options.fn(this);
+    if (urlParams && urlParams.indexOf("{" + param + "}") != -1) return options.fn(this);
     else return options.inverse(this);
   });
 
-  Handlebars.registerHelper("relationName", function(
-    resource,
-    name,
-    url,
-    options
-  ) {
+  Handlebars.registerHelper("relationName", function(resource, name, url, options) {
     relation = resource.find(x => x.type === "m:m");
-    nameRelation =
-      relation && relation.name === name.substr(3) && relation._ent2.name;
+    nameRelation = relation && relation.name === name.substr(3) && relation._ent2.name;
     return nameRelation;
   });
 
-  Handlebars.registerHelper("relationNameService", function(
-    resource,
-    name,
-    url,
-    options
-  ) {
-    relation = resource.find(
-      x => x.name.toLowerCase() === name.substr(6).toLowerCase()
-    );
-    nameRelation =
-      relation && relation.name === name.substr(6) && relation._ent2.name;
+  Handlebars.registerHelper("relationNameService", function(resource, name, url, options) {
+    relation = resource.find(x => x.name.toLowerCase() === name.substr(6).toLowerCase());
+    nameRelation = relation && relation.name === name.substr(6) && relation._ent2.name;
     return nameRelation;
   });
 
-  Handlebars.registerHelper("relationNameServiceLowercase", function(
-    resource,
-    name,
-    url,
-    options
-  ) {
-    relation = resource.find(
-      x => x.name.toLowerCase() === name.substr(6).toLowerCase()
-    );
-    nameRelation =
-      relation && relation.name === name.substr(6) && relation._ent2.name;
+  Handlebars.registerHelper("relationNameServiceLowercase", function(resource, name, url, options) {
+    relation = resource.find(x => x.name.toLowerCase() === name.substr(6).toLowerCase());
+    nameRelation = relation && relation.name === name.substr(6) && relation._ent2.name;
     return nameRelation.toLowerCase();
   });
 
@@ -322,8 +274,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("notStartWith", function(src, search, options) {
-    if (src && src.indexOf(search) == 0 && src != search)
-      return options.inverse(this);
+    if (src && src.indexOf(search) == 0 && src != search) return options.inverse(this);
     else return options.fn(this);
   });
 
@@ -452,20 +403,11 @@ exports.registerHelpers = function(Handlebars) {
     return name;
   });
 
-  Handlebars.registerHelper("isMtoM", function(
-    RelationName,
-    relations,
-    resourceName,
-    options
-  ) {
+  Handlebars.registerHelper("isMtoM", function(RelationName, relations, resourceName, options) {
     var found = false;
     RelationName = RelationName.substr(6);
     for (var i in relations) {
-      if (
-        relations[i].name == RelationName &&
-        relations[i].type == "m:m" &&
-        relations[i]._ent1.name == resourceName
-      )
+      if (relations[i].name == RelationName && relations[i].type == "m:m" && relations[i]._ent1.name == resourceName)
         found = relations[i];
     }
 
@@ -485,11 +427,7 @@ exports.registerHelpers = function(Handlebars) {
           buffer += options.fn(services[s]._resource);
         }
       } catch (e) {
-        e.message =
-          "Resource not found in service:\n" +
-          JSON.stringify(services[s]) +
-          "\n" +
-          e.message;
+        e.message = "Resource not found in service:\n" + JSON.stringify(services[s]) + "\n" + e.message;
         throw e;
       }
     }
@@ -532,12 +470,7 @@ exports.registerHelpers = function(Handlebars) {
     else return options.inverse(this);
   });
 
-  Handlebars.registerHelper("findInArray", function(
-    array,
-    key,
-    value,
-    options
-  ) {
+  Handlebars.registerHelper("findInArray", function(array, key, value, options) {
     for (var i in array) {
       if (array[i][key] == value) {
         if (options.fn) return options.fn(this);
@@ -577,11 +510,7 @@ exports.registerHelpers = function(Handlebars) {
     else return options.inverse(this);
   });
 
-  Handlebars.registerHelper("distinctRelations", function(
-    array,
-    entityName,
-    options
-  ) {
+  Handlebars.registerHelper("distinctRelations", function(array, entityName, options) {
     var present = [];
     var buffer = "";
 
@@ -619,22 +548,12 @@ exports.registerHelpers = function(Handlebars) {
     }
   });
 
-  Handlebars.registerHelper("findByNotRelation", function(
-    resource,
-    crud,
-    options
-  ) {
-    if (
-      resource._relations.filter(rel => rel.name === crud.slice(6)).length > 0
-    )
-      return options.inverse(this);
+  Handlebars.registerHelper("findByNotRelation", function(resource, crud, options) {
+    if (resource._relations.filter(rel => rel.name === crud.slice(6)).length > 0) return options.inverse(this);
     else return options.fn(this);
   });
 
-  Handlebars.registerHelper("distinctRelationsEditComponent", function(
-    crudResource,
-    options
-  ) {
+  Handlebars.registerHelper("distinctRelationsEditComponent", function(crudResource, options) {
     var present = [];
     var buffer = "";
 
@@ -675,23 +594,14 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("getReducerName", function(service, options) {
-    if (service.name == "list")
-      return (
-        "list" +
-        service._resource.name.charAt(0).toUpperCase() +
-        service._resource.name.slice(1)
-      );
+    if (service.name == "list") return "list" + service._resource.name.charAt(0).toUpperCase() + service._resource.name.slice(1);
     if (service.name == "update") return service._resource.name.toLowerCase();
     if (service.name == "create") return service._resource.name.toLowerCase();
     if (service.name == "delete") return service._resource.name.toLowerCase();
     if (service.name == "get") return service._resource.name.toLowerCase();
 
     if (service.name.startsWith("findBy")) {
-      return (
-        "list" +
-        service._resource.name.charAt(0).toUpperCase() +
-        service._resource.name.slice(1)
-      );
+      return "list" + service._resource.name.charAt(0).toUpperCase() + service._resource.name.slice(1);
     }
 
     return service.name;

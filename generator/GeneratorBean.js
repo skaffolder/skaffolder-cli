@@ -330,4 +330,5 @@ function parseTemplateFile(pathTemplate, filePath) {
 
 exports.getGenFiles = getGenFiles;
 exports.generateFile = generateFile;
+exports.parseTemplateFile = parseTemplateFile;
 exports.generateSingleFile = generateSingleFile;
