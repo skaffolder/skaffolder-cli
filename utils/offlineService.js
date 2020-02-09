@@ -167,6 +167,7 @@ var translateYamlProject = function(yamlProject) {
       }
 
       _model._id = model["x-skaffolder-id-entity"] || getDummyId(model_name, "entity");
+      _model.type = model["x-skaffolder-type"];
       _model._db = model_db_id;
       _model.name = model_name;
       _model._attrs = [];
@@ -309,6 +310,7 @@ var translateYamlProject = function(yamlProject) {
       // _resource
       _resource._id = model["x-skaffolder-id"] || getDummyId(model_name, "resource");
       _resource.url = model["x-skaffolder-url"];
+      _resource.type = model["x-skaffolder-type"];
       _resource.name = model_name;
       _resource._project = project._id;
       _resource._db = db._id;
