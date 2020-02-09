@@ -41,7 +41,7 @@ Now you can create a new project running `sk new`
        Java Spring Boot MySQL
 
     ✔   Project created!
-    You can edit your project structure at https://app.skaffolder.com/#!/projects/my-project-id/design/models
+    You can edit your project structure at https://app.skaffolder.com/#!/projects/my-project-id/models
     Generator files imported in ./.skaffolder/template
 
 ```
@@ -80,7 +80,7 @@ You can optionally specity the name running `sk add page <name>`
     File created: ./client/app/pages/mypage/mypage.component.html
     File created: ./client/app/pages/mypage/mypage.component.ts
     ✔  Generation complete!
-    You can edit your project structure at http://app.skaffolder.com/#!/projects/my-project-id/design/models
+    You can edit your project structure at http://app.skaffolder.com/#!/projects/my-project-id/models
 ```
 
 ###### Add Data Model
@@ -108,7 +108,7 @@ You can run `sk get project url` and browse the provided link:
 ```bash
 [root@skaffolder ~]$ sk get project url
     To manage data models, APIs and pages of your project, visit this URL:
-    https://app.skaffolder.com/#!/projects/my-project-id/design/models
+    https://app.skaffolder.com/#!/projects/my-project-id/models
 ```
 
 ## Create a custom template generator

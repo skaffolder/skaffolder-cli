@@ -15,6 +15,7 @@ const importGeneratorCmd = require("./lib/importGenerator");
 const publishGeneratorCmd = require("./lib/publishGenerator");
 const generateCmd = require("./lib/generate");
 const getProjectUrlCmd = require("./lib/getProjectUrl");
+const webOpenCmd = require("./lib/webOpen");
 const setEndpointCmd = require("./lib/setEndpoint");
 const getEndpointCmd = require("./lib/getEndpoint");
 const getUserCmd = require("./lib/getUser");
@@ -50,42 +51,46 @@ prog
   .argument("[name]", "Name of the project to create", null, "")
   .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(createCmd))
-  .command("load generator", "Open a new generator")
-  .action(createGeneratorCmd)
+
   .command("open", "Open a Skaffolder project")
   .argument("[id project]", "Id of the project to open", null, "")
   .argument("[id generator]", "Id of the generator to open", null, "")
   .action(openCmd)
+
   .command("generate", "Generate Skaffolder Template\n\n---- Manage Project ----\n")
   .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(generateCmd))
-  // .action(generateCmd)
 
   // manage
   .command("add page", "Create a new page in Skaffolder project")
   .argument("[name]", "Name of the page", null, "")
   .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(createPageCmd))
-  // .action(createPageCmd)
+
   .command("add model", "Create a new model in Skaffolder project")
   .argument("[name]", "Name of the model", null, "")
   .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(createModelCmd))
+
   .command("add api", "Create a new api in Skaffolder project\n\n---- Generator ----\n")
   .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
   .action(offlineCommandBuilder(createApiCmd))
 
   // generator
-  .command("generator import", "Load generator files from Skaffolder platform to local folder")
+  .command("generator init", "Open a new generator")
+  .action(createGeneratorCmd)
+  .command("generator push", "Load generator files from Skaffolder platform to local folder")
   .action(reloadGeneratorCmd)
-  .command("generator export", "Save generator files from local folder to Skaffolder platform")
+  .command("generator pull", "Save generator files from local folder to Skaffolder platform")
   .action(saveGeneratorCmd)
-  .command("generator create", "Import generator files from current projectfolder")
+  .command("generator create", "Import generator files from current project folder")
   .action(importGeneratorCmd)
   .command("generator publish", "Share your local generator files with Skaffolder community\n\n---- Utils ----\n")
   .action(publishGeneratorCmd)
 
   // utils
+  .command("web open", "Open web interface")
+  .action(webOpenCmd)
   .command("set endpoint", "Set Skaffolder endpoint on-premise")
   .argument("[endpoint]", "", null, null)
   .action(setEndpointCmd)
@@ -100,7 +105,6 @@ prog
   .action(importDbCmd)
   .command("export", "Export project to Skaffolder platform")
   .action(exportProjectCommand);
-//.option('--variant <variant>', 'Which <variant> of the template is going to be created')
 
 prog.parse(process.argv);
 // Export Typescript
