@@ -11,12 +11,11 @@ var exportProject = function(params, cb) {
       }
       let workspacePath = params.workspacePath ? params.workspacePath : "";
       // Update project Id
-      let conf = fs.readFileSync(workspacePath + ".skaffolder/config.json", "utf-8");
+      let conf = {};
       try {
-        conf = JSON.parse(conf);
-      } catch (e) {
-        conf = {};
-      }
+        let confFile = fs.readFileSync(workspacePath + ".skaffolder/config.json", "utf-8");
+        conf = JSON.parse(confFile);
+      } catch (e) {}
 
       if (conf.project != result.projectId) {
         conf.project = result.projectId;
