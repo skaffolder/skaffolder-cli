@@ -4,6 +4,9 @@
   "description": "CLI to interact with Skaffolder, you can generate boilerplate in different programming languages and customize your own scaffolding.",
   "homepage": "https://www.skaffolder.com",
   "repository": "https://github.com/skaffolder/skaffolder-cli",
+  "scripts": {
+    "test": "node index.js --help"
+  },
   "author": {
     "name": "Skaffolder",
     "email": "info@skaffolder.com",
@@ -74,5 +77,8 @@
     "yaml": "^1.6.0"
   },
   "license": "GPLv3",
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": ">=7.0.0 <13.0.0"
+  }
 }
