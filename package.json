@@ -77,5 +77,8 @@
     "yaml": "^1.6.0"
   },
   "license": "GPLv3",
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": ">=7.0.0 <13.0.0"
+  }
 }
