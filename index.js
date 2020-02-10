@@ -50,7 +50,7 @@ prog
   .command("new", "Create a new Skaffolder project")
   .argument("[name]", "Name of the project to create", null, "")
   .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
-  .option("-i, --import <file>", "Convert an OpenAPI 3.0 file in a Skaffolder project", null, "openapi.yaml", false)
+  .option("-i, --import <file>", "Convert an OpenAPI 3.0 file in a Skaffolder project", null, false, false)
   .option("-f, --frontend <templateName>", "Template frontend language", null, false, false)
   .option("-b, --backend <templateName>", "Template backend language", null, false, false)
   .action(offlineCommandBuilder(createCmd))
