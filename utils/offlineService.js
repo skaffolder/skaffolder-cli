@@ -33,7 +33,7 @@ var getYaml = function(path, logger) {
       return fileObj;
     } catch (e) {
       logger.error(chalk.red("openapi.yaml file not parsable"));
-      logger.debug(e);
+      logger.error(e);
       process.exit(0);
     }
   } catch (e) {
