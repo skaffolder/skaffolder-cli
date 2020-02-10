@@ -1,8 +1,11 @@
-var projectService = require("../service/projectService");
-var generatorBean = require("../generator/GeneratorBean");
-var fs = require("fs");
+const projectService = require("../service/projectService");
+const generatorBean = require("../generator/GeneratorBean");
+const fs = require("fs");
+const offlineService = require("../utils/offlineService");
+const yaml = require("yaml");
+const lodash = require("lodash");
 
-var exportProject = function(params, cb) {
+const exportProject = function(params, cb) {
   // Call Skaffolder server
   try {
     projectService.exportProject(params, function(err, result) {
@@ -28,6 +31,12 @@ var exportProject = function(params, cb) {
 
       // Update openapi
       generatorBean.generateSingleFile(workspacePath, "openapi.yaml", result.data);
+
+      // Extends previous values
+      let newYaml = offlineService.getYaml();
+      let mergedYaml = lodash.merge(params.skObject, newYaml);
+      let yamlContent = yaml.stringify(mergedYaml);
+      fs.writeFileSync("openapi.yaml", yamlContent, "utf-8");
 
       // Execute callback
       if (!result.logs || result.logs.length == 0) {
