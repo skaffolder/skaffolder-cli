@@ -1,51 +1,100 @@
+[![Skaffolder](https://skaffolder.com/img/logo/skaffolder_logo-nero.svg)](https://www.google.com)
+
 # Skaffolder-cli
 
-To install skaffolder-cli run:
+> The Skaffolder CLI is a powerful command-line interface (CLI) tool to access and manage a Skaffolder project.
+> You can easily generate, export and add models, APIs and pages to your project.
+
+## Installation
 
 ```bash
 npm install -g skaffolder-cli
 ```
 
-<a href="https://www.skaffolder.com" target="_blank">![Skaffolder](https://skaffolder.com/img/logo/skaffolder_logo-nero.svg)</a>
-
-# Getting started!
+## Getting started
 
 First of all you have to login into your free Skaffolder account running `sk login`:
 
 ```bash
-[root@skaffolder ~]$ sk login
-    Skaffolder: Insert your email account:
+$ sk login
+Skaffolder: Insert your email account:
     Skaffolder: Insert your password:
 
     ✔  Login successful
 ```
 
-### Create project
+## Commands
 
-Now you can create a new project running `sk new`
+Every `sk` commands takes five global options:
 
 ```bash
-[root@skaffolder ~]$ sk new
-
-    Skaffolder: Insert name of your project:  MyProject
-
-    Skaffolder: Select your frontend language
-     ▸ Angular 4
-       AngularJS
-
-    Skaffolder: Select your backend language
-       Java
-     ▸ NodeJS
-       PHP
-       Java Spring Boot
-       Java Spring Boot MySQL
-
-    ✔   Project created!
-    You can edit your project structure at https://app.skaffolder.com/#!/projects/my-project-id/models
-    Generator files imported in ./.skaffolder/template
-
+-h, --help                       Display help
+-V, --version                    Display version
+--no-color                       Disable colors
+--quiet                          Quiet mode - only displays warn and error messages
+-v, --verbose                    Verbose mode - will also output debug messages
 ```
 
+### Project Commands
+
+Used for manage and edit your Skaffolder project.
+Every project command takes one option:
+
+```bash
+-o, --online                    Work online on the Skaffolder project, requires sk login
+```
+
+#### `new [project name]`
+
+Create a new Skaffolder project.
+
+Example:
+```bash
+$ sk new MyProject
+Project name: MyProject
+✔ Select your frontend language › Angular 6
+✔ Select your backend language › Go
+
+✔   Project created offline!
+
+You can edit the project from the web interface running 'sk export'
+You can edit the project from the VSCode extension https://github.com/skaffolder/skaffolder-vscode-extension
+You can edit the project from the openapi.yaml file
+You can edit the project from the command line:
+        Add a model running 'sk add model'
+        Add a page running 'sk add page'
+        Add an API running 'sk add api'
+
+Generate your code running 'sk generate'
+```
+
+#### `open [id project] [id generator]`
+
+Open an already existent Skaffolder project. Requires `sk login`
+
+```bash
+$ sk open
+✔ Select your project › My_Project
+✔ Select your generator › Generator Angular 6 + NodeJS - Sequelize
+✔  Generator files imported in ./.skaffolder/template
+You can edit your project structure at https://app.skaffolder.com/#!/projects/<project-id>/models or running 'sk web open'
+```
+
+If a Skaffolder project is already present in the folder, the program will ask you if you want to overwrite it.
+
+#### `generate`
+
+Generate the source code of your project from the openapi.yaml file.
+
+```bash
+$ sk generate
+File created: client/.dockerignore
+File created: client/Dockerfile
+File created: client/README.md
+...
+```
+
+<!-- 
 To open an existing project you can run `sk open`
 
 ### Generate source code
@@ -286,4 +335,4 @@ This is an open-source project
 > [https://github.com/skaffolder/skaffolder-cli](https://github.com/skaffolder/skaffolder-cli)
 
 > Npm package
-> [https://www.npmjs.com/package/skaffolder-cli](https://www.npmjs.com/package/skaffolder-cli)
+> [https://www.npmjs.com/package/skaffolder-cli](https://www.npmjs.com/package/skaffolder-cli) -->
