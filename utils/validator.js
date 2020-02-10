@@ -9,7 +9,7 @@ var globals = cache();
  * Check if openapi.yaml exists
  */
 exports.isSkaffolderFolder = function() {
-  if (fs.statSync("openapi.yaml").isFile()) return true;
+  if (fs.existsSync("openapi.yaml")) return true;
 
   console.error(chalk.red("You need to run this command from a Skaffolder local project folder"));
   console.error(chalk.red("Run " + chalk.green("'sk new'") + " to create a new project"));
@@ -27,6 +27,18 @@ exports.isSkaffolderProject = function() {
   console.error(
     chalk.red("Run " + chalk.green("'sk new --online'") + " or " + chalk.green("'sk export'") + " to create a new project")
   );
+  return false;
+};
+
+/**
+ * Check if the current folder has a Skaffolder template
+ * Check if ./skaffolder/template exists as directory
+ */
+exports.hasSkaffolderTemplate = function() {
+  if (fs.existsSync("./.skaffolder/template") && fs.statSync("./.skaffolder/template").isDirectory()) return true;
+
+  console.error(chalk.red("You need to run this command from a remote Skaffolder project folder with a generator"));
+  console.error(chalk.red("Run " + chalk.green("'sk generator init'") + " to initialize a Skaffolder generator"));
   return false;
 };
 

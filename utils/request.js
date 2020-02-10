@@ -16,7 +16,7 @@ module.exports = function(options, cb) {
         message: error.code
       };
       console.error(chalk.red(error.message));
-      if (cb) cb(error.message);
+      if (cb) return cb(error.message);
       else process.exit(0);
     } else if (
       (body && typeof body == "String" && body.toLowerCase() == "not authorized") ||
@@ -27,21 +27,21 @@ module.exports = function(options, cb) {
         message: "Not Authorized, try to change user the command: 'sk login' or check the command you ran"
       };
       console.error(chalk.red(error.message));
-      if (cb) cb(error.message);
+      if (cb) return cb(error.message);
       else process.exit(0);
     } else if (response.statusCode == 401) {
       error = {
         message: "You should login with the command: 'sk login'"
       };
       console.error(chalk.red(error.message));
-      if (cb) cb(error.message);
+      if (cb) return cb(error.message);
       else process.exit(0);
     } else if (response.statusCode == 405) {
       error = {
         message: "User not allowed\r\nYou should login with command: 'sk login'"
       };
       console.error(chalk.red(error.message));
-      if (cb) cb(error.message);
+      if (cb) return cb(error.message);
       else process.exit(0);
     } else if (response.statusCode == 403) {
       error = {
@@ -49,21 +49,21 @@ module.exports = function(options, cb) {
       };
       console.error(chalk.red(error.message));
       console.error(chalk.blue("Please visit " + chalk.yellow(properties.endpoint + "/#!/upgrade")));
-      if (cb) cb(error.message);
+      if (cb) return cb(error.message);
       else process.exit(0);
     } else if (response.statusCode == 404) {
       error = {
         message: "URL not found"
       };
       console.error(chalk.red(body));
-      if (cb) cb(error.message);
+      if (cb) return cb(error.message);
       else process.exit(0);
     } else if (response.statusCode != 200) {
       error = {
         message: "ERROR " + response.statusCode
       };
       console.error(chalk.red(error.message));
-      if (cb) cb(error.message);
+      if (cb) return cb(error.message);
       else process.exit(0);
     }
 
@@ -72,6 +72,6 @@ module.exports = function(options, cb) {
     } catch (e) {
       //console.log(chalk.yellow(e));
     }
-    cb(error, body);
+    return cb(error, body);
   });
 };

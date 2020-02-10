@@ -131,21 +131,23 @@ var translateYamlProject = function(yamlProject) {
   };
 
   // roles propery
-  let roles = components["x-skaffolder-roles"];
-  var role_id2role = {};
+  if (components) {
+    let roles = components["x-skaffolder-roles"];
+    var role_id2role = {};
 
-  if (roles) {
-    skProject.roles = roles.map(role => {
-      var role = {
-        _id: role["x-skaffolder-id"] || getDummyId(role["x-skaffolder-name"], "role"),
-        description: role["x-skaffolder-name"],
-        name: role["x-skaffolder-name"],
-        _project: skProject.project._id
-      };
+    if (roles) {
+      skProject.roles = roles.map(role => {
+        var role = {
+          _id: role["x-skaffolder-id"] || getDummyId(role["x-skaffolder-name"], "role"),
+          description: role["x-skaffolder-name"],
+          name: role["x-skaffolder-name"],
+          _project: skProject.project._id
+        };
 
-      role_id2role[role._id] = role;
-      return role;
-    });
+        role_id2role[role._id] = role;
+        return role;
+      });
+    }
   }
 
   //dbs property
