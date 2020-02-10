@@ -237,6 +237,9 @@ function createProjectExtension(workspacePath, projectId, logger, frontendId, ba
   }
 }
 
+const importOpenAPI = function(openapiFilePath) {};
+
+exports.importOpenAPI = importOpenAPI;
 exports.getGenFiles = getGenFiles;
 exports.createProjectExtension = createProjectExtension;
 exports.getProperties = getProperties;
