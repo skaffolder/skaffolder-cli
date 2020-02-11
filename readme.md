@@ -50,16 +50,28 @@ Every project command takes one option:
 
 #### `new [project name]`
 
-Create a new Skaffolder project.
+Create a new local Skaffolder project.
+
+Additional options:
+
+```bash
+-i, --import <file>                Convert an OpenAPI 3.0 file in a Skaffolder project
+-f, --frontend <templateName>      Template frontend language
+-b, --backend <templateName>       Template backend language
+```
 
 Example:
 
 ```bash
-$ sk new MyProject
-Project name: MyProject
-✔ Select your frontend language › Angular 6
-✔ Select your backend language › Go
+$ sk new "MyProject" --frontend "React" --backend "NodeJS"
+Project name:           MyProject
+Frontend template:      React
+Backend template:       NodeJS
 
+
+
+File created: openapi.yaml
+...
 ✔   Project created offline!
 
 You can edit the project from the web interface running 'sk export'
