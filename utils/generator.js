@@ -6,8 +6,11 @@ var chalk = require("chalk");
 var path = require("path");
 var klawSync = require("klaw-sync");
 var prependFile = require("prepend-file");
-var generate = require("../lib/generate");
+var utils = require("../utils/utils");
 var properties = require("../properties");
+var offlineService = require("../utils/offlineService");
+var questionService = require("../utils/questionService");
+var yaml = require("yaml");
 
 // Convert folder file hbs to generator files db
 var getGenFiles = function(pathTemplate) {
@@ -390,7 +393,138 @@ const getEmptyProjectData = nameProject => {
   };
 };
 
-const importOpenAPI = function(openapiFilePath) {};
+const importOpenAPI = async function(openapiFilePath, nameProject) {
+  // Read YAML
+  let openApiFileContent = fs.readFileSync(openapiFilePath, "utf-8");
+  let openApi = yaml.parse(openApiFileContent);
+
+  // Set project name
+  if (!openApi.info) {
+    openApi.info = {};
+  }
+  openApi.info.title = utils.slug(nameProject);
+
+  // Create db if not exists
+  if (!openApi.components) {
+    openApi.components = {};
+  }
+  if (!openApi.components["x-skaffolder-db"]) {
+    openApi.components["x-skaffolder-db"] = [];
+  }
+  if (openApi.components["x-skaffolder-db"].length == 0) {
+    const db_name = nameProject + "_db";
+    openApi.components["x-skaffolder-db"].push({
+      "x-skaffolder-id": offlineService.getDummyId(db_name, "db"),
+      "x-skaffolder-name": db_name
+    });
+  }
+
+  // Ask components to link to db
+  let defaultDbId;
+  if (!openApi.components.schemas) {
+    openApi.components.schemas = {};
+  } else {
+    let questionList = [];
+    for (let name in openApi.components.schemas) {
+      if (openApi.components.schemas[name].type == "object")
+        questionList.push({
+          title: name,
+          value: name
+        });
+    }
+    const components = await questionService.askMultiple("Select the schemas that represent a database entity", questionList);
+    if (!components.value) return;
+    defaultDbId = openApi.components["x-skaffolder-db"][0]["x-skaffolder-id"];
+
+    // Assign db to selected components
+    components.value.filter(name => {
+      openApi.components.schemas[name]["x-skaffolder-id-db"] = defaultDbId;
+    });
+  }
+
+  // Add the user model if no one is called user
+  if (!openApi.components.schemas.User) {
+    logger.info(chalk.green("Adding model ") + chalk.yellow("User"));
+
+    openApi.components.schemas.User = {
+      "x-skaffolder-id": offlineService.getDummyId("User", "resource"),
+      "x-skaffolder-id-db": defaultDbId,
+      "x-skaffolder-url": "/user",
+      "x-skaffolder-type": "User",
+      properties: {
+        _id: {
+          type: "string",
+          "x-skaffolder-required": true
+        },
+        mail: {
+          type: "string",
+          "x-skaffolder-id-attr": offlineService.getDummyId("User_mail", "attr"),
+          "x-skaffolder-type": "String"
+        },
+        name: {
+          type: "string",
+          "x-skaffolder-id-attr": offlineService.getDummyId("User_name", "attr"),
+          "x-skaffolder-type": "String"
+        },
+        password: {
+          type: "string",
+          "x-skaffolder-id-attr": offlineService.getDummyId("User_password", "attr"),
+          "x-skaffolder-type": "String",
+          "x-skaffolder-required": true
+        },
+        roles: {
+          type: "string",
+          "x-skaffolder-id-attr": offlineService.getDummyId("User_roles", "attr"),
+          "x-skaffolder-type": "String"
+        },
+        surname: {
+          type: "string",
+          "x-skaffolder-id-attr": offlineService.getDummyId("User_surname", "attr"),
+          "x-skaffolder-type": "String"
+        },
+        username: {
+          type: "string",
+          "x-skaffolder-id-attr": offlineService.getDummyId("User_username", "attr"),
+          "x-skaffolder-type": "String",
+          "x-skaffolder-required": true
+        }
+      },
+      "x-skaffolder-relations": [],
+      required: ["_id", "password", "username"]
+    };
+  }
+
+  // Add page Home
+  if (!openApi.components["x-skaffolder-page"]) {
+    openApi.components["x-skaffolder-page"] = [];
+  }
+
+  if (openApi.components["x-skaffolder-page"].filter(page => page.name == "Home").length == 0) {
+    logger.info(chalk.green("Adding page ") + chalk.yellow("Home"));
+
+    openApi.components["x-skaffolder-page"].push({
+      "x-skaffolder-id": offlineService.getDummyId("Home", "page"),
+      "x-skaffolder-name": "Home",
+      "x-skaffolder-url": "/home",
+      "x-skaffolder-template": undefined,
+      "x-skaffolder-resource": undefined,
+      "x-skaffolder-services": [],
+      "x-skaffolder-nesteds": [],
+      "x-skaffolder-links": [],
+      "x-skaffolder-roles": []
+    });
+  }
+  // Ask resource services not linked to any resource - try link by tag or url
+
+  // Ask to create crud
+
+  // Write YAML
+  logger.info(chalk.green("Writing file ") + chalk.yellow("openapi.yaml"));
+  openApiFileContent = yaml.stringify(openApi);
+  fs.writeFileSync("openapi.yaml", openApiFileContent, "utf-8");
+
+  // Ask to generate code
+};
 
 exports.importOpenAPI = importOpenAPI;
 exports.getEmptyProjectData = getEmptyProjectData;
