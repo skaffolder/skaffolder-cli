@@ -87,7 +87,7 @@ Generate your code running 'sk generate'
 
 #### `open [id project] [id generator]`
 
-Open an already existent Skaffolder project. Requires `sk login`
+Open an already existent Skaffolder project. Requires `sk login`.
 
 ```bash
 $ sk open
@@ -109,6 +109,71 @@ File created: client/.dockerignore
 File created: client/Dockerfile
 File created: client/README.md
 ...
+✔  Generation complete!
+```
+
+#### `add page [page name]`
+
+Create a new page in the Skaffolder project.
+
+#### `add model [model name]`
+
+Create a new model in the Skaffolder project. After the model will be created the program
+will ask you if you want to generate CRUD interface for the newly created model.
+
+Example:
+
+```bash
+$ sk add model "MyNewModel"
+Model name: MyNewModel
+✔ Do you want to add an attiribute to MyNewModel model? … No / Yes
+✔ Insert the name of the attribute … MyNewModel_Attribute
+✔ Select type of MyNewModel_Attribute attribute › String
+✔ Do you want to add another attiribute to MyNewModel model? … No / Yes
+File created: client/src/api/generated/MyNewModelApiGenerated.js
+File created: client/src/api/MyNewModelApi.js
+...
+✔  Generation complete!
+You can edit your Model at https://app.skaffolder.com/#!/projects/undefined/models/undefined
+✔ Do you want to generate CRUD interface for 'MyNewModel' model? … No / Yes
+File modified: client/src/api/generated/MyNewModelApiGenerated.js
+File modified: client/src/components/Navbar.js
+...
+✔  Generation complete!
+```
+
+#### `add api`
+
+Create a new api. You can choose to create a CRUD or a custom API.
+
+Example creating a CRUD delete API:
+
+```bash
+$ sk add api
+✔ Select the model on which you want to create the API › MyNewModel
+✔ Select type of your API › delete
+You can edit your API at https://app.skaffolder.com/#!/projects/undefined/apis/undefined
+File modified: client/src/api/generated/MyNewModelApiGenerated.js
+File modified: client/src/redux/actionTypes.js
+...
+✔  Generation complete!
+```
+
+Example creating a custom API:
+
+```bash
+$ sk add api
+✔ Select the model on which you want to create the API › MyNewModel
+✔ Select type of your API › Custom API
+✔ Insert the name of your API … myNewCustomApi
+API name: myNewCustomApi
+✔ Insert the URL of your API. Example: /{id}/action … /{id}/customApi
+API name: /{id}/customApi
+✔ Select the method of your API › POST
+File modified: client/src/api/generated/MyNewModelApiGenerated.js
+File modified: client/src/redux/actionTypes.js
+...
+✔  Generation complete!
 ```
 
 <!-- 
