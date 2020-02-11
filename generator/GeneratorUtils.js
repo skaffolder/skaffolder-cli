@@ -1,10 +1,10 @@
-var fs = require("fs");
-var Handlebars = require("handlebars");
-var chalk = require("chalk");
-var helpers = require("./Helpers");
-
-var mkdirp = require("mkdirp");
-var extend = require("util")._extend;
+const fs = require("fs");
+const Handlebars = require("handlebars");
+const chalk = require("chalk");
+const helpers = require("./Helpers");
+const mkdirp = require("mkdirp");
+const yaml = require("yaml");
+const lodash = require("lodash");
 
 helpers.registerHelpers(Handlebars);
 
@@ -186,6 +186,17 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     if (output != "") {
       if (fs.existsSync(pathFile)) {
         let actual = fs.readFileSync(pathFile, "utf8");
+
+        if (file.extra && file.extra.merge == "yaml") {
+          // console.log(chalk.green("Extra operation: ") + "Merge YAML on " + pathFile);
+
+          // Extends previous values
+          let oldYaml = yaml.parse(actual);
+          let newYaml = yaml.parse(output);
+          let mergedYaml = lodash.merge(oldYaml, newYaml);
+          output = yaml.stringify(mergedYaml);
+        }
+
         if (actual != output) {
           log.push(
             "<div class='file-result edit'><label>File modified </label><div class='file-name'>" + pathFile + "</div></div>"
