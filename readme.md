@@ -1,5 +1,9 @@
 [![Skaffolder](https://skaffolder.com/img/logo/skaffolder_logo-nero.svg)](https://www.google.com)
 
+![npm](https://img.shields.io/npm/dt/skaffolder-cli)
+![npm](https://img.shields.io/npm/v/skaffolder-cli)
+[![Build Status](https://travis-ci.org/skaffolder/skaffolder-cli.svg?branch=master)](https://travis-ci.org/skaffolder/skaffolder-cli)
+
 # Skaffolder-cli
 
 > The Skaffolder CLI is a powerful command-line interface (CLI) tool to access and manage a Skaffolder project.
@@ -49,6 +53,7 @@ Every project command takes one option:
 Create a new Skaffolder project.
 
 Example:
+
 ```bash
 $ sk new MyProject
 Project name: MyProject
