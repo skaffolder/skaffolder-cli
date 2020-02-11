@@ -176,6 +176,80 @@ File modified: client/src/redux/actionTypes.js
 ✔  Generation complete!
 ```
 
+#### Utility Commands
+
+Useful commands to import/export project and get your configurations.
+
+#### `web open`
+
+Open your project on Skaffolder web interface. The project must be exported before calling this command.
+
+#### `set endpoint [enpoint]`
+
+Set Skaffolder endpoint for on-premise.
+
+#### `get endpoint`
+
+Get Skaffolder endpoint for on-premise.
+
+#### `get user`
+
+Get the currently logged Skaffolder user.
+
+Example:
+
+```bash
+$ sk get user
+User: admin@example.com
+```
+
+#### `get project url`
+
+Get your project url. The project must be exported before calling this command.
+
+Example:
+
+```bash
+$ sk get project url
+To manage data models, APIs and pages of your project, visit this URL:
+https://app.skaffolder.com/#!/projects/<project-id>/models
+```
+
+#### `import db [schema.xml]`
+
+Import your db schema in Skaffolder from a [SchemaSpy](http://schemaspy.sourceforge.net) XML file, [here](https://skaffolder.com/docs/schema_example.xml) you can find an example.
+In order to succesfully import your database, you need to call this commands from a project already exported on Skaffolder.
+
+Example:
+
+```bash
+sk import db schema.xml
+✔   Db import completed!
+You can edit your project structure at https://app.skaffolder.com/#!/projects/<project-id>/models or running 'sk web open'
+```
+
+#### `export`
+
+Export your local project to Skaffolder. Requires `sk login`.
+
+Example:
+
+```bash
+$ sk export
+
+File modified: openapi.yaml
+Create project
+[CREATE]: 'MyProject' project
+[CREATE]: 'MyProject_db' database
+...
+[CREATE]: 'Home' page
+[UPDATE]: 'MyProject' project pages and dbs
+```
+
+#### `help [command]`
+
+Display help for a specific command.
+
 <!-- 
 To open an existing project you can run `sk open`
 
