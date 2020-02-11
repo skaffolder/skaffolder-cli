@@ -82,9 +82,9 @@ prog
   // generator
   .command("generator init", "Open a new generator")
   .action(createGeneratorCmd)
-  .command("generator push", "Load generator files from Skaffolder platform to local folder")
+  .command("generator pull", "Load generator files from Skaffolder platform to local folder")
   .action(reloadGeneratorCmd)
-  .command("generator pull", "Save generator files from local folder to Skaffolder platform")
+  .command("generator push", "Save generator files from local folder to Skaffolder platform")
   .action(saveGeneratorCmd)
   .command("generator create", "Import generator files from current project folder")
   .action(importGeneratorCmd)
