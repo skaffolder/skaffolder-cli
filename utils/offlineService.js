@@ -303,9 +303,7 @@ var translateYamlProject = function(yamlProject) {
       var model_db_id = model["x-skaffolder-id-db"];
       var _resource = {};
 
-      if (!model_db_id) {
-        model_db_id = db._id;
-      } else if (model_db_id != db._id) {
+      if (!model_db_id || model_db_id != db._id) {
         continue;
       }
 
@@ -630,9 +628,7 @@ var getEntityFindByDb = function(db_id, logger) {
       var _model = {};
       var model_db_id = model["x-skaffolder-id-db"];
 
-      if (!model_db_id) {
-        model_db_id = db_id;
-      } else if (model_db_id != db_id) {
+      if (!model_db_id || model_db_id != db_id) {
         continue;
       }
 
