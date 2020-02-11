@@ -1,5 +1,9 @@
 [![Skaffolder](https://skaffolder.com/img/logo/skaffolder_logo-nero.svg)](https://www.google.com)
 
+![npm](https://img.shields.io/npm/dt/skaffolder-cli)
+![npm](https://img.shields.io/npm/v/skaffolder-cli)
+[![Build Status](https://travis-ci.org/skaffolder/skaffolder-cli.svg?branch=master)](https://travis-ci.org/skaffolder/skaffolder-cli)
+
 # Skaffolder-cli
 
 > The Skaffolder CLI is a powerful command-line interface (CLI) tool to access and manage a Skaffolder project.
@@ -46,15 +50,28 @@ Every project command takes one option:
 
 #### `new [project name]`
 
-Create a new Skaffolder project.
+Create a new local Skaffolder project.
+
+Additional options:
+
+```bash
+-i, --import <file>                Convert an OpenAPI 3.0 file in a Skaffolder project
+-f, --frontend <templateName>      Template frontend language
+-b, --backend <templateName>       Template backend language
+```
 
 Example:
-```bash
-$ sk new MyProject
-Project name: MyProject
-✔ Select your frontend language › Angular 6
-✔ Select your backend language › Go
 
+```bash
+$ sk new "MyProject" --frontend "React" --backend "NodeJS"
+Project name:           MyProject
+Frontend template:      React
+Backend template:       NodeJS
+
+
+
+File created: openapi.yaml
+...
 ✔   Project created offline!
 
 You can edit the project from the web interface running 'sk export'
@@ -70,7 +87,7 @@ Generate your code running 'sk generate'
 
 #### `open [id project] [id generator]`
 
-Open an already existent Skaffolder project. Requires `sk login`
+Open an already existent Skaffolder project. Requires `sk login`.
 
 ```bash
 $ sk open
@@ -92,7 +109,146 @@ File created: client/.dockerignore
 File created: client/Dockerfile
 File created: client/README.md
 ...
+✔  Generation complete!
 ```
+
+#### `add page [page name]`
+
+Create a new page in the Skaffolder project.
+
+#### `add model [model name]`
+
+Create a new model in the Skaffolder project. After the model will be created the program
+will ask you if you want to generate CRUD interface for the newly created model.
+
+Example:
+
+```bash
+$ sk add model "MyNewModel"
+Model name: MyNewModel
+✔ Do you want to add an attiribute to MyNewModel model? … No / Yes
+✔ Insert the name of the attribute … MyNewModel_Attribute
+✔ Select type of MyNewModel_Attribute attribute › String
+✔ Do you want to add another attiribute to MyNewModel model? … No / Yes
+File created: client/src/api/generated/MyNewModelApiGenerated.js
+File created: client/src/api/MyNewModelApi.js
+...
+✔  Generation complete!
+You can edit your Model at https://app.skaffolder.com/#!/projects/undefined/models/undefined
+✔ Do you want to generate CRUD interface for 'MyNewModel' model? … No / Yes
+File modified: client/src/api/generated/MyNewModelApiGenerated.js
+File modified: client/src/components/Navbar.js
+...
+✔  Generation complete!
+```
+
+#### `add api`
+
+Create a new api. You can choose to create a CRUD or a custom API.
+
+Example creating a CRUD delete API:
+
+```bash
+$ sk add api
+✔ Select the model on which you want to create the API › MyNewModel
+✔ Select type of your API › delete
+You can edit your API at https://app.skaffolder.com/#!/projects/undefined/apis/undefined
+File modified: client/src/api/generated/MyNewModelApiGenerated.js
+File modified: client/src/redux/actionTypes.js
+...
+✔  Generation complete!
+```
+
+Example creating a custom API:
+
+```bash
+$ sk add api
+✔ Select the model on which you want to create the API › MyNewModel
+✔ Select type of your API › Custom API
+✔ Insert the name of your API … myNewCustomApi
+API name: myNewCustomApi
+✔ Insert the URL of your API. Example: /{id}/action … /{id}/customApi
+API name: /{id}/customApi
+✔ Select the method of your API › POST
+File modified: client/src/api/generated/MyNewModelApiGenerated.js
+File modified: client/src/redux/actionTypes.js
+...
+✔  Generation complete!
+```
+
+#### Utility Commands
+
+Useful commands to import/export project and get your configurations.
+
+#### `web open`
+
+Open your project on Skaffolder web interface. The project must be exported before calling this command.
+
+#### `set endpoint [enpoint]`
+
+Set Skaffolder endpoint for on-premise.
+
+#### `get endpoint`
+
+Get Skaffolder endpoint for on-premise.
+
+#### `get user`
+
+Get the currently logged Skaffolder user.
+
+Example:
+
+```bash
+$ sk get user
+User: admin@example.com
+```
+
+#### `get project url`
+
+Get your project url. The project must be exported before calling this command.
+
+Example:
+
+```bash
+$ sk get project url
+To manage data models, APIs and pages of your project, visit this URL:
+https://app.skaffolder.com/#!/projects/<project-id>/models
+```
+
+#### `import db [schema.xml]`
+
+Import your db schema in Skaffolder from a [SchemaSpy](http://schemaspy.sourceforge.net) XML file, [here](https://skaffolder.com/docs/schema_example.xml) you can find an example.
+In order to succesfully import your database, you need to call this commands from a project already exported on Skaffolder.
+
+Example:
+
+```bash
+sk import db schema.xml
+✔   Db import completed!
+You can edit your project structure at https://app.skaffolder.com/#!/projects/<project-id>/models or running 'sk web open'
+```
+
+#### `export`
+
+Export your local project to Skaffolder. Requires `sk login`.
+
+Example:
+
+```bash
+$ sk export
+
+File modified: openapi.yaml
+Create project
+[CREATE]: 'MyProject' project
+[CREATE]: 'MyProject_db' database
+...
+[CREATE]: 'Home' page
+[UPDATE]: 'MyProject' project pages and dbs
+```
+
+#### `help [command]`
+
+Display help for a specific command.
 
 <!-- 
 To open an existing project you can run `sk open`
