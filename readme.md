@@ -218,7 +218,7 @@ File modified: client/src/redux/actionTypes.js
 ✔  Generation complete!
 ```
 
-#### Utility Commands
+### Utility Commands
 
 Useful commands to import/export project and get your configurations.
 
