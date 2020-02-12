@@ -39,6 +39,38 @@ Every `sk` commands takes five global options:
 -v, --verbose                    Verbose mode - will also output debug messages
 ```
 
+### User Commands
+
+Commands to manage your Skaffolder account.
+
+#### `login`
+
+Login to your Skaffolder account, a browser window will open to Skaffolder login page.
+Be sure to be logged in when using project commands with the `--online` option and
+when exporting your project.
+
+Example:
+
+```bash
+$ sk login
+...
+The Skaffolder login will open in your default browser...
+
+✔  Login successful with user: admin@example.com
+...
+```
+
+#### `logout`
+
+Logout from your Skaffolder account.
+
+Example:
+
+```bash
+$ sk logout
+✔ Logout succesfully
+```
+
 ### Project Commands
 
 Used for manage and edit your Skaffolder project.
