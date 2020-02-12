@@ -292,6 +292,13 @@ Create project
 
 Display help for a specific command.
 
+## Contributing
+
+Skaffolder-cli is an open-source project. Feel free to propose enhancements suggestions, report bugs and to submit pull requests.
+
+- [Github repository](https://github.com/skaffolder/skaffolder-cli)
+- [NPM Package](https://www.npmjs.com/package/skaffolder-cli)
+
 <!-- 
 To open an existing project you can run `sk open`
 
