@@ -3,6 +3,7 @@
 ![npm](https://img.shields.io/npm/dt/skaffolder-cli)
 ![npm](https://img.shields.io/npm/v/skaffolder-cli)
 [![Build Status](https://travis-ci.org/skaffolder/skaffolder-cli.svg?branch=master)](https://travis-ci.org/skaffolder/skaffolder-cli)
+[![GitHub](https://img.shields.io/github/license/skaffolder/skaffolder-cli)](https://github.com/skaffolder/skaffolder-cli/blob/master/LICENSE)
 
 # Skaffolder-cli
 
