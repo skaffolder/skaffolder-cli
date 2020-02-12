@@ -292,6 +292,16 @@ Create project
 
 Display help for a specific command.
 
+## Skaffolder documentation
+
+Additional Skaffolder documentation can be found [here](https://skaffolder.com/documentation).
+
+### Template location
+
+In your folder workspace, Skaffolder creates a `.skaffolder` folder.
+This folder is used by Skaffolder-cli to store the generator's files. Each template file (`.hbs` extension) follows [Handlebar's](https://handlebarsjs.com) syntax and is used by Skaffolder when generating
+the project's source code.
+
 ## Contributing
 
 Skaffolder-cli is an open-source project. Feel free to propose enhancements suggestions, report bugs and to submit pull requests.
