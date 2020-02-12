@@ -17,15 +17,25 @@ npm install -g skaffolder-cli
 
 ## Getting started
 
-First of all you have to login into your free Skaffolder account running `sk login`:
+To create your first Skaffolder project just run `sk new`, then:
+
+1. Give a name to your project.
+1. Pick your frontend.
+1. Pick your backend.
+
+And your project is ready!
 
 ```bash
-$ sk login
-Skaffolder: Insert your email account:
-    Skaffolder: Insert your password:
-
-    ✔  Login successful
+$ sk new
+✔ Insert the name of your project … MyAwesomeProject
+Project name:           MyAwesomeProject
+✔ Select your frontend language › React Native
+✔ Select your backend language › Go
+...
+✔   Project created offline!
 ```
+
+That's it! Now to get the source code simply run `sk generate` and you are all set.
 
 ## Commands
 
