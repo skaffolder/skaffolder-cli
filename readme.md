@@ -78,7 +78,7 @@ Example:
 
 ```bash
 $ sk logout
-✔ Logout succesfully
+✔ Logout successfully
 ```
 
 ### Project Commands
@@ -168,10 +168,10 @@ Example:
 ```bash
 $ sk add model "MyNewModel"
 Model name: MyNewModel
-✔ Do you want to add an attiribute to MyNewModel model? … No / Yes
+✔ Do you want to add an attribute to MyNewModel model? … No / Yes
 ✔ Insert the name of the attribute … MyNewModel_Attribute
 ✔ Select type of MyNewModel_Attribute attribute › String
-✔ Do you want to add another attiribute to MyNewModel model? … No / Yes
+✔ Do you want to add another attribute to MyNewModel model? … No / Yes
 File created: client/src/api/generated/MyNewModelApiGenerated.js
 File created: client/src/api/MyNewModelApi.js
 ...
@@ -226,7 +226,7 @@ Useful commands to import/export project and get your configurations.
 
 Open your project on Skaffolder web interface. The project must be exported before calling this command.
 
-#### `set endpoint [enpoint]`
+#### `set endpoint [endpoint]`
 
 Set Skaffolder endpoint for on-premise.
 
@@ -260,7 +260,7 @@ https://app.skaffolder.com/#!/projects/<project-id>/models
 #### `import db [schema.xml]`
 
 Import your db schema in Skaffolder from a [SchemaSpy](http://schemaspy.sourceforge.net) XML file, [here](https://skaffolder.com/docs/schema_example.xml) you can find an example.
-In order to succesfully import your database, you need to call this commands from a project already exported on Skaffolder.
+In order to successfully import your database, you need to call this commands from a project already exported on Skaffolder.
 
 Example:
 
