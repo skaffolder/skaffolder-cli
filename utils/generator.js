@@ -398,11 +398,29 @@ const importOpenAPI = async function(openapiFilePath, nameProject) {
   let openApiFileContent = fs.readFileSync(openapiFilePath, "utf-8");
   let openApi = yaml.parse(openApiFileContent);
 
+  // Normalize YAML
+  openApi = await normalizeYaml(openApi, nameProject);
+
+  // Write YAML
+  logger.info(chalk.green("Writing file ") + chalk.yellow("openapi.yaml"));
+  openApiFileContent = yaml.stringify(openApi);
+  fs.writeFileSync("openapi.yaml", openApiFileContent, "utf-8");
+
+  // Ask to generate code
+};
+
+const normalizeYaml = async function(openApi, nameProject) {
   // Set project name
   if (!openApi.info) {
     openApi.info = {};
   }
-  openApi.info.title = utils.slug(nameProject);
+
+  if (nameProject) {
+    openApi.info.title = utils.slug(nameProject);
+  } else {
+    openApi.info.title = utils.slug(openApi.info.title);
+    nameProject = openApi.info.title;
+  }
 
   // Create db if not exists
   if (!openApi.components) {
@@ -526,14 +544,10 @@ const importOpenAPI = async function(openapiFilePath, nameProject) {
 
   // Ask to create crud
 
-  // Write YAML
-  logger.info(chalk.green("Writing file ") + chalk.yellow("openapi.yaml"));
-  openApiFileContent = yaml.stringify(openApi);
-  fs.writeFileSync("openapi.yaml", openApiFileContent, "utf-8");
-
-  // Ask to generate code
+  return openApi;
 };
 
+exports.normalizeYaml = normalizeYaml;
 exports.importOpenAPI = importOpenAPI;
 exports.getEmptyProjectData = getEmptyProjectData;
 exports.getGenFiles = getGenFiles;
