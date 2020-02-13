@@ -54,7 +54,7 @@ Every `sk` commands takes five global options:
 
 Commands to manage your Skaffolder account.
 
-#### `login`
+##### `login`
 
 Login to your Skaffolder account, a browser window will open to Skaffolder login page.
 Be sure to be logged in when using project commands with the `--online` option and
@@ -73,7 +73,7 @@ The Skaffolder login will open in your default browser...
 ...
 ```
 
-#### `logout`
+##### `logout`
 
 Logout from your Skaffolder account.
 
@@ -93,7 +93,9 @@ Every project command takes one option:
 -o, --online                    Work online on the Skaffolder project, requires sk login
 ```
 
-#### `new [project name]`
+#### Create Project
+
+##### `new [project name]`
 
 Create a new local Skaffolder project.
 
@@ -130,7 +132,7 @@ You can edit the project from the command line:
 Generate your code running 'sk generate'
 ```
 
-#### `open [id project] [id generator]`
+##### `open [id project] [id generator]`
 
 Open an already existent Skaffolder project. Requires `sk login`.
 
@@ -144,7 +146,7 @@ You can edit your project structure at https://app.skaffolder.com/#!/projects/<p
 
 If a Skaffolder project is already present in the folder, the program will ask you if you want to overwrite it.
 
-#### `generate`
+##### `generate`
 
 Generate the source code of your project from the openapi.yaml file.
 
@@ -157,11 +159,13 @@ File created: client/README.md
 ✔  Generation complete!
 ```
 
-#### `add page [page name]`
+#### Manage Project
+
+##### `add page [page name]`
 
 Create a new page in the Skaffolder project.
 
-#### `add model [model name]`
+##### `add model [model name]`
 
 Create a new model in the Skaffolder project. After the model will be created the program
 will ask you if you want to generate CRUD interface for the newly created model.
@@ -187,7 +191,7 @@ File modified: client/src/components/Navbar.js
 ✔  Generation complete!
 ```
 
-#### `add api`
+##### `add api`
 
 Create a new api. You can choose to create a CRUD or a custom API.
 
@@ -225,19 +229,19 @@ File modified: client/src/redux/actionTypes.js
 
 Useful commands to import/export project and get your configurations.
 
-#### `web open`
+##### `web open`
 
 Open your project on Skaffolder web interface. The project must be exported before calling this command.
 
-#### `set endpoint [endpoint]`
+##### `set endpoint [endpoint]`
 
 Set Skaffolder endpoint for on-premise.
 
-#### `get endpoint`
+##### `get endpoint`
 
 Get Skaffolder endpoint for on-premise.
 
-#### `get user`
+##### `get user`
 
 Get the currently logged Skaffolder user.
 
@@ -248,7 +252,7 @@ $ sk get user
 User: admin@example.com
 ```
 
-#### `get project url`
+##### `get project url`
 
 Get your project url. The project must be exported before calling this command.
 
@@ -260,7 +264,7 @@ To manage data models, APIs and pages of your project, visit this URL:
 https://app.skaffolder.com/#!/projects/<project-id>/models
 ```
 
-#### `import db [schema.xml]`
+##### `import db [schema.xml]`
 
 Import your db schema in Skaffolder from a [SchemaSpy](http://schemaspy.sourceforge.net) XML file, [here](https://skaffolder.com/docs/schema_example.xml) you can find an example.
 In order to successfully import your database, you need to call this commands from a project already exported on Skaffolder.
@@ -273,7 +277,7 @@ sk import db schema.xml
 You can edit your project structure at https://app.skaffolder.com/#!/projects/<project-id>/models or running 'sk web open'
 ```
 
-#### `export`
+##### `export`
 
 Export your local project to Skaffolder. Requires `sk login`.
 
@@ -291,7 +295,7 @@ Create project
 [UPDATE]: 'MyProject' project pages and dbs
 ```
 
-#### `help [command]`
+##### `help [command]`
 
 Display help for a specific command.
 
