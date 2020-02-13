@@ -53,14 +53,14 @@ var generateSingleFile = function(workspacePrefix, generateFilePath, data) {
   // template file
   let templatePath = workspacePrefix + ".skaffolder/template";
   let fileTemplatePath = templatePath + "/" + generateFilePath + ".hbs";
-  let fileTempalteObj = parseTemplateFile(templatePath, fileTemplatePath);
+  let fileTemplateObj = parseTemplateFile(templatePath, fileTemplatePath);
 
   // Utils
   var utils = require("./GeneratorUtils.js");
   utils.init(workspacePrefix + pathWorkspace, data.project, data.modules, data.resources, data.dbs, data.roles);
 
   // Generate file
-  generateFile(fileTempalteObj, log, utils, data.project, data.modules, data.resources, data.dbs);
+  generateFile(fileTemplateObj, log, utils, data.project, data.modules, data.resources, data.dbs);
 };
 
 var generateFile = function(file, log, utils, project, modules, resources, dbs, opt) {

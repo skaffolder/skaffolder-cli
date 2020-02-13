@@ -21,25 +21,23 @@ const exportProject = function(params, cb) {
         conf = JSON.parse(confFile);
       } catch (e) {}
 
-      if (false) {
-        if (conf.project != result.projectId) {
-          conf.project = result.projectId;
-          try {
-            fs.writeFileSync(workspacePath + ".skaffolder/config.json", JSON.stringify(conf, null, 4));
-          } catch (e) {
-            console.error(e);
-          }
+      if (conf.project != result.projectId) {
+        conf.project = result.projectId;
+        try {
+          fs.writeFileSync(workspacePath + ".skaffolder/config.json", JSON.stringify(conf, null, 4));
+        } catch (e) {
+          console.error(e);
         }
-
-        // Update openapi
-        generatorBean.generateSingleFile(workspacePath, "openapi.yaml", result.data);
-
-        // Extends previous values
-        let newYaml = offlineService.getYaml(workspacePath + "./openapi.yaml");
-        let mergedYaml = lodash.merge(params.skObject, newYaml);
-        let yamlContent = yaml.stringify(mergedYaml);
-        fs.writeFileSync(workspacePath + "openapi.yaml", yamlContent, "utf-8");
       }
+
+      // Update openapi
+      generatorBean.generateSingleFile(workspacePath, "openapi.yaml", result.data);
+
+      // Extends previous values
+      let newYaml = offlineService.getYaml(workspacePath + "./openapi.yaml");
+      let mergedYaml = lodash.merge(params.skObject, newYaml);
+      let yamlContent = yaml.stringify(mergedYaml);
+      fs.writeFileSync(workspacePath + "openapi.yaml", yamlContent, "utf-8");
 
       // Execute callback
       if (!result.logs || result.logs.length == 0) {

@@ -833,6 +833,19 @@ const createNoneDb = function(openApi) {
   return noneRes;
 };
 
+const getSkaffolderAttrType = function(swaggerType) {
+  let type = "String";
+  if (swaggerType == "string") type = "String";
+  else if (swaggerType == "number") type = "Number";
+  else if (swaggerType == "integer") type = "Integer";
+  else if (swaggerType == "boolean") type = "Boolean";
+  else if (swaggerType == "array") type = "Custom";
+  else if (swaggerType == "object") type = "Custom";
+
+  return type;
+};
+
+exports.getSkaffolderAttrType = getSkaffolderAttrType;
 exports.assignServicesToResource = assignServicesToResource;
 exports.cloneObject = cloneObject;
 exports.commitYaml = commitYaml;
