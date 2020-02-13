@@ -14,6 +14,9 @@
 		<img alt="Build Status" src="https://img.shields.io/github/license/skaffolder/skaffolder-cli">
 	</a>
 </p>
+<p align="center">
+    <img alt="sk-cli gif" width="80%" src="/media/sk-cli.gif">
+</p>
 
 # Skaffolder-cli
 
@@ -168,8 +171,6 @@ $ sk new "MyProject" --frontend "React" --backend "NodeJS"
 Project name:           MyProject
 Frontend template:      React
 Backend template:       NodeJS
-
-
 
 File created: openapi.yaml
 ...
