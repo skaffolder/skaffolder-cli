@@ -444,6 +444,12 @@ const normalizeYaml = async function(openApi, nameProject) {
   } else {
     let questionList = [];
     for (let name in openApi.components.schemas) {
+      // Create id
+      if (!openApi.components.schemas[name]["x-skaffolder-id"]) {
+        openApi.components.schemas[name]["x-skaffolder-id"] = offlineService.getDummyId(name, "resource");
+      }
+
+      // Add as model db choose
       if (openApi.components.schemas[name].type == "object")
         questionList.push({
           title: name,
