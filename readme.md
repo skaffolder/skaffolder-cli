@@ -10,6 +10,38 @@
 > The Skaffolder CLI is a powerful command-line interface (CLI) tool to access and manage a Skaffolder project.
 > You can easily generate, export and add models, APIs and pages to your project.
 
+# Table of Contents
+
+- [Installation](#installation)
+- [Getting started](#getting-started)
+- [Commands](#commands)
+  - [User Commands](#user-commands)
+    - [`login`](#login)
+    - [`logout`](#logout)
+  - [Project Commands](#project-commands)
+    - [Create Project](#create-project)
+      - [`new [project name]`](#new-project-name)
+      - [`open [id project] [id generator]`](#open-id-project-id-generator)
+      - [`generate`](#generate)
+    - [Manage Project](#manage-project)
+      - [`add page [page name]`](#add-page-page-name)
+      - [`add model [model name]`](#add-model-model-name)
+      - [`add api`](#add-api)
+  - [Utility Commands](#utility-commands)
+    - [`web open`](#web-open)
+    - [`set endpoint [endpoint]`](#set-endpoint-endpoint)
+    - [`get endpoint`](#get-endpoint)
+    - [`get user`](#get-user)
+    - [`get project url`](#get-project-url)
+    - [`import db [schema.xml]`](#import-db-schemaxml)
+    - [`export`](#export)
+    - [`help [command]`](#help-command)
+- [Skaffolder documentation](#skaffolder-documentation)
+  - [Template location](#template-location)
+- [Contributing](#contributing)
+
+---
+
 ## Installation
 
 ```bash
