@@ -719,6 +719,8 @@ const assignServicesToResource = function(openApi) {
     }
   }
 
+  let idNoneModel = null;
+
   // Match services url and model name
   for (let url in openApi.paths) {
     for (let method in openApi.paths[url]) {
@@ -736,17 +738,24 @@ const assignServicesToResource = function(openApi) {
       }
 
       // Assign resource if found
-      if (model) {
-        service["x-skaffolder-resource"] = model_name;
-        logger.info(
-          chalk.green("Assign service ") +
-            chalk.blue(method.toUpperCase()) +
-            " " +
-            url +
-            chalk.green(" to ") +
-            chalk.yellow(model_name)
-        );
+      if (!model) {
+        if (!idNoneModel) {
+          // Create none db and model if not present
+          idNoneModel = createNoneDb(openApi);
+        }
+        model_name = "NONE";
       }
+
+      // Assign resource
+      service["x-skaffolder-resource"] = model_name;
+      logger.info(
+        chalk.green("Assign service ") +
+          chalk.blue(method.toUpperCase()) +
+          " " +
+          url +
+          chalk.green(" to ") +
+          chalk.yellow(model_name)
+      );
 
       // Assign name is not present
       if (!service["x-skaffolder-name"]) {
@@ -759,6 +768,57 @@ const assignServicesToResource = function(openApi) {
   }
 
   return openApi;
+};
+
+const createNoneDb = function(openApi) {
+  let idNoneDb;
+  let idNoneRes;
+
+  // search db
+  if (!openApi.components["x-skaffolder-db"]) {
+    openApi.components["x-skaffolder-db"] = [];
+  }
+  openApi.components["x-skaffolder-db"].forEach(db => {
+    if (db["x-skaffolder-name"] == "NONE_db") {
+      idNoneDb = db["x-skaffolder-id"];
+    }
+  });
+
+  // create db
+  if (!idNoneDb) {
+    idNoneDb = "NONE_db";
+    openApi.components["x-skaffolder-db"].push({
+      "x-skaffolder-id": "NONE_db",
+      "x-skaffolder-name": "NONE_db"
+    });
+  }
+
+  // Search resource
+  if (!openApi.components.schemas) {
+    openApi.components.schemas = {};
+  }
+
+  Object.keys(openApi.components.schemas).forEach(model_name => {
+    let model = openApi.components.schemas[model_name];
+    if (model["x-skaffolder-id-db"] == idNoneDb && model_name == "NONE") {
+      idNoneRes = model["x-skaffolder-id"];
+    }
+  });
+
+  // create resource
+  if (!idNoneRes) {
+    let noneRes = {
+      "x-skaffolder-id": getDummyId("NONE", "resource"),
+      "x-skaffolder-id-db": idNoneDb,
+      "x-skaffolder-url": "/",
+      properties: {},
+      "x-skaffolder-relations": []
+    };
+    openApi.components.schemas["NONE"] = noneRes;
+    idNoneRes = noneRes["x-skaffolder-id"];
+  }
+
+  return idNoneRes;
 };
 
 exports.assignServicesToResource = assignServicesToResource;
