@@ -1,4 +1,4 @@
-[![Skaffolder](https://skaffolder.com/img/logo/skaffolder_logo-nero.svg)](https://www.google.com)
+<p align="center"><a href="https://skaffolder.com"><img src="https://skaffolder.com/img/logo/skaffolder_logo-nero.svg" width="70%"></a></p>
 
 ![npm](https://img.shields.io/npm/dt/skaffolder-cli)
 ![npm](https://img.shields.io/npm/v/skaffolder-cli)
