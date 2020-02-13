@@ -48,6 +48,8 @@
 npm install -g skaffolder-cli
 ```
 
+---
+
 ## Getting started
 
 To create your first Skaffolder project just run `sk new`, then:
@@ -69,6 +71,8 @@ Project name:           MyAwesomeProject
 ```
 
 That's it! Now to get the source code simply run `sk generate` and you are all set.
+
+---
 
 ## Commands
 
@@ -331,6 +335,8 @@ Create project
 
 Display help for a specific command.
 
+---
+
 ## Skaffolder documentation
 
 Additional Skaffolder documentation can be found [here](https://skaffolder.com/documentation).
@@ -340,6 +346,8 @@ Additional Skaffolder documentation can be found [here](https://skaffolder.com/d
 In your folder workspace, Skaffolder creates a `.skaffolder` folder.
 This folder is used by Skaffolder-cli to store the generator's files. Each template file (`.hbs` extension) follows [Handlebar's](https://handlebarsjs.com) syntax and is used by Skaffolder when generating
 the project's source code.
+
+---
 
 ## Contributing
 
