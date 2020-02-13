@@ -37,6 +37,12 @@
       - [`add page [page name]`](#add-page-page-name)
       - [`add model [model name]`](#add-model-model-name)
       - [`add api`](#add-api)
+  - [Generator Commands](#generator-commands)
+    - [`generator init`](#generator-init)
+    - [`generator pull`](#generator-pull)
+    - [`generator push`](#generator-push)
+    - [`generator create`](#generator-create)
+    - [`generator publish`](#generator-publish)
   - [Utility Commands](#utility-commands)
     - [`web open`](#web-open)
     - [`set endpoint [endpoint]`](#set-endpoint-endpoint)
@@ -271,6 +277,65 @@ File modified: client/src/api/generated/MyNewModelApiGenerated.js
 File modified: client/src/redux/actionTypes.js
 ...
 ✔  Generation complete!
+```
+
+### Generator Commands
+
+##### `generator init`
+
+Initializes a new generator in the `.skaffolder/template` folder. This command will overwrite your existing local generator.
+
+Example:
+
+```bash
+$ sk generator init
+✔ Select your frontend language › React
+✔ Select your backend language › Go
+✔  Generator files imported in ./.skaffolder/template
+
+Now you can generate your code running 'sk generate'
+```
+
+##### `generator pull`
+
+Pulls the remote generator on Skaffolder in the local generator of your project. Any changes to your remote generator on Skaffolder will no be reflected into your local generator.
+
+Example:
+
+```bash
+$ sk generator pull
+✔  Generator files imported in ./.skaffolder/template
+You can edit your project structure at http://localhost:3001/#!/projects/<project-id>/models or running 'sk web open'
+```
+
+##### `generator push`
+
+Pushes the local generator of your project to the remote generator on Skaffolder. In this way any changes to your generator will be saved.
+
+**Pro tip**: You can edit your generator directly on Skaffolder: Move to the generators tab, click on _Edit Generator_ and then, on the bottom, click _Customize generator template_.
+
+##### `generator create`
+
+Copy the content of your project folder inside the `.skaffolder/template` folder. This may be useful when creating new generators.
+
+```bash
+$ sk generator create
+✔ Do you want to overwrite ./.skaffolder/template folder? … No / Yes
+✔  Generator files imported in ./.skaffolder/template
+Now you can customize template files an generate code with 'sk generate'
+```
+
+##### `generator publish`
+
+Share your local generator with Skaffolder community.
+If you want to learn more on how to become a contributor, click [here](https://skaffolder.com/contributor).
+
+```bash
+$ sk generator publish --verbose
+✔ Do you want to share ./.skaffolder/template folder with the Skaffolder community? … No / Yes
+✔  Generator files shared
+The Skaffolder team will check this generator and it will be published if quality standards are ok.
+We will contact you at your account email
 ```
 
 ### Utility Commands
