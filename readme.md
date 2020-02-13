@@ -1,9 +1,19 @@
 <p align="center"><a href="https://skaffolder.com"><img src="https://skaffolder.com/img/logo/skaffolder_logo-nero.svg" width="70%"></a></p>
 
-![npm](https://img.shields.io/npm/dt/skaffolder-cli)
-![npm](https://img.shields.io/npm/v/skaffolder-cli)
-[![Build Status](https://travis-ci.org/skaffolder/skaffolder-cli.svg?branch=master)](https://travis-ci.org/skaffolder/skaffolder-cli)
-[![GitHub](https://img.shields.io/github/license/skaffolder/skaffolder-cli)](https://github.com/skaffolder/skaffolder-cli/blob/master/LICENSE)
+<p align="center">
+	<a href="https://npmjs.org/skaffolder-cli">
+		<img alt="npm download total" src="https://img.shields.io/npm/dt/skaffolder-cli">
+	</a>
+	<a href="https://npmjs.org/skaffolder-cli">
+		<img alt="npm version" src="https://img.shields.io/npm/v/skaffolder-cli">
+	</a>
+	<a href="https://travis-ci.org/skaffolder/skaffolder-cli">
+		<img alt="Build Status" src="https://travis-ci.org/skaffolder/skaffolder-cli.svg?branch=master">
+	</a>
+	<a href="https://github.com/skaffolder/skaffolder-cli/blob/master/LICENSE">
+		<img alt="Build Status" src="https://img.shields.io/github/license/skaffolder/skaffolder-cli">
+	</a>
+</p>
 
 # Skaffolder-cli
 
