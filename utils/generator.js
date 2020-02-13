@@ -398,11 +398,29 @@ const importOpenAPI = async function(openapiFilePath, nameProject) {
   let openApiFileContent = fs.readFileSync(openapiFilePath, "utf-8");
   let openApi = yaml.parse(openApiFileContent);
 
+  // Normalize YAML
+  openApi = await normalizeYaml(openApi, nameProject);
+
+  // Write YAML
+  logger.info(chalk.green("Writing file ") + chalk.yellow("openapi.yaml"));
+  openApiFileContent = yaml.stringify(openApi);
+  fs.writeFileSync("openapi.yaml", openApiFileContent, "utf-8");
+
+  // Ask to generate code
+};
+
+const normalizeYaml = async function(openApi, nameProject) {
   // Set project name
   if (!openApi.info) {
     openApi.info = {};
   }
-  openApi.info.title = utils.slug(nameProject);
+
+  if (nameProject) {
+    openApi.info.title = utils.slug(nameProject);
+  } else {
+    openApi.info.title = utils.slug(openApi.info.title);
+    nameProject = openApi.info.title;
+  }
 
   // Create db if not exists
   if (!openApi.components) {
@@ -418,27 +436,45 @@ const importOpenAPI = async function(openapiFilePath, nameProject) {
       "x-skaffolder-name": db_name
     });
   }
+  let defaultDbId = openApi.components["x-skaffolder-db"][0]["x-skaffolder-id"];
 
   // Ask components to link to db
-  let defaultDbId;
   if (!openApi.components.schemas) {
     openApi.components.schemas = {};
   } else {
     let questionList = [];
     for (let name in openApi.components.schemas) {
-      if (openApi.components.schemas[name].type == "object")
+      let model = openApi.components.schemas[name];
+      // Add as model db choose
+      if (model.type == "object" && !model["x-skaffolder-id-db"]) {
         questionList.push({
           title: name,
           value: name
         });
+      }
     }
     const components = await questionService.askMultiple("Select the schemas that represent a database entity", questionList);
     if (!components.value) return;
-    defaultDbId = openApi.components["x-skaffolder-db"][0]["x-skaffolder-id"];
 
     // Assign db to selected components
     components.value.filter(name => {
       openApi.components.schemas[name]["x-skaffolder-id-db"] = defaultDbId;
+    });
+  }
+
+  // Normalize models
+  for (let name in openApi.components.schemas) {
+    let model = openApi.components.schemas[name];
+    // Create id model
+    if (!model["x-skaffolder-id"]) {
+      model["x-skaffolder-id"] = offlineService.getDummyId(name, "resource");
+    }
+
+    // Normalize attributes
+    if (!model.properties) model.properties = {};
+    Object.keys(model.properties).forEach(attrName => {
+      let attr = model.properties[attrName];
+      attr["x-skaffolder-type"] = offlineService.getSkaffolderAttrType(attr.type);
     });
   }
 
@@ -514,18 +550,22 @@ const importOpenAPI = async function(openapiFilePath, nameProject) {
       "x-skaffolder-roles": []
     });
   }
+
+  // Assign Services To Resource by URL
+  openApi = offlineService.assignServicesToResource(openApi);
+
   // Ask resource services not linked to any resource - try link by tag or url
+  // for (let path_name in paths) {
+  //   for (let service_name in paths[path_name]) {
+  //   }
+  // }
 
   // Ask to create crud
 
-  // Write YAML
-  logger.info(chalk.green("Writing file ") + chalk.yellow("openapi.yaml"));
-  openApiFileContent = yaml.stringify(openApi);
-  fs.writeFileSync("openapi.yaml", openApiFileContent, "utf-8");
-
-  // Ask to generate code
+  return openApi;
 };
 
+exports.normalizeYaml = normalizeYaml;
 exports.importOpenAPI = importOpenAPI;
 exports.getEmptyProjectData = getEmptyProjectData;
 exports.getGenFiles = getGenFiles;

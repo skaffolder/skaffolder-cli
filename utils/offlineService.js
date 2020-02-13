@@ -1,6 +1,7 @@
 var chalk = require("chalk");
 var fs = require("fs");
 var yaml = require("yaml");
+var utils = require("./utils");
 var yamlOptions = require("yaml/types.js");
 var arraySort = require("array-sort");
 
@@ -303,9 +304,7 @@ var translateYamlProject = function(yamlProject) {
       var model_db_id = model["x-skaffolder-id-db"];
       var _resource = {};
 
-      if (!model_db_id) {
-        model_db_id = db._id;
-      } else if (model_db_id != db._id) {
+      if (!model_db_id || model_db_id != db._id) {
         continue;
       }
 
@@ -329,6 +328,7 @@ var translateYamlProject = function(yamlProject) {
       }
     }
 
+    // Parse services
     for (let path_name in paths) {
       for (let service_name in paths[path_name]) {
         var service = paths[path_name][service_name];
@@ -630,9 +630,7 @@ var getEntityFindByDb = function(db_id, logger) {
       var _model = {};
       var model_db_id = model["x-skaffolder-id-db"];
 
-      if (!model_db_id) {
-        model_db_id = db_id;
-      } else if (model_db_id != db_id) {
+      if (!model_db_id || model_db_id != db_id) {
         continue;
       }
 
@@ -710,6 +708,145 @@ var getModelsList = function(logger) {
   return modelsList;
 };
 
+const assignServicesToResource = function(openApi) {
+  // Create model map
+  let modelsURIMap = {};
+  for (let model_name in openApi.components.schemas) {
+    if (openApi.components.schemas[model_name]["x-skaffolder-id-db"]) {
+      let url = openApi.components.schemas[model_name]["x-skaffolder-url"] || model_name;
+      url = url.replace("/", "").toLowerCase();
+      modelsURIMap[url] = openApi.components.schemas[model_name];
+    }
+  }
+
+  let idNoneModel = null;
+
+  // Match services url and model name
+  for (let url in openApi.paths) {
+    for (let method in openApi.paths[url]) {
+      var service = openApi.paths[url][method];
+      if (url[0] != "/") url = "/" + url;
+      let baseUrl = url.split("/")[1].toLowerCase();
+
+      // Match with singular or plural url
+      let model = modelsURIMap[baseUrl];
+      let model_name = baseUrl;
+      if (!model) {
+        baseUrl = baseUrl.replace(/.$/, "");
+        model = modelsURIMap[baseUrl];
+        model_name = baseUrl;
+      }
+
+      // Assign resource if found
+      if (!model) {
+        if (!idNoneModel) {
+          // Create none db and model if not present
+          model = createNoneDb(openApi);
+        }
+        model_name = "NONE";
+      } else {
+        // Assign model url
+        if (!model["x-skaffolder-url"]) {
+          model["x-skaffolder-url"] = "/" + url.split("/")[1];
+        }
+      }
+
+      // Assign resource
+      service["x-skaffolder-resource"] = model_name;
+      service["x-skaffolder-id-resource"] = model["x-skaffolder-id"];
+      logger.info(
+        chalk.green("Assign service ") +
+          chalk.blue(method.toUpperCase()) +
+          " " +
+          url +
+          chalk.green(" to ") +
+          chalk.yellow(model_name)
+      );
+
+      // Assign name is not present
+      if (!service["x-skaffolder-name"]) {
+        let spliced = url.split("/");
+        spliced.splice(0, 2);
+        let desc = utils.slug(spliced.join("_"));
+        service["x-skaffolder-name"] = method + (model ? "_" + model_name : "") + (desc ? "_" + desc : "");
+      }
+
+      // Assign url is not present
+      if (!service["x-skaffolder-url"]) {
+        service["x-skaffolder-url"] = url.replace(model ? model["x-skaffolder-url"] : "", "") || "/";
+      }
+    }
+  }
+
+  return openApi;
+};
+
+const createNoneDb = function(openApi) {
+  let idNoneDb;
+  let idNoneRes;
+  let noneRes;
+
+  // search db
+  if (!openApi.components["x-skaffolder-db"]) {
+    openApi.components["x-skaffolder-db"] = [];
+  }
+  openApi.components["x-skaffolder-db"].forEach(db => {
+    if (db["x-skaffolder-name"] == "NONE_db") {
+      idNoneDb = db["x-skaffolder-id"];
+    }
+  });
+
+  // create db
+  if (!idNoneDb) {
+    idNoneDb = "NONE_db";
+    openApi.components["x-skaffolder-db"].push({
+      "x-skaffolder-id": "NONE_db",
+      "x-skaffolder-name": "NONE_db"
+    });
+  }
+
+  // Search resource
+  if (!openApi.components.schemas) {
+    openApi.components.schemas = {};
+  }
+
+  Object.keys(openApi.components.schemas).forEach(model_name => {
+    let model = openApi.components.schemas[model_name];
+    if (model["x-skaffolder-id-db"] == idNoneDb && model_name == "NONE") {
+      noneRes = model;
+    }
+  });
+
+  // create resource
+  if (!idNoneRes) {
+    noneRes = {
+      "x-skaffolder-id": getDummyId("NONE", "resource"),
+      "x-skaffolder-id-db": idNoneDb,
+      "x-skaffolder-name": "NONE",
+      "x-skaffolder-url": "/",
+      properties: {},
+      "x-skaffolder-relations": []
+    };
+    openApi.components.schemas["NONE"] = noneRes;
+  }
+
+  return noneRes;
+};
+
+const getSkaffolderAttrType = function(swaggerType) {
+  let type = "String";
+  if (swaggerType == "string") type = "String";
+  else if (swaggerType == "number") type = "Number";
+  else if (swaggerType == "integer") type = "Integer";
+  else if (swaggerType == "boolean") type = "Boolean";
+  else if (swaggerType == "array") type = "Custom";
+  else if (swaggerType == "object") type = "Custom";
+
+  return type;
+};
+
+exports.getSkaffolderAttrType = getSkaffolderAttrType;
+exports.assignServicesToResource = assignServicesToResource;
 exports.cloneObject = cloneObject;
 exports.commitYaml = commitYaml;
 exports.generateYaml = generateYaml;

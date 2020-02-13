@@ -13,6 +13,7 @@ const exportProject = function(params, cb) {
         cb(err);
       }
       let workspacePath = params.workspacePath ? params.workspacePath : "";
+
       // Update project Id
       let conf = {};
       try {
@@ -33,10 +34,10 @@ const exportProject = function(params, cb) {
       generatorBean.generateSingleFile(workspacePath, "openapi.yaml", result.data);
 
       // Extends previous values
-      let newYaml = offlineService.getYaml();
+      let newYaml = offlineService.getYaml(workspacePath + "./openapi.yaml");
       let mergedYaml = lodash.merge(params.skObject, newYaml);
       let yamlContent = yaml.stringify(mergedYaml);
-      fs.writeFileSync("openapi.yaml", yamlContent, "utf-8");
+      fs.writeFileSync(workspacePath + "openapi.yaml", yamlContent, "utf-8");
 
       // Execute callback
       if (!result.logs || result.logs.length == 0) {
