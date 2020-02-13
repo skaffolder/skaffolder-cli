@@ -139,6 +139,8 @@ Every project command takes one option:
 -o, --online                    Work online on the Skaffolder project, requires sk login
 ```
 
+When using the `--online` option the cli works with project saved on our servers instead of reading your project from the openapi.yaml file. Before using this option, make sure that your project has been exported to Skaffolder.
+
 #### Create Project
 
 ##### `new [project name]`
