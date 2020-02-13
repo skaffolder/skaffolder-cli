@@ -514,7 +514,15 @@ const importOpenAPI = async function(openapiFilePath, nameProject) {
       "x-skaffolder-roles": []
     });
   }
+
+  // Assign Services To Resource by URL
+  openApi = offlineService.assignServicesToResource(openApi);
+
   // Ask resource services not linked to any resource - try link by tag or url
+  // for (let path_name in paths) {
+  //   for (let service_name in paths[path_name]) {
+  //   }
+  // }
 
   // Ask to create crud
 

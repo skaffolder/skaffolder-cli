@@ -1,6 +1,7 @@
 var chalk = require("chalk");
 var fs = require("fs");
 var yaml = require("yaml");
+var utils = require("./utils");
 var yamlOptions = require("yaml/types.js");
 var arraySort = require("array-sort");
 
@@ -327,6 +328,7 @@ var translateYamlProject = function(yamlProject) {
       }
     }
 
+    // Parse services
     for (let path_name in paths) {
       for (let service_name in paths[path_name]) {
         var service = paths[path_name][service_name];
@@ -706,6 +708,60 @@ var getModelsList = function(logger) {
   return modelsList;
 };
 
+const assignServicesToResource = function(openApi) {
+  // Create model map
+  let modelsURIMap = {};
+  for (let model_name in openApi.components.schemas) {
+    if (openApi.components.schemas[model_name]["x-skaffolder-id-db"]) {
+      let url = openApi.components.schemas[model_name]["x-skaffolder-url"] || model_name;
+      url = url.replace("/", "").toLowerCase();
+      modelsURIMap[url] = openApi.components.schemas[model_name];
+    }
+  }
+
+  // Match services url and model name
+  for (let url in openApi.paths) {
+    for (let method in openApi.paths[url]) {
+      var service = openApi.paths[url][method];
+      if (url[0] != "/") url = "/" + url;
+      let baseUrl = url.split("/")[1].toLowerCase();
+
+      // Match with singular or plural url
+      let model = modelsURIMap[baseUrl];
+      let model_name = baseUrl;
+      if (!model) {
+        let baseUrlSingular = baseUrl.replace(/.$/, "");
+        model = modelsURIMap[baseUrlSingular];
+        model_name = baseUrlSingular;
+      }
+
+      // Assign resource if found
+      if (model) {
+        service["x-skaffolder-resource"] = model_name;
+        logger.info(
+          chalk.green("Assign service ") +
+            chalk.blue(method.toUpperCase()) +
+            " " +
+            url +
+            chalk.green(" to ") +
+            chalk.yellow(model_name)
+        );
+      }
+
+      // Assign name is not present
+      if (!service["x-skaffolder-name"]) {
+        let spliced = url.split("/");
+        spliced.splice(0, 2);
+        let desc = utils.slug(spliced.join("_"));
+        service["x-skaffolder-name"] = method + (model ? "_" + model_name : "") + (desc ? "_" + desc : "");
+      }
+    }
+  }
+
+  return openApi;
+};
+
+exports.assignServicesToResource = assignServicesToResource;
 exports.cloneObject = cloneObject;
 exports.commitYaml = commitYaml;
 exports.generateYaml = generateYaml;
