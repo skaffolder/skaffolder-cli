@@ -60,6 +60,8 @@ Login to your Skaffolder account, a browser window will open to Skaffolder login
 Be sure to be logged in when using project commands with the `--online` option and
 when exporting your project.
 
+Still don't have a Skaffolder account? Get yours [here](https://app.skaffolder.com/#!/register), it's free!.
+
 Example:
 
 ```bash
