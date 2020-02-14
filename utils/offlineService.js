@@ -5,7 +5,8 @@ const utils = require("./utils");
 const yamlOptions = require("yaml/types.js");
 const arraySort = require("array-sort");
 const generatorBean = require("../generator/GeneratorBean");
-const utils = require("../generator/GeneratorUtils");
+const generatorUtils = require("../generator/GeneratorUtils");
+const lodash = require("lodash");
 
 const _getOpenApiPath = path => {
   if (path) {
@@ -545,7 +546,7 @@ const generateYaml = function(projectData, logger) {
     let generatorFiles = generatorBean.getGenFiles(generatorBean.pathTemplate);
 
     try {
-      utils.init("./", project, modules, resources, dbs, roles);
+      generatorUtils.init("./", project, modules, resources, dbs, roles);
 
       if (generatorFiles) {
         let file = generatorFiles.find(val => {
@@ -844,6 +845,12 @@ const getSkaffolderAttrType = function(swaggerType) {
   return type;
 };
 
+const mergeYaml = function(oldYaml, newYaml) {
+  let mergedYaml = lodash.merge(oldYaml, newYaml);
+  return mergedYaml;
+};
+
+exports.mergeYaml = mergeYaml;
 exports.getSkaffolderAttrType = getSkaffolderAttrType;
 exports.assignServicesToResource = assignServicesToResource;
 exports.cloneObject = cloneObject;

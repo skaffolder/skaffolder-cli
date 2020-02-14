@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const helpers = require("./Helpers");
 const mkdirp = require("mkdirp");
 const yaml = require("yaml");
-const lodash = require("lodash");
+const offlineService = require("../utils/offlineService");
 
 helpers.registerHelpers(Handlebars);
 
@@ -193,7 +193,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
           // Extends previous values
           let oldYaml = yaml.parse(actual);
           let newYaml = yaml.parse(output);
-          let mergedYaml = lodash.merge(oldYaml, newYaml);
+          let mergedYaml = offlineService.mergeYaml(oldYaml, newYaml);
           output = yaml.stringify(mergedYaml);
         }
 
