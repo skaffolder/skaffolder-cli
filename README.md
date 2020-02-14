@@ -52,6 +52,8 @@
     - [`get endpoint`](#get-endpoint)
     - [`get user`](#get-user)
     - [`get project url`](#get-project-url)
+    - [`list frontend`](#list-frontend)
+    - [`list backend`](#list-backend)
     - [`import db [schema.xml]`](#import-db-schemaxml)
     - [`export`](#export)
     - [`help [command]`](#help-command)
@@ -377,6 +379,14 @@ $ sk get project url
 To manage data models, APIs and pages of your project, visit this URL:
 https://app.skaffolder.com/#!/projects/<project-id>/models
 ```
+
+##### `list frontend`
+
+List all available frontend templates.
+
+##### `list backend`
+
+List all available backend templates.
 
 ##### `import db [schema.xml]`
 
