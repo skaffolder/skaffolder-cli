@@ -452,36 +452,46 @@ const normalizeYaml = async function(openApi, nameProject) {
     for (let name in openApi.components.schemas) {
       let model = openApi.components.schemas[name];
       // Add as model db choose
-      if (model.type == "object" && !model["x-skaffolder-id-db"]) {
+      if (model.type == "object" && !model["x-skaffolder-id-db"] && model["x-skaffolder-ignore"] !== true) {
         questionList.push({
           title: name,
           value: name
         });
       }
     }
-    const components = await questionService.askMultiple("Select the schemas that represent a database entity", questionList);
-    if (!components.value) return;
 
-    // Assign db to selected components
-    components.value.filter(name => {
-      openApi.components.schemas[name]["x-skaffolder-id-db"] = defaultDbId;
-    });
+    // Ask unknown model
+    if (questionList.length > 0) {
+      const components = await questionService.askMultiple("Select the schemas that represent a database entity", questionList);
+      if (!components.value) return;
+
+      // Assign db to selected components
+      components.value.filter(name => {
+        openApi.components.schemas[name]["x-skaffolder-id-db"] = defaultDbId;
+      });
+    }
   }
 
   // Normalize models
   for (let name in openApi.components.schemas) {
     let model = openApi.components.schemas[name];
-    // Create id model
-    if (!model["x-skaffolder-id"]) {
-      model["x-skaffolder-id"] = offlineService.getDummyId(name, "resource");
-    }
 
-    // Normalize attributes
-    if (!model.properties) model.properties = {};
-    Object.keys(model.properties).forEach(attrName => {
-      let attr = model.properties[attrName];
-      attr["x-skaffolder-type"] = offlineService.getSkaffolderAttrType(attr.type);
-    });
+    if (!model["x-skaffolder-id-db"]) {
+      // Set ignore Skaffolder
+      model["x-skaffolder-ignore"] = true;
+    } else {
+      // Create id model
+      if (!model["x-skaffolder-id"]) {
+        model["x-skaffolder-id"] = offlineService.getDummyId(name, "resource");
+      }
+
+      // Normalize attributes
+      if (!model.properties) model.properties = {};
+      Object.keys(model.properties).forEach(attrName => {
+        let attr = model.properties[attrName];
+        attr["x-skaffolder-type"] = offlineService.getSkaffolderAttrType(attr.type);
+      });
+    }
   }
 
   // Add the user model if no one is called user
