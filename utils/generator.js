@@ -11,7 +11,6 @@ const properties = require("../properties");
 const offlineService = require("../utils/offlineService");
 const questionService = require("../utils/questionService");
 const yaml = require("yaml");
-const lodash = require("lodash");
 
 // Convert folder file hbs to generator files db
 const getGenFiles = function(pathTemplate) {
@@ -403,7 +402,7 @@ const importOpenAPI = async function(openapiFilePath, nameProject) {
   // Merge previous openapi
   let workspacePath = "";
   let oldYaml = offlineService.getYaml(workspacePath + "./openapi.yaml");
-  openApi = lodash.merge(oldYaml, openApi);
+  openApi = offlineService.mergeYaml(oldYaml, openApi);
 
   // Normalize YAML
   openApi = await normalizeYaml(openApi, nameProject);
@@ -542,7 +541,7 @@ const normalizeYaml = async function(openApi, nameProject) {
     openApi.components["x-skaffolder-page"] = [];
   }
 
-  if (openApi.components["x-skaffolder-page"].filter(page => page.name == "Home").length == 0) {
+  if (openApi.components["x-skaffolder-page"].filter(page => page["x-skaffolder-name"] == "Home").length == 0) {
     logger.info(chalk.green("Adding page ") + chalk.yellow("Home"));
 
     openApi.components["x-skaffolder-page"].push({
