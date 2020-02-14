@@ -1,11 +1,13 @@
-var chalk = require("chalk");
-var fs = require("fs");
-var yaml = require("yaml");
-var utils = require("./utils");
-var yamlOptions = require("yaml/types.js");
-var arraySort = require("array-sort");
+const chalk = require("chalk");
+const fs = require("fs");
+const yaml = require("yaml");
+const utils = require("./utils");
+const yamlOptions = require("yaml/types.js");
+const arraySort = require("array-sort");
+const generatorBean = require("../generator/GeneratorBean");
+const utils = require("../generator/GeneratorUtils");
 
-var _getOpenApiPath = path => {
+const _getOpenApiPath = path => {
   if (path) {
     if (!path.endsWith("/openapi.yaml")) {
       if (path.endsWith("/")) {
@@ -20,7 +22,7 @@ var _getOpenApiPath = path => {
   return path;
 };
 
-var getYaml = function(path, logger) {
+const getYaml = function(path, logger) {
   if (typeof logger == "undefined") {
     logger = console;
   }
@@ -44,7 +46,7 @@ var getYaml = function(path, logger) {
   }
 };
 
-var commitYaml = function(yamlProject, path, logger) {
+const commitYaml = function(yamlProject, path, logger) {
   if (typeof logger == "undefined") {
     logger = console;
   }
@@ -66,13 +68,13 @@ var commitYaml = function(yamlProject, path, logger) {
   }
 };
 
-var getDummyId = (name, type) => {
+const getDummyId = (name, type) => {
   return `_${name}_${type}_id`.toLowerCase().replace(/\s/g, "");
 };
 
-var cloneObject = obj => (obj ? JSON.parse(JSON.stringify(obj)) : obj);
+const cloneObject = obj => (obj ? JSON.parse(JSON.stringify(obj)) : obj);
 
-var translateYamlProject = function(yamlProject) {
+const translateYamlProject = function(yamlProject) {
   if (typeof yamlProject == "undefined") {
     return {};
   }
@@ -80,7 +82,7 @@ var translateYamlProject = function(yamlProject) {
   let skProject = {};
   let components = yamlProject.components;
 
-  var getPagesArray = function() {
+  const getPagesArray = function() {
     if (components && components["x-skaffolder-page"]) {
       return components["x-skaffolder-page"]
         .map(item => {
@@ -92,7 +94,7 @@ var translateYamlProject = function(yamlProject) {
     return [];
   };
 
-  var getDBsArray = function() {
+  const getDBsArray = function() {
     if (components && components["x-skaffolder-db"]) {
       return components["x-skaffolder-db"]
         .map(item => {
@@ -121,7 +123,7 @@ var translateYamlProject = function(yamlProject) {
 
   skProject.project = project;
 
-  var getRolesArray = function(roles) {
+  const getRolesArray = function(roles) {
     if (roles) {
       return roles.map(role_id => {
         return cloneObject(role_id2role[role_id]);
@@ -134,11 +136,11 @@ var translateYamlProject = function(yamlProject) {
   // roles propery
   if (components) {
     let roles = components["x-skaffolder-roles"];
-    var role_id2role = {};
+    let role_id2role = {};
 
     if (roles) {
       skProject.roles = roles.map(role => {
-        var role = {
+        let role = {
           _id: role["x-skaffolder-id"] || getDummyId(role["x-skaffolder-name"], "role"),
           description: role["x-skaffolder-name"],
           name: role["x-skaffolder-name"],
@@ -155,13 +157,13 @@ var translateYamlProject = function(yamlProject) {
   let dbs = getDBsArray();
   dbs.forEach(db => {
     // _entity property
-    var schemas = components.schemas;
-    var _entity = [];
+    let schemas = components.schemas;
+    let _entity = [];
 
     for (let model_name in schemas) {
-      var model = schemas[model_name];
-      var _model = {};
-      var model_db_id = model["x-skaffolder-id-db"];
+      let model = schemas[model_name];
+      let _model = {};
+      let model_db_id = model["x-skaffolder-id-db"];
 
       if (!model_db_id) {
         model_db_id = db._id;
@@ -181,9 +183,9 @@ var translateYamlProject = function(yamlProject) {
         if (attr_name == "_id") {
           continue;
         }
-        var attr = model.properties[attr_name];
+        let attr = model.properties[attr_name];
 
-        var _attr = {
+        let _attr = {
           _id: attr["x-skaffolder-id-attr"] || getDummyId(`${model_name}_${attr_name}`, "attr"),
           _entity: _model._id,
           name: attr_name,
@@ -209,8 +211,8 @@ var translateYamlProject = function(yamlProject) {
 
     //entity._relations property
     for (let model_name in schemas) {
-      var model = schemas[model_name];
-      var model_db_id = model["x-skaffolder-id-db"];
+      let model = schemas[model_name];
+      let model_db_id = model["x-skaffolder-id-db"];
 
       if (!model_db_id) {
         model_db_id = db._id;
@@ -219,9 +221,9 @@ var translateYamlProject = function(yamlProject) {
       }
 
       for (let rel_name in model["x-skaffolder-relations"]) {
-        var rel = model["x-skaffolder-relations"][rel_name];
+        let rel = model["x-skaffolder-relations"][rel_name];
 
-        var findRelEntity = function(id) {
+        const findRelEntity = function(id) {
           return _entity.reduce((acc, item) => {
             if (item._id == id) {
               return {
@@ -235,7 +237,7 @@ var translateYamlProject = function(yamlProject) {
           }, {});
         };
 
-        var _rel = {
+        let _rel = {
           _id: rel["x-skaffolder-id"] || getDummyId(`${model_name}_${rel_name}`, "relation"),
           type: rel["x-skaffolder-type"],
           required: rel["x-skaffolder-required"],
@@ -243,12 +245,12 @@ var translateYamlProject = function(yamlProject) {
           _ent2: findRelEntity(rel["x-skaffolder-ent2"]),
           _ent1: findRelEntity(rel["x-skaffolder-ent1"])
         };
-        var _model1 = _entity.find(item => {
+        let _model1 = _entity.find(item => {
           return item._id == (model["x-skaffolder-id-entity"] || getDummyId(item.name, "entity"));
         });
         _model1._relations.push(_rel);
 
-        var _model2 = _entity.find(item => {
+        let _model2 = _entity.find(item => {
           return item._id == rel["x-skaffolder-ent2"];
         });
         if (!_model2) {
@@ -272,20 +274,20 @@ var translateYamlProject = function(yamlProject) {
 
   // resources property
   let resources = getDBsArray();
-  var res_id2resource = {};
-  var serv_id2service = {};
+  let res_id2resource = {};
+  let serv_id2service = {};
 
   resources.forEach(db => {
-    var _resources = [];
-    var schemas = components.schemas;
-    var paths = yamlProject.paths;
-    var resource_name2id = {};
+    let _resources = [];
+    let schemas = components.schemas;
+    let paths = yamlProject.paths;
+    let resource_name2id = {};
 
     // resources services
-    var res_id2services = {};
+    let res_id2services = {};
 
-    var findResEntity = function(id_db, id_entity) {
-      var db = skProject.dbs.find(db_item => {
+    const findResEntity = function(id_db, id_entity) {
+      let db = skProject.dbs.find(db_item => {
         return id_db == db_item._id;
       });
 
@@ -300,9 +302,9 @@ var translateYamlProject = function(yamlProject) {
 
     // create resources
     for (model_name in schemas) {
-      var model = schemas[model_name];
-      var model_db_id = model["x-skaffolder-id-db"];
-      var _resource = {};
+      let model = schemas[model_name];
+      let model_db_id = model["x-skaffolder-id-db"];
+      let _resource = {};
 
       if (!model_db_id || model_db_id != db._id) {
         continue;
@@ -331,11 +333,11 @@ var translateYamlProject = function(yamlProject) {
     // Parse services
     for (let path_name in paths) {
       for (let service_name in paths[path_name]) {
-        var service = paths[path_name][service_name];
+        let service = paths[path_name][service_name];
 
         if (service["x-skaffolder-ignore"]) continue;
 
-        var resource_id = service["x-skaffolder-id-resource"];
+        let resource_id = service["x-skaffolder-id-resource"];
         if (service["x-skaffolder-resource"] && resource_name2id[service["x-skaffolder-resource"].toLowerCase()]) {
           resource_id = resource_name2id[service["x-skaffolder-resource"].toLowerCase()];
         }
@@ -344,7 +346,7 @@ var translateYamlProject = function(yamlProject) {
           continue;
         }
 
-        var _service = {
+        let _service = {
           _id:
             service["x-skaffolder-id"] ||
             getDummyId(`${service["x-skaffolder-name"] || service_name}_${service["x-skaffolder-resource"]}`, "service"),
@@ -362,7 +364,7 @@ var translateYamlProject = function(yamlProject) {
         };
 
         for (serviceParam_index in service.parameters) {
-          var serviceParam = service.parameters[serviceParam_index];
+          let serviceParam = service.parameters[serviceParam_index];
 
           _service._params.push({
             _id: undefined, // not in yaml
@@ -378,8 +380,8 @@ var translateYamlProject = function(yamlProject) {
       }
     }
 
-    var findResRelation = function(id_entity) {
-      var res = _resources.find(res => {
+    const findResRelation = function(id_entity) {
+      let res = _resources.find(res => {
         if (res._entity) {
           return res._entity._id == id_entity;
         }
@@ -403,7 +405,7 @@ var translateYamlProject = function(yamlProject) {
     // resources relations and services
     _resources.forEach(res => {
       if (res._entity) {
-        var _relations = res._entity._relations;
+        let _relations = res._entity._relations;
 
         _relations.forEach(rel => {
           rel._ent1._resource = findResRelation(rel._ent1._id);
@@ -431,11 +433,11 @@ var translateYamlProject = function(yamlProject) {
   // modules propery
   let pages = components["x-skaffolder-page"];
   let modules = [];
-  var page_id2page = {};
+  let page_id2page = {};
 
   if (pages) {
     pages.forEach(page => {
-      var _module = {};
+      let _module = {};
 
       _module._id = page["x-skaffolder-id"] || getDummyId(page["x-skaffolder-name"], "page");
       _module.top = 5100;
@@ -454,10 +456,10 @@ var translateYamlProject = function(yamlProject) {
 
       if (page_services) {
         page_services.forEach(serv_id => {
-          var _service = cloneObject(serv_id2service[serv_id]);
+          let _service = cloneObject(serv_id2service[serv_id]);
 
           if (_service) {
-            var resource = res_id2resource[_service._resource];
+            let resource = res_id2resource[_service._resource];
 
             if (resource) {
               _service._resource = {
@@ -496,7 +498,7 @@ var translateYamlProject = function(yamlProject) {
   modules.forEach(page => {
     ["_nesteds", "_links"].forEach(page_type => {
       page[page_type] = page[page_type].map(page_id => {
-        var subpage = cloneObject(page_id2page[page_id]);
+        let subpage = cloneObject(page_id2page[page_id]);
         delete subpage._resources;
 
         if (subpage) {
@@ -533,23 +535,20 @@ var translateYamlProject = function(yamlProject) {
   };
 };
 
-var generateYaml = function(projectData, logger) {
-  var generatorBean = require("../generator/GeneratorBean");
-  var utils = require("../generator/GeneratorUtils");
-
+const generateYaml = function(projectData, logger) {
   if (projectData) {
-    var project = projectData.project;
-    var modules = projectData.modules;
-    var resources = projectData.resources;
-    var dbs = projectData.dbs;
-    var roles = projectData.roles;
-    var generatorFiles = generatorBean.getGenFiles(generatorBean.pathTemplate);
+    let project = projectData.project;
+    let modules = projectData.modules;
+    let resources = projectData.resources;
+    let dbs = projectData.dbs;
+    let roles = projectData.roles;
+    let generatorFiles = generatorBean.getGenFiles(generatorBean.pathTemplate);
 
     try {
       utils.init("./", project, modules, resources, dbs, roles);
 
       if (generatorFiles) {
-        var file = generatorFiles.find(val => {
+        let file = generatorFiles.find(val => {
           return val.name && val.name == "openapi.yaml";
         });
 
@@ -565,13 +564,13 @@ var generateYaml = function(projectData, logger) {
   }
 };
 
-var getProjectData = function(logger, path) {
+const getProjectData = function(logger, path) {
   let yamlProject = getYaml(path, logger);
 
   return translateYamlProject(yamlProject);
 };
 
-var getProject = function(logger) {
+const getProject = function(logger) {
   let yamlProject = getYaml(null, logger);
 
   if (typeof yamlProject == "undefined") {
@@ -580,7 +579,7 @@ var getProject = function(logger) {
 
   let components = yamlProject.components;
 
-  var getArrayOfType = function(type) {
+  const getArrayOfType = function(type) {
     if (components && components[`x-skaffolder-${type}`]) {
       return components[`x-skaffolder-${type}`]
         .map(item => {
@@ -605,7 +604,7 @@ var getProject = function(logger) {
   return project;
 };
 
-var getEntityFindByDb = function(db_id, logger) {
+const getEntityFindByDb = function(db_id, logger) {
   let yamlProject = getYaml(null, logger);
 
   if (typeof yamlProject == "undefined") {
@@ -613,7 +612,7 @@ var getEntityFindByDb = function(db_id, logger) {
   }
 
   let components = yamlProject.components;
-  var db;
+  let db;
 
   if (components && components["x-skaffolder-db"]) {
     db = components["x-skaffolder-db"].find(item => {
@@ -622,13 +621,13 @@ var getEntityFindByDb = function(db_id, logger) {
   }
 
   if (db) {
-    var schemas = components.schemas;
-    var _entity = [];
+    let schemas = components.schemas;
+    let _entity = [];
 
     for (let model_name in schemas) {
-      var model = schemas[model_name];
-      var _model = {};
-      var model_db_id = model["x-skaffolder-id-db"];
+      let model = schemas[model_name];
+      let _model = {};
+      let model_db_id = model["x-skaffolder-id-db"];
 
       if (!model_db_id || model_db_id != db_id) {
         continue;
@@ -645,9 +644,9 @@ var getEntityFindByDb = function(db_id, logger) {
         if (attr_name == "_id") {
           continue;
         }
-        var attr = model.properties[attr_name];
+        let attr = model.properties[attr_name];
 
-        var _attr = {
+        let _attr = {
           _id: attr["x-skaffolder-id-attr"] || getDummyId(`${model_name}_${attr_name}`, "attr"),
           _entity: _model._id,
           name: attr_name,
@@ -679,14 +678,14 @@ var getEntityFindByDb = function(db_id, logger) {
   return [];
 };
 
-var getModelsList = function(logger) {
+const getModelsList = function(logger) {
   let skProject = getProjectData(logger);
 
   if (typeof skProject == "undefined") {
     return [];
   }
 
-  var modelsList = [];
+  let modelsList = [];
 
   if (skProject.resources) {
     skProject.resources.forEach(db => {
@@ -724,7 +723,7 @@ const assignServicesToResource = function(openApi) {
   // Match services url and model name
   for (let url in openApi.paths) {
     for (let method in openApi.paths[url]) {
-      var service = openApi.paths[url][method];
+      let service = openApi.paths[url][method];
       if (url[0] != "/") url = "/" + url;
       let baseUrl = url.split("/")[1].toLowerCase();
 
