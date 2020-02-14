@@ -1,20 +1,20 @@
-var projectService = require("../service/projectService");
-var generatorBean = require("../generator/GeneratorBean");
-var fs = require("fs-extra");
-var mkdirp = require("mkdirp");
-var chalk = require("chalk");
-var path = require("path");
-var klawSync = require("klaw-sync");
-var prependFile = require("prepend-file");
-var utils = require("../utils/utils");
-var properties = require("../properties");
-var offlineService = require("../utils/offlineService");
-var questionService = require("../utils/questionService");
-var yaml = require("yaml");
+const projectService = require("../service/projectService");
+const generatorBean = require("../generator/GeneratorBean");
+const fs = require("fs-extra");
+const mkdirp = require("mkdirp");
+const chalk = require("chalk");
+const path = require("path");
+const klawSync = require("klaw-sync");
+const prependFile = require("prepend-file");
+const utils = require("../utils/utils");
+const properties = require("../properties");
+const offlineService = require("../utils/offlineService");
+const questionService = require("../utils/questionService");
+const yaml = require("yaml");
 
 // Convert folder file hbs to generator files db
-var getGenFiles = function(pathTemplate) {
-  var klawSync = require("klaw-sync");
+const getGenFiles = function(pathTemplate) {
+  const klawSync = require("klaw-sync");
 
   return klawSync(pathTemplate, {
     nodir: true
@@ -56,7 +56,7 @@ var getGenFiles = function(pathTemplate) {
     .filter(file => file);
 };
 
-var getProperties = (content, nameFileTemplate, pathTemplate) => {
+const getProperties = (content, nameFileTemplate, pathTemplate) => {
   // get properties
   let start = "**** PROPERTIES SKAFFOLDER ****\r\n";
   let startPropr = content.indexOf(start);
@@ -114,7 +114,7 @@ exports.importGenerator = function() {
     }
   }).map(file => {
     if (file.stats.isFile()) {
-      var isBinaryFile = require("isbinaryfile");
+      let isBinaryFile = require("isbinaryfile");
 
       if (isBinaryFile.sync(file.path)) {
         // is binary file
@@ -166,9 +166,9 @@ exports.loadTemplateFiles = function(idFrontend, idBackend, cb) {
 };
 
 let getFileContent = file => {
-  var start = "**** PROPERTIES SKAFFOLDER ****\r\n";
-  var end = "\r\n**** END PROPERTIES SKAFFOLDER ****\r\n";
-  var template = file.template;
+  let start = "**** PROPERTIES SKAFFOLDER ****\r\n";
+  let end = "\r\n**** END PROPERTIES SKAFFOLDER ****\r\n";
+  let template = file.template;
   file.template = undefined;
   file._id = undefined;
   file.__v = undefined;
@@ -177,7 +177,7 @@ let getFileContent = file => {
   file.ignore = undefined;
   if (file._partials) file._partials.filter(part => (part._id = undefined));
 
-  var content = start + JSON.stringify(file, null, 4) + end + template;
+  let content = start + JSON.stringify(file, null, 4) + end + template;
 
   return content;
 };
@@ -254,6 +254,7 @@ const getEmptyProjectData = nameProject => {
     ],
     resources: [
       {
+        _id: offlineService.getDummyId(nameProject, "db"),
         name: nameProject + "_db",
         _resources: [
           {
@@ -398,6 +399,11 @@ const importOpenAPI = async function(openapiFilePath, nameProject) {
   let openApiFileContent = fs.readFileSync(openapiFilePath, "utf-8");
   let openApi = yaml.parse(openApiFileContent);
 
+  // Merge previous openapi
+  let workspacePath = "";
+  let oldYaml = offlineService.getYaml(workspacePath + "./openapi.yaml");
+  openApi = offlineService.mergeYaml(oldYaml, openApi);
+
   // Normalize YAML
   openApi = await normalizeYaml(openApi, nameProject);
 
@@ -446,36 +452,55 @@ const normalizeYaml = async function(openApi, nameProject) {
     for (let name in openApi.components.schemas) {
       let model = openApi.components.schemas[name];
       // Add as model db choose
-      if (model.type == "object" && !model["x-skaffolder-id-db"]) {
+      if (model.type == "object" && !model["x-skaffolder-id-db"] && model["x-skaffolder-ignore"] !== true) {
         questionList.push({
           title: name,
           value: name
         });
       }
     }
-    const components = await questionService.askMultiple("Select the schemas that represent a database entity", questionList);
-    if (!components.value) return;
 
-    // Assign db to selected components
-    components.value.filter(name => {
-      openApi.components.schemas[name]["x-skaffolder-id-db"] = defaultDbId;
-    });
+    // Ask unknown model
+    if (questionList.length > 0) {
+      const components = await questionService.askMultiple("Select the schemas that represent a database entity", questionList);
+      if (!components.value) return;
+
+      // Assign db to selected components
+      components.value.filter(name => {
+        openApi.components.schemas[name]["x-skaffolder-id-db"] = defaultDbId;
+      });
+    }
   }
 
   // Normalize models
   for (let name in openApi.components.schemas) {
     let model = openApi.components.schemas[name];
-    // Create id model
-    if (!model["x-skaffolder-id"]) {
-      model["x-skaffolder-id"] = offlineService.getDummyId(name, "resource");
-    }
 
-    // Normalize attributes
-    if (!model.properties) model.properties = {};
-    Object.keys(model.properties).forEach(attrName => {
-      let attr = model.properties[attrName];
-      attr["x-skaffolder-type"] = offlineService.getSkaffolderAttrType(attr.type);
-    });
+    if (!model["x-skaffolder-id-db"]) {
+      // Set ignore Skaffolder
+      model["x-skaffolder-ignore"] = true;
+    } else {
+      // Create id model
+      if (!model["x-skaffolder-id"]) {
+        model["x-skaffolder-id"] = offlineService.getDummyId(name, "resource");
+      }
+
+      // Normalize attributes
+      if (!model.properties) model.properties = {};
+      let hasId = false;
+      Object.keys(model.properties).forEach(attrName => {
+        if (attrName == "_id") hasId = true;
+        let attr = model.properties[attrName];
+        attr["x-skaffolder-type"] = offlineService.getSkaffolderAttrType(attr.type);
+      });
+
+      if (!hasId) {
+        model.properties["_id"] = {
+          type: "string",
+          "x-skaffolder-type": offlineService.getSkaffolderAttrType("string")
+        };
+      }
+    }
   }
 
   // Add the user model if no one is called user
@@ -535,7 +560,7 @@ const normalizeYaml = async function(openApi, nameProject) {
     openApi.components["x-skaffolder-page"] = [];
   }
 
-  if (openApi.components["x-skaffolder-page"].filter(page => page.name == "Home").length == 0) {
+  if (openApi.components["x-skaffolder-page"].filter(page => page["x-skaffolder-name"] == "Home").length == 0) {
     logger.info(chalk.green("Adding page ") + chalk.yellow("Home"));
 
     openApi.components["x-skaffolder-page"].push({

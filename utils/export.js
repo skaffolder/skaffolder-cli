@@ -3,7 +3,6 @@ const generatorBean = require("../generator/GeneratorBean");
 const fs = require("fs");
 const offlineService = require("../utils/offlineService");
 const yaml = require("yaml");
-const lodash = require("lodash");
 
 const exportProject = function(params, cb) {
   // Call Skaffolder server
@@ -35,13 +34,17 @@ const exportProject = function(params, cb) {
 
       // Extends previous values
       let newYaml = offlineService.getYaml(workspacePath + "./openapi.yaml");
-      let mergedYaml = lodash.merge(params.skObject, newYaml);
+      let mergedYaml = offlineService.mergeYaml(params.skObject, newYaml);
       let yamlContent = yaml.stringify(mergedYaml);
       fs.writeFileSync(workspacePath + "openapi.yaml", yamlContent, "utf-8");
 
       // Execute callback
       if (!result.logs || result.logs.length == 0) {
-        result.logs = ["<div class='no-result'>Nothing changed</div>"];
+        if (params.outputHtml) {
+          result.logs = ["<div class='no-result'>Nothing changed</div>"];
+        } else {
+          result.logs = ["Nothing changed"];
+        }
       }
       cb(err, result.logs, result.projectId);
     });
