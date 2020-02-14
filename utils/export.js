@@ -40,7 +40,11 @@ const exportProject = function(params, cb) {
 
       // Execute callback
       if (!result.logs || result.logs.length == 0) {
-        result.logs = ["<div class='no-result'>Nothing changed</div>"];
+        if (params.outputHtml) {
+          result.logs = ["<div class='no-result'>Nothing changed</div>"];
+        } else {
+          result.logs = ["Nothing changed"];
+        }
       }
       cb(err, result.logs, result.projectId);
     });

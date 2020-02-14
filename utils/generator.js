@@ -487,10 +487,19 @@ const normalizeYaml = async function(openApi, nameProject) {
 
       // Normalize attributes
       if (!model.properties) model.properties = {};
+      let hasId = false;
       Object.keys(model.properties).forEach(attrName => {
+        if (attrName == "_id") hasId = true;
         let attr = model.properties[attrName];
         attr["x-skaffolder-type"] = offlineService.getSkaffolderAttrType(attr.type);
       });
+
+      if (!hasId) {
+        model.properties["_id"] = {
+          type: "string",
+          "x-skaffolder-type": offlineService.getSkaffolderAttrType("string")
+        };
+      }
     }
   }
 
