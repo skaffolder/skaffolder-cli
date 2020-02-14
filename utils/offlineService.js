@@ -725,6 +725,13 @@ const assignServicesToResource = function(openApi) {
   for (let url in openApi.paths) {
     for (let method in openApi.paths[url]) {
       let service = openApi.paths[url][method];
+
+      // Ignore service
+      if (service["x-skaffolder-ignore"] === true || service["x-skaffolder-id-resource"]) {
+        continue;
+      }
+
+      // Find base url
       if (url[0] != "/") url = "/" + url;
       let baseUrl = url.split("/")[1].toLowerCase();
 
