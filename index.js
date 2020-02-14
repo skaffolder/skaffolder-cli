@@ -22,6 +22,7 @@ const getUserCmd = require("./lib/getUser");
 const importDbCmd = require("./lib/importDb");
 const setEnvCmd = require("./lib/setEnv");
 const getEnvCmd = require("./lib/getEnv");
+const getTemplates = require("./lib/getTemplates");
 const exportProjectCommand = require("./lib/exportProject");
 const exportUtils = require("./utils/export");
 const config = require("./utils/config");
@@ -103,6 +104,10 @@ prog
   .action(getUserCmd)
   .command("get project url", "Get Skaffolder project URL")
   .action(getProjectUrlCmd)
+  .command("list frontend", "List all the available frontend templates")
+  .action(getTemplates("frontend"))
+  .command("list backend", "List all the available backend templates")
+  .action(getTemplates("backend"))
   .command("import db", "Import database entities from Schema Spy XML")
   .argument("<file>", "XML file to import", null, null)
   .action(importDbCmd)
