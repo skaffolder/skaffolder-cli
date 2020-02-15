@@ -55,7 +55,7 @@
     - [`get project url`](#get-project-url)
     - [`list frontend`](#list-frontend)
     - [`list backend`](#list-backend)
-    - [`import db [schema.xml]`](#import-db-schemaxml)
+    - [`import db [schema.xml]`](#import-db-schemaxml-schemaxml)
     - [`export`](#export)
     - [`help [command]`](#help-command)
 - [Skaffolder documentation](#skaffolder-documentation)
@@ -155,7 +155,7 @@ When using the `--online` option the cli works with project saved on our servers
 
 #### Create Project
 
-#### [new [project name]](#new)
+#### [new [project name]](#new-project-name)
 
 Create a new local Skaffolder project.
 
@@ -191,7 +191,7 @@ You can edit the project from the command line:
 Generate your code running 'sk generate'
 ```
 
-#### [open [id project] [id generator]](#open)
+#### [open [id project] [id generator]](#open-id-project-id-generator)
 
 Open an already existent Skaffolder project. Requires `sk login`.
 
@@ -228,7 +228,7 @@ File created: client/README.md
 
 #### Manage Project
 
-#### [add page [page name]](#add-page)
+#### [add page [page name]](#add-page-page-name)
 
 Create a new page in the Skaffolder project.
 
@@ -253,7 +253,7 @@ File modified: openapi.yaml
 ✔  Generation complete!
 ```
 
-#### [add model [model name]](#add-model)
+#### [add model [model name]](#add-model-model-name)
 
 Create a new model in the Skaffolder project. After the model will be created the program
 will ask you if you want to generate CRUD interface for the newly created model.
@@ -392,7 +392,7 @@ Useful commands to import/export project and get your configurations.
 
 Open your project on Skaffolder web interface. The project must be exported before calling this command.
 
-#### [set endpoint [endpoint]](#set-endpoint)
+#### [set endpoint [endpoint]](#set-endpoint-endpoint)
 
 Set Skaffolder endpoint for on-premise.
 
@@ -431,7 +431,7 @@ List all available frontend templates.
 
 List all available backend templates.
 
-#### [import db [schema.xml]](#import-db)
+#### [import db [schema.xml]](#import-db-schemaxml)
 
 Import your db schema in Skaffolder from a [SchemaSpy](http://schemaspy.sourceforge.net) XML file, [here](https://skaffolder.com/docs/schema_example.xml) you can find an example.
 In order to successfully import your database, you need to call this commands from a project already exported on Skaffolder.
@@ -462,7 +462,7 @@ Create project
 [UPDATE]: 'MyProject' project pages and dbs
 ```
 
-#### [help [command]](#help)
+#### [help [command]](#help-command)
 
 Display help for a specific command.
 
