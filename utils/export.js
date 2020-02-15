@@ -9,7 +9,7 @@ const exportProject = function(params, cb) {
   try {
     projectService.exportProject(params, function(err, result) {
       if (err) {
-        cb(err);
+        return cb(err);
       }
       let workspacePath = params.workspacePath ? params.workspacePath : "";
 
