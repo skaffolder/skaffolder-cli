@@ -14,8 +14,9 @@
 		<img alt="Build Status" src="https://img.shields.io/github/license/skaffolder/skaffolder-cli">
 	</a>
 </p>
+
 <p align="center">
-    <img alt="sk-cli gif" width="80%" src="/media/sk-cli.gif">
+    <img alt="sk-cli animation" width="90%" src="/media/sk-cli.svg">
 </p>
 
 # Skaffolder-cli
