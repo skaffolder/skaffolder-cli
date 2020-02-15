@@ -165,6 +165,7 @@ Additional options:
 -i, --import <file>                Convert an OpenAPI 3.0 file in a Skaffolder project
 -f, --frontend <templateName>      Template frontend language
 -b, --backend <templateName>       Template backend language
+-o, --online                       Create the project locally and exports it to your Skaffolder web interface account
 ```
 
 Example:
@@ -208,6 +209,14 @@ If a Skaffolder project is already present in the folder, the program will ask y
 
 Generate the source code of your project from the openapi.yaml file.
 
+Additional options:
+
+```bash
+-o, --online                       Generate the source code of your project from your Skaffolder account datas, it ignores the openapi.yaml
+```
+
+Example:
+
 ```bash
 $ sk generate
 File created: client/.dockerignore
@@ -222,6 +231,27 @@ File created: client/README.md
 ##### `add page [page name]`
 
 Create a new page in the Skaffolder project.
+
+Additional options:
+
+```bash
+-o, --online                       Add the page
+```
+
+Example:
+
+```bash
+$ sk add page MyNewPage
+Page name: MyNewPage
+File modified: client/src/app/app-routing.module.ts
+File created: client/src/app/pages/my-new-page/my-new-page-routing.module.ts
+File created: client/src/app/pages/my-new-page/my-new-page.component.css
+File created: client/src/app/pages/my-new-page/my-new-page.component.html
+File created: client/src/app/pages/my-new-page/my-new-page.component.ts
+File created: client/src/app/pages/my-new-page/my-new-page.module.ts
+File modified: openapi.yaml
+✔  Generation complete!
+```
 
 ##### `add model [model name]`
 
