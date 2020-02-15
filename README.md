@@ -228,7 +228,7 @@ File created: client/README.md
 
 #### Manage Project
 
-#### [add page [page name]](#add)
+#### [add page [page name]](#add-page)
 
 Create a new page in the Skaffolder project.
 
@@ -253,7 +253,7 @@ File modified: openapi.yaml
 ✔  Generation complete!
 ```
 
-#### [add model [model name]](#add)
+#### [add model [model name]](#add-model)
 
 Create a new model in the Skaffolder project. After the model will be created the program
 will ask you if you want to generate CRUD interface for the newly created model.
@@ -285,7 +285,7 @@ File modified: client/src/components/Navbar.js
 ✔  Generation complete!
 ```
 
-#### [add api](#add)
+#### [add api](#add-api)
 
 Create a new api. You can choose to create a CRUD or a custom API.
 
@@ -327,7 +327,7 @@ File modified: client/src/redux/actionTypes.js
 
 ### Generator Commands
 
-#### [generator init](#generator)
+#### [generator init](#generator-init)
 
 Initializes a new generator in the `.skaffolder/template` folder. This command will overwrite your existing local generator.
 
@@ -342,7 +342,7 @@ $ sk generator init
 Now you can generate your code running 'sk generate'
 ```
 
-#### [generator pull](#generator)
+#### [generator pull](#generator-pull)
 
 Pulls the remote generator on Skaffolder in the local generator of your project. Any changes to your remote generator on Skaffolder will no be reflected into your local generator.
 
@@ -354,13 +354,13 @@ $ sk generator pull
 You can edit your project structure at http://localhost:3001/#!/projects/<project-id>/models or running 'sk web open'
 ```
 
-#### [generator push](#generator)
+#### [generator push](#generator-push)
 
 Pushes the local generator of your project to the remote generator on Skaffolder. In this way any changes to your generator will be saved.
 
 **Pro tip**: You can edit your generator directly on Skaffolder: Move to the generators tab, click on _Edit Generator_ and then, on the bottom, click _Customize generator template_.
 
-#### [generator create](#generator)
+#### [generator create](#generator-create)
 
 Copy the content of your project folder inside the `.skaffolder/template` folder. This may be useful when creating new generators.
 
@@ -371,7 +371,7 @@ $ sk generator create
 Now you can customize template files an generate code with 'sk generate'
 ```
 
-#### [generator publish](#generator)
+#### [generator publish](#generator-publish)
 
 Share your local generator with Skaffolder community.
 If you want to learn more on how to become a contributor, click [here](https://skaffolder.com/contributor).
@@ -388,19 +388,19 @@ We will contact you at your account email
 
 Useful commands to import/export project and get your configurations.
 
-#### [web open](#web)
+#### [web open](#web-open)
 
 Open your project on Skaffolder web interface. The project must be exported before calling this command.
 
-#### [set endpoint [endpoint]](#set)
+#### [set endpoint [endpoint]](#set-endpoint)
 
 Set Skaffolder endpoint for on-premise.
 
-#### [get endpoint](#get)
+#### [get endpoint](#get-endpoint)
 
 Get Skaffolder endpoint for on-premise.
 
-#### [get user](#get)
+#### [get user](#get-user)
 
 Get the currently logged Skaffolder user.
 
@@ -411,7 +411,7 @@ $ sk get user
 User: admin@example.com
 ```
 
-#### [get project url](#get)
+#### [get project url](#get-project-url)
 
 Get your project url. The project must be exported before calling this command.
 
@@ -423,15 +423,15 @@ To manage data models, APIs and pages of your project, visit this URL:
 https://app.skaffolder.com/#!/projects/<project-id>/models
 ```
 
-#### [list frontend](#list)
+#### [list frontend](#list-frontend)
 
 List all available frontend templates.
 
-#### [list backend](#list)
+#### [list backend](#list-backend)
 
 List all available backend templates.
 
-#### [import db [schema.xml]](#import)
+#### [import db [schema.xml]](#import-db)
 
 Import your db schema in Skaffolder from a [SchemaSpy](http://schemaspy.sourceforge.net) XML file, [here](https://skaffolder.com/docs/schema_example.xml) you can find an example.
 In order to successfully import your database, you need to call this commands from a project already exported on Skaffolder.
