@@ -124,6 +124,7 @@ const translateYamlProject = function(yamlProject) {
 
   skProject.project = project;
 
+  let role_id2role = {};
   const getRolesArray = function(roles) {
     if (roles) {
       return roles.map(role_id => {
@@ -137,7 +138,6 @@ const translateYamlProject = function(yamlProject) {
   // roles propery
   if (components) {
     let roles = components["x-skaffolder-roles"];
-    let role_id2role = {};
 
     if (roles) {
       skProject.roles = roles.map(_role => {
