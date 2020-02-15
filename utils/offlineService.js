@@ -140,11 +140,11 @@ const translateYamlProject = function(yamlProject) {
     let role_id2role = {};
 
     if (roles) {
-      skProject.roles = roles.map(role => {
+      skProject.roles = roles.map(_role => {
         let role = {
-          _id: role["x-skaffolder-id"] || getDummyId(role["x-skaffolder-name"], "role"),
-          description: role["x-skaffolder-name"],
-          name: role["x-skaffolder-name"],
+          _id: _role["x-skaffolder-id"] || getDummyId(_role["x-skaffolder-name"], "role"),
+          description: _role["x-skaffolder-name"],
+          name: _role["x-skaffolder-name"],
           _project: skProject.project._id
         };
 
