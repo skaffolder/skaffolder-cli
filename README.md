@@ -235,7 +235,7 @@ Create a new page in the Skaffolder project.
 Additional options:
 
 ```bash
--o, --online                       Add the page
+-o, --online                       Add the page in the Skaffolder account
 ```
 
 Example:
@@ -257,6 +257,12 @@ File modified: openapi.yaml
 
 Create a new model in the Skaffolder project. After the model will be created the program
 will ask you if you want to generate CRUD interface for the newly created model.
+
+Additional options:
+
+```bash
+-o, --online                       Add the model in the Skaffolder account
+```
 
 Example:
 
@@ -282,6 +288,12 @@ File modified: client/src/components/Navbar.js
 ##### `add api`
 
 Create a new api. You can choose to create a CRUD or a custom API.
+
+Additional options:
+
+```bash
+-o, --online                       Add the page in the Skaffolder account
+```
 
 Example creating a CRUD delete API:
 
