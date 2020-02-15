@@ -112,7 +112,7 @@ Every `sk` commands takes five global options:
 
 Commands to manage your Skaffolder account.
 
-#### [login](#)
+#### [login]('')
 
 Login to your Skaffolder account, a browser window will open to Skaffolder login page.
 Be sure to be logged in when using project commands with the `--online` option and
