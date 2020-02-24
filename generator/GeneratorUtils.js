@@ -79,7 +79,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     var fileNameDest = template(param);
     if (pathWorkspace) {
       var path = pathWorkspace + fileNameDest;
-      mkdirp.sync(path.substr(0, path.lastIndexOf("/")));
+      mkdirp.sync(path.substr(0, path.lastIndexOf(path.sep)));
       fs.writeFileSync(path, file.templateBinary, "binary");
       return;
     }
@@ -181,7 +181,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     }
 
     // WRITE
-    var folderFile = path.normalize(pathFile.substr(0, pathFile.lastIndexOf(path.normalize("/"))));
+    var folderFile = path.normalize(pathFile.substr(0, pathFile.lastIndexOf(path.normalize(path.sep))));
     var res = mkdirp.sync(folderFile);
     if (output != "") {
       if (fs.existsSync(pathFile)) {
