@@ -52,7 +52,7 @@ var generateSingleFile = function(workspacePrefix, generateFilePath, data) {
 
   // template file
   let templatePath = workspacePrefix + ".skaffolder/template";
-  let fileTemplatePath = templatePath + "/" + generateFilePath + ".hbs";
+  let fileTemplatePath = templatePath + path.sep + generateFilePath + ".hbs";
   let fileTemplateObj = parseTemplateFile(templatePath, fileTemplatePath);
 
   // Utils
