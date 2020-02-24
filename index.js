@@ -27,8 +27,8 @@ const exportProjectCommand = require("./lib/exportProject");
 const exportUtils = require("./utils/export");
 const config = require("./utils/config");
 const offlineCommandBuilder = require("./lib/offline").offlineCommandBuilder;
-var cache = require("persistent-cache");
-var globals = cache();
+const cache = require("persistent-cache");
+const globals = cache();
 
 const generatorBean = require("./generator/GeneratorBean");
 const projectService = require("./service/projectService");
@@ -39,7 +39,7 @@ const offline = require("./lib/offline");
 const offlineService = require("./utils/offlineService");
 
 prog
-  .version("2.0.3")
+  .version("2.0.4")
   .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
 
   // start

@@ -1,12 +1,11 @@
-var extra = {};
+let extra = {};
 try {
-    extra = require(process.cwd() + '/extra');
+  extra = require(process.cwd() + "/extra");
 } catch (e) {}
 
-var cache = require('persistent-cache');
-var globals = cache();
-
+const cache = require("persistent-cache");
+const globals = cache();
 
 module.exports = {
-    endpoint: extra.endpoint || globals.getSync("endpoint") || "https://app.skaffolder.com"
-}
+  endpoint: extra.endpoint || globals.getSync("endpoint") || "https://app.skaffolder.com"
+};

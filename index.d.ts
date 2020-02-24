@@ -70,7 +70,7 @@ export class PartialFile {
 }
 
 export namespace Offline {
-  var pathWorkspace: string;
+  let pathWorkspace: string;
 
   /**
    * Create or update a page in the openapi.yaml file.
@@ -89,9 +89,9 @@ export namespace Offline {
 
   /**
    * Create CRUD in the openapi.yaml
-   * @param model 
+   * @param model
    */
-  export function createCrud(model: any) : void;
+  export function createCrud(model: any): void;
 
   /**
    * Create or update a service in the openapi.yaml file.

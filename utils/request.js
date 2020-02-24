@@ -1,11 +1,11 @@
-var request = require("request");
-var cache = require("persistent-cache");
-var globals = cache();
-var chalk = require("chalk");
+const request = require("request");
+const cache = require("persistent-cache");
+const globals = cache();
+const chalk = require("chalk");
 const properties = require("../properties");
 
 module.exports = function(options, cb) {
-  var token = globals.getSync("token");
+  let token = globals.getSync("token");
 
   if (!options.headers) options.headers = {};
   if (token && !options.public) options.headers.Token = token;

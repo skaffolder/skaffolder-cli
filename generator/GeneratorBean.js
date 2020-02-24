@@ -1,27 +1,26 @@
-var pathWorkspace = "./";
+let pathWorkspace = "./";
 const pathTemplate = ".skaffolder/template/";
 const fs = require("fs");
 const path = require("path");
-const klawSync = require("klaw-sync");
 const async = require("async");
 const chalk = require("chalk");
 
 exports.pathTemplate = pathTemplate;
 
 exports.generate = function(workspacePrefix, files, logger, cb) {
-  var project = files.project;
-  var modules = files.modules;
-  var resources = files.resources;
-  var dbs = files.dbs;
-  var roles = files.roles;
-  var genFiles = getGenFiles(workspacePrefix + pathTemplate);
-  var log = [];
+  let project = files.project;
+  let modules = files.modules;
+  let resources = files.resources;
+  let dbs = files.dbs;
+  let roles = files.roles;
+  let genFiles = getGenFiles(workspacePrefix + pathTemplate);
+  let log = [];
 
   try {
     // logger.info(chalk.green("START GENERATE "));
     log.push("<h1>START GENERATE</h1>");
 
-    var utils = require("./GeneratorUtils.js");
+    const utils = require("./GeneratorUtils.js");
     utils.init(workspacePrefix + pathWorkspace, project, modules, resources, dbs, roles);
 
     async.each(
@@ -47,7 +46,7 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
   }
 };
 
-var generateSingleFile = function(workspacePrefix, generateFilePath, data) {
+const generateSingleFile = function(workspacePrefix, generateFilePath, data) {
   let log = [];
 
   // template file
@@ -56,21 +55,21 @@ var generateSingleFile = function(workspacePrefix, generateFilePath, data) {
   let fileTemplateObj = parseTemplateFile(templatePath, fileTemplatePath);
 
   // Utils
-  var utils = require("./GeneratorUtils.js");
+  const utils = require("./GeneratorUtils.js");
   utils.init(workspacePrefix + pathWorkspace, data.project, data.modules, data.resources, data.dbs, data.roles);
 
   // Generate file
   generateFile(fileTemplateObj, log, utils, data.project, data.modules, data.resources, data.dbs);
 };
 
-var generateFile = function(file, log, utils, project, modules, resources, dbs, opt) {
+const generateFile = function(file, log, utils, project, modules, resources, dbs, opt) {
   if (!file.forEachObj || file.forEachObj == "oneTime") {
     return utils.generateFile(log, file, {}, opt);
   } else if (file.forEachObj == "db") {
     if (opt && opt.paramsForEach) {
-      for (var index in dbs) {
+      for (let index in dbs) {
         if (dbs[index]._id.toString() == opt.paramsForEach) {
-          var db = resources[index];
+          let db = resources[index];
           db._entity = dbs[index]._entity;
           return utils.generateFile(
             log,
@@ -83,8 +82,8 @@ var generateFile = function(file, log, utils, project, modules, resources, dbs, 
         }
       }
     } else {
-      for (var index in dbs) {
-        var db = resources[index];
+      for (let index in dbs) {
+        let db = resources[index];
         db._entity = dbs[index]._entity;
         utils.generateFile(
           log,
@@ -97,10 +96,10 @@ var generateFile = function(file, log, utils, project, modules, resources, dbs, 
       }
     }
   } else if (file.forEachObj == "table") {
-    for (var index in dbs) {
-      var db = dbs[index];
-      for (var indexEnt in dbs[index]._entity) {
-        var entity = dbs[index]._entity[indexEnt];
+    for (let index in dbs) {
+      let db = dbs[index];
+      for (let indexEnt in dbs[index]._entity) {
+        let entity = dbs[index]._entity[indexEnt];
 
         if (opt && opt.paramsForEach) {
           if (entity._id.toString() == opt.paramsForEach)
@@ -127,25 +126,25 @@ var generateFile = function(file, log, utils, project, modules, resources, dbs, 
       }
     }
   } else if (file.forEachObj == "module") {
-    for (var index in modules) {
-      var mod = modules[index];
-      var moduleLink = {
+    for (let index in modules) {
+      let mod = modules[index];
+      let moduleLink = {
         url: ""
       };
-      var templateName = "";
-      var templateResourceName = "";
-      var linkUrl = "";
-      var crudResource = "";
+      let templateName = "";
+      let templateResourceName = "";
+      let linkUrl = "";
+      let crudResource = "";
 
       if (mod.template) {
-        var typeLink = "";
+        let typeLink = "";
 
         // TROVA RISORSA CRUD
         if (mod._template_resource) {
           for (dbId in resources) {
-            var resourcesForDb = resources[dbId]._resources;
+            let resourcesForDb = resources[dbId]._resources;
             for (resId in resourcesForDb) {
-              var resource = resourcesForDb[resId];
+              let resource = resourcesForDb[resId];
               if (mod._template_resource.toString() == resource._id) {
                 crudResource = resource;
               }
@@ -159,7 +158,7 @@ var generateFile = function(file, log, utils, project, modules, resources, dbs, 
 
         // TROVA LINK MODULO
         for (modId in modules) {
-          var module = modules[modId];
+          let module = modules[modId];
           if (
             module.template == "List_Crud" &&
             mod._template_resource &&
@@ -198,10 +197,10 @@ var generateFile = function(file, log, utils, project, modules, resources, dbs, 
       }
     }
   } else if (file.forEachObj == "resource") {
-    for (var index in resources) {
-      var db = resources[index];
-      for (var indexRes in resources[index]._resources) {
-        var resource = resources[index]._resources[indexRes];
+    for (let index in resources) {
+      let db = resources[index];
+      for (let indexRes in resources[index]._resources) {
+        let resource = resources[index]._resources[indexRes];
 
         //console.log(resource._entity._attrs);
         if (opt && opt.paramsForEach) {
@@ -232,8 +231,8 @@ var generateFile = function(file, log, utils, project, modules, resources, dbs, 
 };
 
 // Convert folder file hbs to generator files db
-var getGenFiles = function(pathTemplate) {
-  var klawSync = require("klaw-sync");
+const getGenFiles = function(pathTemplate) {
+  let klawSync = require("klaw-sync");
 
   if (!fs.existsSync(pathTemplate)) return null;
 
@@ -247,10 +246,10 @@ var getGenFiles = function(pathTemplate) {
     .filter(file => file);
 };
 
-var getProperties = (content, nameFileTemplate, pathTemplate) => {
+const getProperties = (content, nameFileTemplate, pathTemplate) => {
   // get properties
-  var start = "**** PROPERTIES SKAFFOLDER ****";
-  var end = "**** END PROPERTIES SKAFFOLDER ****";
+  let start = "**** PROPERTIES SKAFFOLDER ****";
+  let end = "**** END PROPERTIES SKAFFOLDER ****";
   let startPropr = content.indexOf(start);
   let endPropr = content.indexOf(end);
 

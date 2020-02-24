@@ -1,8 +1,8 @@
-var config = require("../utils/config");
-var chalk = require("chalk");
-var fs = require("fs");
-var cache = require("persistent-cache");
-var globals = cache();
+const config = require("../utils/config");
+const chalk = require("chalk");
+const fs = require("fs");
+const cache = require("persistent-cache");
+const globals = cache();
 
 /**
  * Check if the current folder contains a Skaffolder project
@@ -46,7 +46,7 @@ exports.hasSkaffolderTemplate = function() {
  * Check if the the Skaffolder user is logged
  */
 exports.isLogged = function() {
-  var token = globals.getSync("token");
+  let token = globals.getSync("token");
   if (token) return true;
 
   console.error(chalk.red("You should be logged to run this command"));
