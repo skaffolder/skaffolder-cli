@@ -1,8 +1,8 @@
 exports.registerHelpers = function(Handlebars) {
-  var helpers = require("handlebars-helpers")({
+  const helpers = require("handlebars-helpers")({
     handlebars: Handlebars
   });
-  var groupBy = require("handlebars-group-by");
+  const groupBy = require("handlebars-group-by");
 
   groupBy.register(Handlebars);
 

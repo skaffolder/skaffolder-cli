@@ -27,8 +27,8 @@ const exportProjectCommand = require("./lib/exportProject");
 const exportUtils = require("./utils/export");
 const config = require("./utils/config");
 const offlineCommandBuilder = require("./lib/offline").offlineCommandBuilder;
-var cache = require("persistent-cache");
-var globals = cache();
+const cache = require("persistent-cache");
+const globals = cache();
 
 const generatorBean = require("./generator/GeneratorBean");
 const projectService = require("./service/projectService");

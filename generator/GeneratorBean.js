@@ -2,7 +2,6 @@ var pathWorkspace = "./";
 const pathTemplate = ".skaffolder/template/";
 const fs = require("fs");
 const path = require("path");
-const klawSync = require("klaw-sync");
 const async = require("async");
 const chalk = require("chalk");
 
@@ -21,7 +20,7 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
     // logger.info(chalk.green("START GENERATE "));
     log.push("<h1>START GENERATE</h1>");
 
-    var utils = require("./GeneratorUtils.js");
+    const utils = require("./GeneratorUtils.js");
     utils.init(workspacePrefix + pathWorkspace, project, modules, resources, dbs, roles);
 
     async.each(
@@ -47,7 +46,7 @@ exports.generate = function(workspacePrefix, files, logger, cb) {
   }
 };
 
-var generateSingleFile = function(workspacePrefix, generateFilePath, data) {
+const generateSingleFile = function(workspacePrefix, generateFilePath, data) {
   let log = [];
 
   // template file
@@ -56,14 +55,14 @@ var generateSingleFile = function(workspacePrefix, generateFilePath, data) {
   let fileTemplateObj = parseTemplateFile(templatePath, fileTemplatePath);
 
   // Utils
-  var utils = require("./GeneratorUtils.js");
+  const utils = require("./GeneratorUtils.js");
   utils.init(workspacePrefix + pathWorkspace, data.project, data.modules, data.resources, data.dbs, data.roles);
 
   // Generate file
   generateFile(fileTemplateObj, log, utils, data.project, data.modules, data.resources, data.dbs);
 };
 
-var generateFile = function(file, log, utils, project, modules, resources, dbs, opt) {
+const generateFile = function(file, log, utils, project, modules, resources, dbs, opt) {
   if (!file.forEachObj || file.forEachObj == "oneTime") {
     return utils.generateFile(log, file, {}, opt);
   } else if (file.forEachObj == "db") {
@@ -232,7 +231,7 @@ var generateFile = function(file, log, utils, project, modules, resources, dbs, 
 };
 
 // Convert folder file hbs to generator files db
-var getGenFiles = function(pathTemplate) {
+const getGenFiles = function(pathTemplate) {
   var klawSync = require("klaw-sync");
 
   if (!fs.existsSync(pathTemplate)) return null;
@@ -247,7 +246,7 @@ var getGenFiles = function(pathTemplate) {
     .filter(file => file);
 };
 
-var getProperties = (content, nameFileTemplate, pathTemplate) => {
+const getProperties = (content, nameFileTemplate, pathTemplate) => {
   // get properties
   var start = "**** PROPERTIES SKAFFOLDER ****";
   var end = "**** END PROPERTIES SKAFFOLDER ****";

@@ -1,8 +1,8 @@
-var properties = require("../properties");
-var request = require("../utils/request");
-var configUtils = require("../utils/config");
-var offline = require("../lib/offline");
-var offlineService = require("../utils/offlineService");
+const properties = require("../properties");
+const request = require("../utils/request");
+const configUtils = require("../utils/config");
+const offline = require("../lib/offline");
+const offlineService = require("../utils/offlineService");
 
 exports.exportProject = function(params, cb) {
   request(

@@ -1,7 +1,7 @@
-var request = require("request");
-var cache = require("persistent-cache");
-var globals = cache();
-var chalk = require("chalk");
+const request = require("request");
+const cache = require("persistent-cache");
+const globals = cache();
+const chalk = require("chalk");
 const properties = require("../properties");
 
 module.exports = function(options, cb) {
