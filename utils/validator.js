@@ -46,7 +46,7 @@ exports.hasSkaffolderTemplate = function() {
  * Check if the the Skaffolder user is logged
  */
 exports.isLogged = function() {
-  var token = globals.getSync("token");
+  let token = globals.getSync("token");
   if (token) return true;
 
   console.error(chalk.red("You should be logged to run this command"));

@@ -5,7 +5,7 @@ const chalk = require("chalk");
 const properties = require("../properties");
 
 module.exports = function(options, cb) {
-  var token = globals.getSync("token");
+  let token = globals.getSync("token");
 
   if (!options.headers) options.headers = {};
   if (token && !options.public) options.headers.Token = token;

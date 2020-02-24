@@ -8,7 +8,7 @@ exports.registerHelpers = function(Handlebars) {
 
   // SET HANDLEBARS
   Handlebars.registerHelper("joinObj", function(arr, field) {
-    var result = [];
+    let result = [];
     for (i in arr) {
       result.push(arr[i][field]);
     }
@@ -16,7 +16,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("joinObj2", function(arr) {
-    var result = "";
+    let result = "";
     for (i in arr) {
       result += (i != 0 ? ', "' : '"') + arr[i]["name"] + '"';
     }
@@ -24,7 +24,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("joinRoleObj", function(arr) {
-    var result = "";
+    let result = "";
     for (i in arr) {
       result += ', "ROLE_' + arr[i]["name"] + '"';
     }
@@ -32,7 +32,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("roleObj", function(arr) {
-    var result = '"' + arr[0]["name"] + '"';
+    let result = '"' + arr[0]["name"] + '"';
     for (i in arr) {
       if (arr[0]["name"] === arr[i]["name"]) continue;
       result += ', "' + arr[i]["name"] + '"';
@@ -41,7 +41,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("joinRoleObj2", function(arr) {
-    var result = "";
+    let result = "";
     for (let i = 0; i < arr.length; i++) {
       if (i == 0) {
         result += '"ROLE_' + arr[i]["name"] + '"';
@@ -53,7 +53,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("roleObj", function(arr) {
-    var result = '"' + arr[0]["name"] + '"';
+    let result = '"' + arr[0]["name"] + '"';
     for (i in arr) {
       if (arr[0]["name"] === arr[i]["name"]) continue;
       result += ', "' + arr[i]["name"] + '"';
@@ -132,7 +132,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("hasRelation1m", function(resource, options) {
-    var relations = resource._relations;
+    let relations = resource._relations;
 
     if (relations.length == 0) {
       if (options.inverse) return options.inverse(this);
@@ -149,7 +149,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("hasRelationmm", function(resource, options) {
-    var relations = resource._relations;
+    let relations = resource._relations;
 
     if (relations.length == 0) {
       if (options.inverse) return options.inverse(this);
@@ -178,7 +178,7 @@ exports.registerHelpers = function(Handlebars) {
     if (right) right = right.toString();
     options = options || exact;
     exact = exact === "exact" ? true : false;
-    var is_equal = exact ? left === right : left == right;
+    let is_equal = exact ? left === right : left == right;
     if (!is_equal) return options.fn(this);
     return options.inverse(this);
   });
@@ -190,15 +190,15 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("notEqualArray", function(string, options) {
-    var search = ["update", "create", "delete", "list", "get"];
-    for (var id in search) {
+    let search = ["update", "create", "delete", "list", "get"];
+    for (let id in search) {
       if (search[id] == string) return options.inverse(this);
     }
     return options.fn(this);
   });
 
   Handlebars.registerHelper("isInUrl", function(param, url, options) {
-    var urlParams = url.match(/{\w+}/g);
+    let urlParams = url.match(/{\w+}/g);
     if (urlParams && urlParams.indexOf("{" + param + "}") != -1) return options.fn(this);
     else return options.inverse(this);
   });
@@ -404,9 +404,9 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("isMtoM", function(RelationName, relations, resourceName, options) {
-    var found = false;
+    let found = false;
     RelationName = RelationName.substr(6);
-    for (var i in relations) {
+    for (let i in relations) {
       if (relations[i].name == RelationName && relations[i].type == "m:m" && relations[i]._ent1.name == resourceName)
         found = relations[i];
     }
@@ -417,10 +417,10 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("eachResource", function(services, options) {
-    var resources = {};
-    var buffer = "";
+    let resources = {};
+    let buffer = "";
 
-    for (var s in services) {
+    for (let s in services) {
       try {
         if (!resources[services[s]._resource._id]) {
           resources[services[s]._resource._id] = true;
@@ -436,16 +436,16 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("getDbName", function(dbs, idDb) {
-    for (var i in dbs) {
+    for (let i in dbs) {
       if (dbs[i]._id.toString() == idDb.toString()) return dbs[i].name;
     }
   });
 
   Handlebars.registerHelper("getDbNameToFileName", function(dbs, idDb) {
     try {
-      for (var i in dbs) {
+      for (let i in dbs) {
         if (dbs[i]._id.toString() == idDb.toString()) {
-          var name = dbs[i].name;
+          let name = dbs[i].name;
           name = name.replace(/([a-z])([A-Z])/g, "$1-$2");
           name = name.toLowerCase();
           return name;
@@ -471,7 +471,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("findInArray", function(array, key, value, options) {
-    for (var i in array) {
+    for (let i in array) {
       if (array[i][key] == value) {
         if (options.fn) return options.fn(this);
         else return true;
@@ -482,7 +482,7 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("hasInArray", function(array, key, options) {
-    for (var i in array) {
+    for (let i in array) {
       if (array[i][key] != null) {
         if (options.fn) return options.fn(this);
         else return true;
@@ -511,11 +511,11 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("distinctRelations", function(array, entityName, options) {
-    var present = [];
-    var buffer = "";
+    let present = [];
+    let buffer = "";
 
-    for (var i in array) {
-      var item = array[i];
+    for (let i in array) {
+      let item = array[i];
 
       if (item.type == "1:m" && item._ent1.name == entityName) {
         if (!present[item._ent2.name]) {
@@ -528,11 +528,11 @@ exports.registerHelpers = function(Handlebars) {
     return buffer;
   });
   Handlebars.registerHelper("distinctModules", function(array, options) {
-    var present = [];
-    var buffer = "";
+    let present = [];
+    let buffer = "";
 
-    for (var i in array) {
-      var item = array[i];
+    for (let i in array) {
+      let item = array[i];
       if (!present[item.name]) {
         present[item.name] = item;
         buffer += options.fn(item);
@@ -554,8 +554,8 @@ exports.registerHelpers = function(Handlebars) {
   });
 
   Handlebars.registerHelper("distinctRelationsEditComponent", function(crudResource, options) {
-    var present = [];
-    var buffer = "";
+    let present = [];
+    let buffer = "";
 
     buffer += options.fn({
       resourceName: crudResource.name,
@@ -563,13 +563,13 @@ exports.registerHelpers = function(Handlebars) {
     });
     present[crudResource.name] = true;
 
-    for (var i in crudResource._relations) {
-      var item = crudResource._relations[i];
+    for (let i in crudResource._relations) {
+      let item = crudResource._relations[i];
 
       if (item._ent1._id.toString() == crudResource._entity._id.toString()) {
-        var resourceName = item._ent2.name;
+        let resourceName = item._ent2.name;
         if (!present[resourceName]) {
-          var result = {
+          let result = {
             resourceName: resourceName,
             dbName: item._ent2._resource._db
           };
@@ -577,10 +577,10 @@ exports.registerHelpers = function(Handlebars) {
           buffer += options.fn(result);
         }
       } else {
-        var resourceName = item._ent1.name;
+        let resourceName = item._ent1.name;
 
         if (!present[resourceName]) {
-          var result = {
+          let result = {
             resourceName: resourceName,
             dbName: item._ent2._resource._db
           };

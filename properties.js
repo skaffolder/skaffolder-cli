@@ -1,4 +1,4 @@
-var extra = {};
+let extra = {};
 try {
   extra = require(process.cwd() + "/extra");
 } catch (e) {}

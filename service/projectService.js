@@ -17,7 +17,7 @@ exports.exportProject = function(params, cb) {
 
 exports.getProject = function(cb) {
   if (!global.OFFLINE) {
-    var config = configUtils.getConf();
+    let config = configUtils.getConf();
     request(
       {
         url: properties.endpoint + "/project/" + config.project,
@@ -26,14 +26,14 @@ exports.getProject = function(cb) {
       cb
     );
   } else {
-    var project = offlineService.getProject(global.logger);
+    let project = offlineService.getProject(global.logger);
     cb(null, project);
   }
 };
 
 exports.getProjectData = function(cb) {
   if (!global.OFFLINE) {
-    var config = configUtils.getConf();
+    let config = configUtils.getConf();
     request(
       {
         url: properties.endpoint + "/project/" + config.project + "/getProject",
@@ -42,7 +42,7 @@ exports.getProjectData = function(cb) {
       cb
     );
   } else {
-    var projectData = offlineService.getProjectData(global.logger);
+    let projectData = offlineService.getProjectData(global.logger);
     cb(null, projectData);
   }
 };
@@ -62,7 +62,7 @@ exports.create = function(name, cb) {
 };
 
 exports.importDb = function(fileContent, cb) {
-  var config = configUtils.getConf();
+  let config = configUtils.getConf();
   request(
     {
       url: properties.endpoint + "/Project/" + config.project + "/importDb",
@@ -77,7 +77,7 @@ exports.importDb = function(fileContent, cb) {
 
 exports.getModelsList = function(cb) {
   if (!global.OFFLINE) {
-    var config = configUtils.getConf();
+    let config = configUtils.getConf();
     request(
       {
         url: properties.endpoint + "/model/findBy_project/" + config.project + "/populate",
@@ -86,7 +86,7 @@ exports.getModelsList = function(cb) {
       cb
     );
   } else {
-    var modelsList = offlineService.getModelsList(global.logger);
+    let modelsList = offlineService.getModelsList(global.logger);
     cb(null, modelsList);
   }
 };
@@ -131,7 +131,7 @@ exports.getEntityFindByDb = function(db, cb) {
       cb
     );
   } else {
-    var entities = offlineService.getEntityFindByDb(db, global.logger);
+    let entities = offlineService.getEntityFindByDb(db, global.logger);
     cb(null, entities);
   }
 };
@@ -230,7 +230,7 @@ exports.createCrud = function(model, cb) {
 
 exports.createPage = function(name, url, cb) {
   if (!global.OFFLINE) {
-    var config = configUtils.getConf();
+    let config = configUtils.getConf();
     request(
       {
         url: properties.endpoint + "/page",
@@ -257,7 +257,7 @@ exports.createPage = function(name, url, cb) {
 
 exports.createModel = function(name, db, attributes, relations, url, cb) {
   if (!global.OFFLINE) {
-    var config = configUtils.getConf();
+    let config = configUtils.getConf();
 
     request(
       {
