@@ -76,7 +76,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
   // Bynary files
   if (file.templateBinary) {
     let template = Handlebars.compile(file.name);
-    let fileNameDest = template(param);
+    let fileNameDest = template(paramLoop);
     if (pathWorkspace) {
       let pathFile = pathWorkspace + fileNameDest;
       let folder = path.dirname(pathFile);
@@ -109,10 +109,9 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     let template = Handlebars.compile(fileName);
     let fileNameDest = template(param);
     //console.info(chalk.gray("log: ") + fileNameDest);
+    let pathFile = path.normalize(pathWorkspace + fileNameDest);
 
     if (pathWorkspace) {
-      let pathFile = path.normalize(pathWorkspace + fileNameDest);
-
       if (file.ignore && fs.existsSync(pathFile)) {
         //console.info(chalk.gray("File ignored: ") + file.name);
         return;

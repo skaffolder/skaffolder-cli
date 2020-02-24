@@ -196,7 +196,8 @@ function writeGeneratorFiles(workspacePath, files) {
       file.templateEdit = undefined;
     }
     if (file.templateBinary) {
-      fs.writeFileSync(workspacePath + path, getFileContent(file));
+      var buf = Buffer.alloc(file.templateBinary.length, file.templateBinary, "binary");
+      fs.writeFileSync(workspacePath + path, buf, "binary");
     } else {
       fs.writeFileSync(workspacePath + path + ".hbs", getFileContent(file));
     }
