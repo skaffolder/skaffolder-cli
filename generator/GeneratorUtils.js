@@ -5,6 +5,7 @@ const helpers = require("./Helpers");
 const mkdirp = require("mkdirp");
 const yaml = require("yaml");
 const offlineService = require("../utils/offlineService");
+const path = require("path");
 
 helpers.registerHelpers(Handlebars);
 
@@ -71,16 +72,16 @@ var insertInto = function(html, partialTmpl, params, tagFrom, tagTo, log) {
 
 exports.generateFile = function(log, file, paramLoop, opt) {
   var output = "";
-  var path = require("path");
 
   // Bynary files
   if (file.templateBinary) {
     var template = Handlebars.compile(file.name);
     var fileNameDest = template(param);
     if (pathWorkspace) {
-      var path = pathWorkspace + fileNameDest;
-      mkdirp.sync(path.substr(0, path.lastIndexOf(path.sep)));
-      fs.writeFileSync(path, file.templateBinary, "binary");
+      var pathFile = pathWorkspace + fileNameDest;
+      var folder = path.dirname(pathFile);
+      mkdirp.sync(folder);
+      fs.writeFileSync(pathFile, file.templateBinary, "binary");
       return;
     }
   }
