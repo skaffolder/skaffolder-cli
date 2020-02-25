@@ -7,6 +7,7 @@ const arraySort = require("array-sort");
 const generatorBean = require("../generator/GeneratorBean");
 const generatorUtils = require("../generator/GeneratorUtils");
 const lodash = require("lodash");
+const questionService = require("../utils/questionService");
 
 const _getOpenApiPath = path => {
   if (path) {
@@ -708,13 +709,30 @@ const getModelsList = function(logger) {
   return modelsList;
 };
 
-const assignServicesToResource = function(openApi) {
+const assignServicesToResource = async function(openApi) {
+  // Prepare question model list
+  let questionList = [
+    {
+      title: "NO"
+    }
+  ];
+  for (let name in openApi.components.schemas) {
+    let model = openApi.components.schemas[name];
+    // Add as model db choose
+    if (model.type == "object" && model["x-skaffolder-id-db"] && model["x-skaffolder-ignore"] !== true) {
+      questionList.push({
+        title: name,
+        value: model
+      });
+    }
+  }
+
   // Create model map
   let modelsURIMap = {};
   for (let model_name in openApi.components.schemas) {
     if (openApi.components.schemas[model_name]["x-skaffolder-id-db"]) {
       let url = openApi.components.schemas[model_name]["x-skaffolder-url"] || model_name;
-      url = url.replace("/", "").toLowerCase();
+      url = url.replace(/^\//g, "").toLowerCase();
       modelsURIMap[url] = openApi.components.schemas[model_name];
     }
   }
@@ -734,14 +752,69 @@ const assignServicesToResource = function(openApi) {
       // Find base url
       if (url[0] != "/") url = "/" + url;
       let baseUrl = url.split("/")[1].toLowerCase();
-
-      // Match with singular or plural url
       let model = modelsURIMap[baseUrl];
       let model_name = baseUrl;
+
+      // Look for suburls
+      if (!model) {
+        url
+          .split("/")
+          .filter(item => item != "")
+          .forEach((item, c) => {
+            if (c != 0 && !model) {
+              baseUrl += "/" + item;
+              model = modelsURIMap[baseUrl];
+              model_name = baseUrl;
+            }
+          });
+      }
+
+      // Match with singular or plural url
       if (!model) {
         baseUrl = baseUrl.replace(/.$/, "");
         model = modelsURIMap[baseUrl];
         model_name = baseUrl;
+      }
+
+      // Ask for not found model
+      if (!model) {
+        logger.info("\n" + chalk.green("API: ") + chalk.blue(method) + " " + chalk.yellow(url));
+        const response = await questionService.ask("Do you want to assign this API to a model?", questionList);
+        if (response.value == undefined) {
+          logger.info(chalk.red("Process stopped"));
+          return process.exit(0);
+        } else if (response.value) {
+          // Assign model
+          model = response.value;
+
+          if (!model["x-skaffolder-url"]) {
+            // Ask base url
+            let splitUrl = url.split("/");
+            let prev = "";
+            let questionListBaseUrl = splitUrl
+              .filter(item => item != "")
+              .map((item, index) => {
+                let urlBase = prev + "/" + item;
+                prev = urlBase;
+                return {
+                  name: urlBase,
+                  value: urlBase
+                };
+              });
+            const responseUrl = await questionService.ask(
+              "Please select a base URL for the model " + model.name,
+              questionListBaseUrl
+            );
+
+            if (responseUrl.value == undefined) {
+              logger.info(chalk.red("Process stopped"));
+              return process.exit(0);
+            }
+            model["x-skaffolder-url"] = responseUrl.value;
+            let keyUrl = responseUrl.value.replace(/^\//g, "").toLowerCase();
+            modelsURIMap[keyUrl] = model;
+          }
+        }
       }
 
       // Assign resource if found

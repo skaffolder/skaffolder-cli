@@ -578,7 +578,7 @@ const normalizeYaml = async function(openApi, nameProject) {
   }
 
   // Assign Services To Resource by URL
-  openApi = offlineService.assignServicesToResource(openApi);
+  openApi = await offlineService.assignServicesToResource(openApi);
 
   // Ask resource services not linked to any resource - try link by tag or url
   // for (let path_name in paths) {
