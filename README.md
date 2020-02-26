@@ -7,8 +7,8 @@
 	<a href="https://npmjs.org/skaffolder-cli">
 		<img alt="npm version" src="https://img.shields.io/npm/v/skaffolder-cli">
 	</a>
-	<a href="https://travis-ci.org/skaffolder/skaffolder-cli">
-		<img alt="Build Status" src="https://travis-ci.org/skaffolder/skaffolder-cli.svg?branch=master">
+	<a href="https://github.com/skaffolder/skaffolder-cli/actions">
+		<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/skaffolder/skaffolder-vscode-extension/main">
 	</a>
 	<a href="https://github.com/skaffolder/skaffolder-cli/blob/master/LICENSE">
 		<img alt="Build Status" src="https://img.shields.io/github/license/skaffolder/skaffolder-cli">
