@@ -86,6 +86,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     }
   }
 
+  let pathFile = "";
   // Text files
   try {
     // SET PARAMS
@@ -109,7 +110,7 @@ exports.generateFile = function(log, file, paramLoop, opt) {
     let template = Handlebars.compile(fileName);
     let fileNameDest = template(param);
     //console.info(chalk.gray("log: ") + fileNameDest);
-    let pathFile = path.normalize(pathWorkspace + fileNameDest);
+    pathFile = path.normalize(pathWorkspace + fileNameDest);
 
     if (pathWorkspace) {
       if (file.ignore && fs.existsSync(pathFile)) {
