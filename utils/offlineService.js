@@ -7,6 +7,7 @@ const arraySort = require("array-sort");
 const generatorBean = require("../generator/GeneratorBean");
 const generatorUtils = require("../generator/GeneratorUtils");
 const lodash = require("lodash");
+const questionService = require("../utils/questionService");
 
 const _getOpenApiPath = path => {
   if (path) {
@@ -114,9 +115,9 @@ const translateYamlProject = function(yamlProject) {
 
   // project property
   let project = {};
-  project._id = yamlProject.info["x-skaffolder-id-project"];
   project._owner = ""; // not in yaml
-  project.name = yamlProject.info.title;
+  project._id = yamlProject.info ? yamlProject.info["x-skaffolder-id-project"] : "";
+  project.name = yamlProject.info ? yamlProject.info.title : "";
   project._members = []; // not in yaml
   project._projects = []; // not in yaml
   project._pages = getPagesArray();
@@ -431,101 +432,103 @@ const translateYamlProject = function(yamlProject) {
 
   skProject.resources = resources;
 
-  // modules propery
-  let pages = components["x-skaffolder-page"];
   let modules = [];
   let page_id2page = {};
 
-  if (pages) {
-    pages.forEach(page => {
-      let _module = {};
+  // modules propery
+  if (components) {
+    let pages = components["x-skaffolder-page"];
 
-      _module._id = page["x-skaffolder-id"] || getDummyId(page["x-skaffolder-name"], "page");
-      _module.top = 5100;
-      _module.left = 6400;
-      _module.url = page["x-skaffolder-url"];
-      _module._template_resource = page["x-skaffolder-resource"];
-      _module.template = page["x-skaffolder-template"];
-      _module.name = page["x-skaffolder-name"];
-      _module._services = [];
-      _module._roles = getRolesArray(page["x-skaffolder-roles"]);
-      _module._nesteds = page["x-skaffolder-nesteds"] || [];
-      _module._links = page["x-skaffolder-links"] || [];
-      _module._resources = [];
+    if (pages) {
+      pages.forEach(page => {
+        let _module = {};
 
-      let page_services = page["x-skaffolder-services"];
+        _module._id = page["x-skaffolder-id"] || getDummyId(page["x-skaffolder-name"], "page");
+        _module.top = 5100;
+        _module.left = 6400;
+        _module.url = page["x-skaffolder-url"];
+        _module._template_resource = page["x-skaffolder-resource"];
+        _module.template = page["x-skaffolder-template"];
+        _module.name = page["x-skaffolder-name"];
+        _module._services = [];
+        _module._roles = getRolesArray(page["x-skaffolder-roles"]);
+        _module._nesteds = page["x-skaffolder-nesteds"] || [];
+        _module._links = page["x-skaffolder-links"] || [];
+        _module._resources = [];
 
-      if (page_services) {
-        page_services.forEach(serv_id => {
-          let _service = cloneObject(serv_id2service[serv_id]);
+        let page_services = page["x-skaffolder-services"];
 
-          if (_service) {
-            let resource = res_id2resource[_service._resource];
+        if (page_services) {
+          page_services.forEach(serv_id => {
+            let _service = cloneObject(serv_id2service[serv_id]);
 
-            if (resource) {
-              _service._resource = {
-                _id: resource._id,
-                url: resource.url,
-                name: resource.name,
-                _project: resource._project,
-                _db: resource._db,
-                _entity: resource._entity._id,
-                __v: resource.__v,
-                _roles: resource._roles
-              };
+            if (_service) {
+              let resource = res_id2resource[_service._resource];
+
+              if (resource) {
+                _service._resource = {
+                  _id: resource._id,
+                  url: resource.url,
+                  name: resource.name,
+                  _project: resource._project,
+                  _db: resource._db,
+                  _entity: resource._entity._id,
+                  __v: resource.__v,
+                  _roles: resource._roles
+                };
+              }
+
+              if (
+                !_module._resources.some(item => {
+                  return item._id == _service._resource._id;
+                })
+              ) {
+                _module._resources.push(Object.assign({}, _service._resource));
+              }
+
+              _module._services.push(_service);
+            } else {
+              console.error("Service " + serv_id + " not found");
             }
-
-            if (
-              !_module._resources.some(item => {
-                return item._id == _service._resource._id;
-              })
-            ) {
-              _module._resources.push(Object.assign({}, _service._resource));
-            }
-
-            _module._services.push(_service);
-          } else {
-            console.error("Service " + serv_id + " not found");
-          }
-        });
-      }
-
-      modules.push(_module);
-      page_id2page[_module._id] = cloneObject(_module);
-    });
-  }
-
-  // add nesteds and links
-  modules.forEach(page => {
-    ["_nesteds", "_links"].forEach(page_type => {
-      page[page_type] = page[page_type].map(page_id => {
-        let subpage = cloneObject(page_id2page[page_id]);
-        delete subpage._resources;
-
-        if (subpage) {
-          if (subpage._services) {
-            subpage._services = subpage._services.map(item => {
-              return item._id;
-            });
-          }
-
-          if (subpage._roles) {
-            subpage._roles = subpage._roles.map(item => {
-              return item._id;
-            });
-          }
+          });
         }
 
-        return subpage;
+        modules.push(_module);
+        page_id2page[_module._id] = cloneObject(_module);
+      });
+    }
+    // add nesteds and links
+    modules.forEach(page => {
+      ["_nesteds", "_links"].forEach(page_type => {
+        page[page_type] = page[page_type].map(page_id => {
+          let subpage = cloneObject(page_id2page[page_id]);
+          delete subpage._resources;
+
+          if (subpage) {
+            if (subpage._services) {
+              subpage._services = subpage._services.map(item => {
+                return item._id;
+              });
+            }
+
+            if (subpage._roles) {
+              subpage._roles = subpage._roles.map(item => {
+                return item._id;
+              });
+            }
+          }
+
+          return subpage;
+        });
       });
     });
-  });
-  modules.sort((a, b) => {
-    if (a.name > b.name) return 1;
-    if (a.name < b.name) return -1;
-    return 0;
-  });
-  skProject.modules = modules;
+    modules.sort((a, b) => {
+      if (a.name > b.name) return 1;
+      if (a.name < b.name) return -1;
+      return 0;
+    });
+    skProject.modules = modules;
+  }
 
   return {
     project: skProject.project,
@@ -708,13 +711,30 @@ const getModelsList = function(logger) {
   return modelsList;
 };
 
-const assignServicesToResource = function(openApi) {
+const assignServicesToResource = async function(openApi) {
+  // Prepare question model list
+  let questionList = [
+    {
+      title: "NO"
+    }
+  ];
+  for (let name in openApi.components.schemas) {
+    let model = openApi.components.schemas[name];
+    // Add as model db choose
+    if (model.type == "object" && model["x-skaffolder-id-db"] && model["x-skaffolder-ignore"] !== true) {
+      questionList.push({
+        title: name,
+        value: model
+      });
+    }
+  }
+
   // Create model map
   let modelsURIMap = {};
   for (let model_name in openApi.components.schemas) {
     if (openApi.components.schemas[model_name]["x-skaffolder-id-db"]) {
       let url = openApi.components.schemas[model_name]["x-skaffolder-url"] || model_name;
-      url = url.replace("/", "").toLowerCase();
+      url = url.replace(/^\//g, "").toLowerCase();
       modelsURIMap[url] = openApi.components.schemas[model_name];
     }
   }
@@ -734,14 +754,69 @@ const assignServicesToResource = function(openApi) {
       // Find base url
       if (url[0] != "/") url = "/" + url;
       let baseUrl = url.split("/")[1].toLowerCase();
-
-      // Match with singular or plural url
       let model = modelsURIMap[baseUrl];
       let model_name = baseUrl;
+
+      // Look for suburls
+      if (!model) {
+        url
+          .split("/")
+          .filter(item => item != "")
+          .forEach((item, c) => {
+            if (c != 0 && !model) {
+              baseUrl += "/" + item;
+              model = modelsURIMap[baseUrl];
+              model_name = baseUrl;
+            }
+          });
+      }
+
+      // Match with singular or plural url
       if (!model) {
         baseUrl = baseUrl.replace(/.$/, "");
         model = modelsURIMap[baseUrl];
         model_name = baseUrl;
+      }
+
+      // Ask for not found model
+      if (!model) {
+        logger.info("\n" + chalk.green("API: ") + chalk.blue(method) + " " + chalk.yellow(url));
+        const response = await questionService.ask("Do you want to assign this API to a model?", questionList);
+        if (response.value == undefined) {
+          logger.info(chalk.red("Process stopped"));
+          return process.exit(0);
+        } else if (response.value) {
+          // Assign model
+          model = response.value;
+
+          if (!model["x-skaffolder-url"]) {
+            // Ask base url
+            let splitUrl = url.split("/");
+            let prev = "";
+            let questionListBaseUrl = splitUrl
+              .filter(item => item != "")
+              .map((item, index) => {
+                let urlBase = prev + "/" + item;
+                prev = urlBase;
+                return {
+                  name: urlBase,
+                  value: urlBase
+                };
+              });
+            const responseUrl = await questionService.ask(
+              "Please select a base URL for the model " + model.name,
+              questionListBaseUrl
+            );
+
+            if (responseUrl.value == undefined) {
+              logger.info(chalk.red("Process stopped"));
+              return process.exit(0);
+            }
+            model["x-skaffolder-url"] = responseUrl.value;
+            let keyUrl = responseUrl.value.replace(/^\//g, "").toLowerCase();
+            modelsURIMap[keyUrl] = model;
+          }
+        }
       }
 
       // Assign resource if found

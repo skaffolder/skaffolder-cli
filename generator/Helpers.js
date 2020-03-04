@@ -7,6 +7,20 @@ exports.registerHelpers = function(Handlebars) {
   groupBy.register(Handlebars);
 
   // SET HANDLEBARS
+  Handlebars.registerHelper("multiline", function(string, indent) {
+    if (!string) return "";
+    if (string.indexOf("\n") == -1) {
+      return string;
+    } else {
+      let tabs = "";
+      for (let i = -1; i < indent; i++) {
+        tabs += "  ";
+      }
+      string = string.replace(/\n/g, "\n" + tabs);
+      return "|\n" + tabs + string;
+    }
+  });
+
   Handlebars.registerHelper("joinObj", function(arr, field) {
     let result = [];
     for (i in arr) {
