@@ -39,7 +39,7 @@ const offline = require("./lib/offline");
 const offlineService = require("./utils/offlineService");
 
 prog
-  .version("2.0.6")
+  .version("2.0.9")
   .option("-o, --online", "Work online on the Skaffolder project, requires sk login", null, false, false)
 
   // start

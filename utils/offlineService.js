@@ -847,10 +847,14 @@ const assignServicesToResource = async function(openApi) {
 
       // Assign name is not present
       if (!service["x-skaffolder-name"]) {
-        let spliced = url.split("/");
-        spliced.splice(0, 2);
-        let desc = utils.slug(spliced.join("_"));
-        service["x-skaffolder-name"] = method + (model ? "_" + model_name : "") + (desc ? "_" + desc : "");
+        if (service.operationId) {
+          service["x-skaffolder-name"] = service.operationId;
+        } else {
+          let spliced = url.split("/");
+          spliced.splice(0, 2);
+          let desc = utils.slug(spliced.join("_"));
+          service["x-skaffolder-name"] = method + (model ? "_" + model_name : "") + (desc ? "_" + desc : "");
+        }
       }
 
       // Assign url is not present

@@ -505,7 +505,7 @@ const normalizeYaml = async function(openApi, nameProject) {
   }
 
   // Add the user model if no one is called user
-  if (!openApi.components.schemas.User) {
+  if (!openApi.components.schemas.User && !openApi.components.schemas.user) {
     logger.info(chalk.green("Adding model ") + chalk.yellow("User"));
 
     openApi.components.schemas.User = {
@@ -579,12 +579,6 @@ const normalizeYaml = async function(openApi, nameProject) {
 
   // Assign Services To Resource by URL
   openApi = await offlineService.assignServicesToResource(openApi);
-
-  // Ask resource services not linked to any resource - try link by tag or url
-  // for (let path_name in paths) {
-  //   for (let service_name in paths[path_name]) {
-  //   }
-  // }
 
   // Ask to create crud
 
