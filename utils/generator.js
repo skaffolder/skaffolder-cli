@@ -486,6 +486,11 @@ const normalizeYaml = async function(openApi, nameProject) {
         model["x-skaffolder-id"] = offlineService.getDummyId(name, "resource");
       }
 
+      // Create id entity
+      if (!model["x-skaffolder-id-entity"]) {
+        model["x-skaffolder-id-entity"] = offlineService.getDummyId(name, "entity");
+      }
+
       // Normalize attributes
       if (!model.properties) model.properties = {};
       let hasId = false;

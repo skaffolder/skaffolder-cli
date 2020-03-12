@@ -309,7 +309,7 @@ const translateYamlProject = function(yamlProject) {
       let model_db_id = model["x-skaffolder-id-db"];
       let _resource = {};
 
-      if (!model_db_id || model_db_id != db._id || model["x-skaffolder-ignore"] == true) {
+      if (!model_db_id || model_db_id != db._id) {
         continue;
       }
 
@@ -634,7 +634,7 @@ const getEntityFindByDb = function(db_id, logger) {
       let _model = {};
       let model_db_id = model["x-skaffolder-id-db"];
 
-      if (!model_db_id || model_db_id != db_id || model["x-skaffolder-ignore"] == true) {
+      if (!model_db_id || model_db_id != db_id) {
         continue;
       }
 
