@@ -45,7 +45,7 @@ module.exports = function(options, cb) {
       else process.exit(0);
     } else if (response.statusCode == 403) {
       error = {
-        message: "Nor permitted: " + body.message
+        message: "Not permitted: " + body.message
       };
       console.error(chalk.red(error.message));
       console.error(chalk.blue("Please visit " + chalk.yellow(properties.endpoint + "/#!/upgrade")));
