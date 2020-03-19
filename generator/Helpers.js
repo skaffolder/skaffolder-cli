@@ -1,9 +1,12 @@
 exports.registerHelpers = function(Handlebars) {
-  // Add extra helpers
-  let extra = require(process.cwd() + "/extra");
 
-  for (let i in extra.helpers) {
-    Handlebars.registerHelper(extra.helpers[i].name, extra.helpers[i].fn);
+  // Add extra helpers
+  if (require("fs").existsSync(process.cwd() + "/extra")) {
+    let extra = require(process.cwd() + "/extra");
+
+    for (let i in extra.helpers) {
+      Handlebars.registerHelper(extra.helpers[i].name, extra.helpers[i].fn);
+    }
   }
 
   // Default helpers
