@@ -5,7 +5,7 @@ const checkPermission = function (cacheFile) {
     fs.writeFileSync(cacheFile, "{}");
   }
   try {
-    fs.chmodSync(cacheFile, "7777");
+    fs.chmodSync(cacheFile, "777");
   } catch (e) {}
 };
 checkPermission(__dirname + "/../cache/cache/token.json");
