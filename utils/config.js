@@ -1,6 +1,17 @@
 const fs = require("fs");
 
-exports.getConf = function() {
+const checkPermission = function (cacheFile) {
+  if (!fs.existsSync(cacheFile)) {
+    fs.writeFileSync(cacheFile, "{}");
+  }
+  try {
+    fs.chmodSync(cacheFile, "777");
+  } catch (e) {}
+};
+checkPermission(__dirname + "/../cache/cache/token.json");
+checkPermission(__dirname + "/../cache/cache/user.json");
+
+exports.getConf = function () {
   let config = "";
   try {
     config = fs.readFileSync(".skaffolder/config.json");
@@ -13,7 +24,7 @@ exports.getConf = function() {
   return config;
 };
 
-exports.getProject = function() {
+exports.getProject = function () {
   let config = "";
   try {
     config = fs.readFileSync(".skaffolder/config.json");
